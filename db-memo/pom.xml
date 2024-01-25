@@ -9,8 +9,8 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>io.ylab.monitoring.db.memin</groupId>
-    <artifactId>monitoring-db-memin</artifactId>
+    <groupId>io.ylab.monitoring.db.memo</groupId>
+    <artifactId>monitoring-db-memo</artifactId>
     <description>In memory database realizations</description>
 
     <properties>
@@ -40,8 +40,15 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
+            <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.ylab.monitoring.core.model</groupId>
+            <artifactId>monitoring-core-model</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

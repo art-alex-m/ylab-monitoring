@@ -1,7 +1,7 @@
 package io.ylab.monitoring.core.event;
 
 import io.ylab.monitoring.domain.core.event.ActualMeterReadingsFound;
-import io.ylab.monitoring.domain.core.model.Meter;
+import io.ylab.monitoring.domain.core.model.MeterReading;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
@@ -12,5 +12,5 @@ import java.util.List;
 public class CoreActualMeterReadingsFound extends CoreMonitoringEvent implements ActualMeterReadingsFound {
     private final String eventName = "finish use case 'get actual meter readings for user'";
 
-    private final List<Meter> meterReadings;
+    private final List<MeterReading> meterReadings;
 }

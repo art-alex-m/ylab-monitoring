@@ -8,6 +8,9 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 
+/**
+ * Реализация базовой логики классов событий
+ */
 @SuperBuilder
 @Getter
 public abstract class CoreMonitoringEvent implements MonitoringEvent {

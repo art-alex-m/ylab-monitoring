@@ -16,6 +16,9 @@
         <module>auth</module>
         <module>core</module>
         <module>audit</module>
+        <module>domain-core-model</module>
+        <module>db-memin</module>
+        <module>domain-core-repo</module>
     </modules>
 
     <properties>

@@ -7,5 +7,10 @@ import java.util.UUID;
  */
 public interface DomainUser {
 
+    /**
+     * Возвращает идентификатор пользователя
+     *
+     * @return UUID
+     */
     UUID getId();
 }

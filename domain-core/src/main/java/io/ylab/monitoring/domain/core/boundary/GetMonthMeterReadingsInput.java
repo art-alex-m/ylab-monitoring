@@ -1,12 +1,13 @@
 package io.ylab.monitoring.domain.core.boundary;
 
+import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 import io.ylab.monitoring.domain.core.in.GetMonthMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.out.GetMonthMeterReadingsResponse;
 
 /**
  * Сценарий "Просмотр показаний за конкретный месяц"
  */
-public interface GetMonthMeterReadingsInput {
+public interface GetMonthMeterReadingsInput extends MonitoringInput {
     /**
      * Возвращает список показаний по заданному месяцу и году
      *

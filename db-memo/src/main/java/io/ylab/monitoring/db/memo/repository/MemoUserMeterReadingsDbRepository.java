@@ -10,6 +10,7 @@ import io.ylab.monitoring.domain.core.repository.ViewMeterReadingsHistoryInputDb
 import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -27,7 +28,7 @@ public class MemoUserMeterReadingsDbRepository
                 .map(m -> m.firstEntry().getValue())
                 .map(m -> m.values().stream())
                 .map(Stream::toList)
-                .orElse(List.of());
+                .orElse(Collections.emptyList());
     }
 
     @Override
@@ -36,7 +37,7 @@ public class MemoUserMeterReadingsDbRepository
                 .map(m -> m.get(period))
                 .map(m -> m.values().stream())
                 .map(Stream::toList)
-                .orElse(List.of());
+                .orElse(Collections.emptyList());
     }
 
     @Override
@@ -58,6 +59,6 @@ public class MemoUserMeterReadingsDbRepository
                 .map(m -> m.values().stream())
                 .map(s -> s.flatMap(m -> m.values().stream()))
                 .map(Stream::toList)
-                .orElse(List.of());
+                .orElse(Collections.emptyList());
     }
 }

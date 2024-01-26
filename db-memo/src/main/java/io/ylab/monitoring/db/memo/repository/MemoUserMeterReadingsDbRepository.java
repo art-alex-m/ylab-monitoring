@@ -25,7 +25,8 @@ public class MemoUserMeterReadingsDbRepository
     public List<MeterReading> findActualByUser(DomainUser user) {
         return Optional.ofNullable(database.read(user.getId()))
                 .map(m -> m.firstEntry().getValue())
-                .map(m -> m.values().stream().toList())
+                .map(m -> m.values().stream())
+                .map(Stream::toList)
                 .orElse(List.of());
     }
 
@@ -33,7 +34,8 @@ public class MemoUserMeterReadingsDbRepository
     public List<MeterReading> findByUserAndPeriod(DomainUser user, Instant period) {
         return Optional.ofNullable(database.read(user.getId()))
                 .map(m -> m.get(period))
-                .map(m -> m.values().stream().toList())
+                .map(m -> m.values().stream())
+                .map(Stream::toList)
                 .orElse(List.of());
     }
 

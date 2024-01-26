@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MemoUserMeterReadingsDbRepositoryTest {
 
-    private final static MemoMeterReadingFactory testFactory = new MemoMeterReadingFactory();
+    private final static MemoTestHelperFactory testFactory = new MemoTestHelperFactory();
 
     private MemoUserMeterReadingsDbRepository sut;
 

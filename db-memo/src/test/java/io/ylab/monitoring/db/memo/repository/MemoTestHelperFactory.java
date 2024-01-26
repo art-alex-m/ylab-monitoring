@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-public class MemoMeterReadingFactory {
+public class MemoTestHelperFactory {
 
     public final UUID testUserIdA = UUID.randomUUID();
 

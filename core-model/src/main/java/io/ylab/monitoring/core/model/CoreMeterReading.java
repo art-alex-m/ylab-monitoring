@@ -6,21 +6,23 @@ import io.ylab.monitoring.domain.core.model.MeterReading;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NonNull;
 
 import java.time.Instant;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
 public class CoreMeterReading implements MeterReading {
 
+    @NonNull
     private final DomainUser user;
 
+    @NonNull
     private final Instant period;
 
+    @NonNull
     private final Meter meter;
 
     private final long value;

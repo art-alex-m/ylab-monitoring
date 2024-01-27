@@ -1,6 +1,8 @@
 package io.ylab.monitoring.app.console.config;
 
+import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
 import io.ylab.monitoring.app.console.model.AppCommandName;
+import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.core.boundary.CoreGetActualMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreGetMonthMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreViewMeterReadingsHistoryInteractor;
@@ -8,6 +10,9 @@ import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import io.ylab.monitoring.domain.core.service.PeriodService;
 import lombok.Builder;
 
+/**
+ * Конфигуратор сценариев для роли администратора
+ */
 public class AppAdminInteractorConfig extends AbstractInteractorConfig {
     private final DatabaseConfig databaseConfig;
 
@@ -29,7 +34,6 @@ public class AppAdminInteractorConfig extends AbstractInteractorConfig {
 
     private void init() {
         put(AppCommandName.EXIT, null);
-        put(AppCommandName.HELP, null);
         put(AppCommandName.LOGOUT, null);
 
         put(AppCommandName.READING_ACTUAL, new CoreGetActualMeterReadingsInteractor(

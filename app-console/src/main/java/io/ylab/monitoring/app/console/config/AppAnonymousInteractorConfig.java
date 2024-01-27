@@ -1,9 +1,14 @@
 package io.ylab.monitoring.app.console.config;
 
+import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
 import io.ylab.monitoring.app.console.model.AppCommandName;
+import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import lombok.Builder;
 
+/**
+ * Конфигуратор сценариев для роли анонима
+ */
 public class AppAnonymousInteractorConfig extends AbstractInteractorConfig {
     private final DatabaseConfig databaseConfig;
 
@@ -22,7 +27,6 @@ public class AppAnonymousInteractorConfig extends AbstractInteractorConfig {
 
     private void init() {
         put(AppCommandName.EXIT, null);
-        put(AppCommandName.HELP, null);
 
         put(AppCommandName.REGISTRATION, null);
         put(AppCommandName.LOGIN, null);

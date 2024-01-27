@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.console.config;
 
+import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.db.memo.repository.*;
 import io.ylab.monitoring.domain.audit.repository.CreateAuditLogInputDbRepository;
 import io.ylab.monitoring.domain.audit.repository.ViewAuditLogInputDbRepository;

@@ -1,9 +1,9 @@
 package io.ylab.monitoring.app.console.model;
 
 public interface CommandExecutorChain {
-    void execute(Command command);
+    void execute(AppCommand command);
 
-    Command getSignature();
+    AppCommand getSignature();
 
     CommandExecutorChain getNext();
 

@@ -1,20 +1,26 @@
 package io.ylab.monitoring.app.console.controller;
 
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
-import io.ylab.monitoring.app.console.model.Command;
+import io.ylab.monitoring.app.console.model.AppCommand;
 
+/**
+ * Обработчик неизвестной команды
+ * <p>
+ * Следует ставить последним в цепочку
+ * </p>
+ */
 public class UnknownCommandExecutor extends AbstractCommandExecutor {
     public UnknownCommandExecutor() {
-        super(new Command(), "Если команда не была обработана", null);
+        super(new AppCommand(), "If command was not processed", null);
     }
 
     @Override
-    protected boolean doWork(Command command) {
-        throw new IllegalCallerException(String.format("Неизвестная команда '%s'", command));
+    protected boolean doWork(AppCommand command) {
+        throw new IllegalCallerException(String.format("Unknown command '%s'", command));
     }
 
     @Override
-    protected boolean commandNotMatch(Command command) {
+    protected boolean commandNotMatch(AppCommand command) {
         return false;
     }
 }

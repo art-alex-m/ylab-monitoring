@@ -1,4 +1,4 @@
-package io.ylab.monitoring.app.console.config;
+package io.ylab.monitoring.app.console.model;
 
 import io.ylab.monitoring.domain.audit.repository.CreateAuditLogInputDbRepository;
 import io.ylab.monitoring.domain.audit.repository.ViewAuditLogInputDbRepository;

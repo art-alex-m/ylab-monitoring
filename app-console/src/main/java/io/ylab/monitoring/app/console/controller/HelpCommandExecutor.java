@@ -8,14 +8,14 @@ import java.util.List;
 public class HelpCommandExecutor extends AbstractCommandExecutor {
 
     public HelpCommandExecutor(PrintStream out) {
-        super(new Command(List.of(AppCommandName.HELP.name)), "Вывод списка доступных команд", out);
+        super(new AppCommand(List.of(AppCommandName.HELP.name)), "List of available commands", out);
     }
 
     @Override
-    protected boolean doWork(Command command) {
+    protected boolean doWork(AppCommand command) {
 
-        CommandExecutorChainIterator it = new CommandExecutorChainIterator(this);
-        out.println("\nДоступные команды:");
+        AppCommandExecutorChainIterator it = new AppCommandExecutorChainIterator(this);
+        out.println("\nAvailable commands:");
         while (it.hasNext()) {
             CommandExecutorChain executor = it.next();
             if (executor.getSignature().getStatement().isEmpty()) {

@@ -1,46 +1,36 @@
 package io.ylab.monitoring.app.console;
 
-import io.ylab.monitoring.app.console.config.*;
-import io.ylab.monitoring.app.console.event.AppMonitoringEventPublisher;
-import io.ylab.monitoring.core.service.CorePeriodService;
-import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
-import io.ylab.monitoring.domain.core.model.DomainRole;
-import io.ylab.monitoring.domain.core.model.Meter;
-import io.ylab.monitoring.domain.core.service.PeriodService;
+import io.ylab.monitoring.app.console.exception.AppProgramExitException;
+import io.ylab.monitoring.app.console.model.AppConsoleApplication;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("it works!");
+        AppConsoleApplication application = AppConsoleApplication.builder()
+                .withDefaultAdmin()
+                .withMeter("gaz")
+                .withMeter("electro")
+                .withMeter("teplo")
+                .build();
 
-        List<Meter> meterList = List.of();
-        DatabaseConfig databaseConfig = new AppMemoDbConfig().setMeters(meterList);
-        MonitoringEventPublisher eventPublisher = new AppMonitoringEventPublisher();
-        PeriodService periodService = new CorePeriodService();
-        AppInputResponseFactoryConfig responseFactoryConfig = new AppInputResponseFactoryConfig();
+        System.out.println("Welcome!");
+        System.out.println("Type /help to see available commands");
 
-        Map<DomainRole, AbstractInteractorConfig> interactorConfigMap = new HashMap<>();
-        interactorConfigMap.put(DomainRole.ANONYMOUS, AppAnonymousInteractorConfig.builder()
-                    .databaseConfig(databaseConfig)
-                    .responseFactoryConfig(responseFactoryConfig)
-                    .eventPublisher(eventPublisher)
-                    .build());
+        Scanner scanner = new Scanner(System.in);
 
-        interactorConfigMap.put(DomainRole.USER, AppUserInteractorConfig.builder()
-                    .databaseConfig(databaseConfig)
-                    .responseFactoryConfig(responseFactoryConfig)
-                    .eventPublisher(eventPublisher)
-                    .periodService(periodService)
-                    .build());
+        while (!Thread.interrupted()) {
+            System.out.println("Input new command");
+            try {
+                String commandText = scanner.nextLine();
+                application.execute(commandText);
+            } catch (AppProgramExitException ex) {
+                break;
+            } catch (IllegalArgumentException | IllegalCallerException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
 
-        interactorConfigMap.put(DomainRole.ADMIN, AppAdminInteractorConfig.builder()
-                    .databaseConfig(databaseConfig)
-                    .responseFactoryConfig(responseFactoryConfig)
-                    .eventPublisher(eventPublisher)
-                    .periodService(periodService)
-                    .build());
+        scanner.close();
     }
 }

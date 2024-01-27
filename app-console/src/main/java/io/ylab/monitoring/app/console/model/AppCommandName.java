@@ -14,7 +14,8 @@ public enum AppCommandName {
     READING_MONTH("/reading-month"),
     READING_HISTORY("/reading-history"),
     AUDIT_LOG("/audit-log"),
-    EXIT("/exit");
+    EXIT("/exit"),
+    UNKNOWN(null);
 
     public final String name;
 

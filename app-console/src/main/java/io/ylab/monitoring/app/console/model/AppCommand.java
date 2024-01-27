@@ -3,14 +3,14 @@ package io.ylab.monitoring.app.console.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Command {
+public class AppCommand {
     private final List<String> operands;
 
-    public Command() {
+    public AppCommand() {
         this.operands = List.of("");
     }
 
-    public Command(List<String> operands) {
+    public AppCommand(List<String> operands) {
         this.operands = operands;
     }
 

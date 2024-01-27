@@ -26,9 +26,9 @@ public class AppAnonymousInteractorConfig extends AbstractInteractorConfig {
     private void init() {
         put(AppCommandName.EXIT, null);
 
-        put(AppCommandName.REGISTRATION, new AuthUserRegistrationInteractor(
-                databaseConfig.getUserRegistrationInputDbRepository(), eventPublisher));
         put(AppCommandName.LOGIN, new AuthUserLoginInteractor(eventPublisher,
                 databaseConfig.getUserLoginInputDbRepository()));
+        put(AppCommandName.REGISTRATION, new AuthUserRegistrationInteractor(
+                databaseConfig.getUserRegistrationInputDbRepository(), eventPublisher));
     }
 }

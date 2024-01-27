@@ -1,9 +1,9 @@
 package io.ylab.monitoring.app.console.factory;
 
-import io.ylab.monitoring.app.console.controller.ExitCommandExecutor;
-import io.ylab.monitoring.app.console.controller.HelpCommandExecutor;
-import io.ylab.monitoring.app.console.controller.UnknownCommandExecutor;
+import io.ylab.monitoring.app.console.controller.*;
 import io.ylab.monitoring.app.console.model.AppCommandName;
+import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
+import io.ylab.monitoring.domain.auth.boundary.UserLogoutInput;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +31,9 @@ public class AppCommandExecutorBuilderFactory {
         executorBuilderMap.put(AppCommandName.EXIT, (c, i, o) -> new ExitCommandExecutor(o));
         executorBuilderMap.put(AppCommandName.UNKNOWN, (c, i, o) -> new UnknownCommandExecutor());
         executorBuilderMap.put(AppCommandName.REGISTRATION, (c, i, o) -> new UnknownCommandExecutor());
-        executorBuilderMap.put(AppCommandName.LOGIN, (c, i, o) -> new UnknownCommandExecutor());
-        executorBuilderMap.put(AppCommandName.LOGOUT, (c, i, o) -> new UnknownCommandExecutor());
+        executorBuilderMap.put(AppCommandName.LOGIN, (c, i, o) -> new LoginCommandExecutor((UserLoginInput) i, o));
+        executorBuilderMap.put(AppCommandName.LOGOUT,
+                (c, i, o) -> new LogoutCommandExecutor(c, (UserLogoutInput) i, o));
         executorBuilderMap.put(AppCommandName.METERS_LIST, (c, i, o) -> new UnknownCommandExecutor());
         executorBuilderMap.put(AppCommandName.READING_SUBMIT, (c, i, o) -> new UnknownCommandExecutor());
         executorBuilderMap.put(AppCommandName.READING_ACTUAL, (c, i, o) -> new UnknownCommandExecutor());

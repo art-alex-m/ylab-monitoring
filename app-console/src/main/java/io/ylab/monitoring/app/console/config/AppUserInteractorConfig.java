@@ -3,6 +3,7 @@ package io.ylab.monitoring.app.console.config;
 import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
+import io.ylab.monitoring.auth.boundary.AuthUserLogoutInteractor;
 import io.ylab.monitoring.core.boundary.*;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import io.ylab.monitoring.domain.core.service.PeriodService;
@@ -32,7 +33,7 @@ public class AppUserInteractorConfig extends AbstractInteractorConfig {
 
     private void init() {
         put(AppCommandName.EXIT, null);
-        put(AppCommandName.LOGOUT, null);
+        put(AppCommandName.LOGOUT, new AuthUserLogoutInteractor(eventPublisher));
 
         put(AppCommandName.METERS_LIST, new CoreViewMetersInteractor(
                 responseFactoryConfig.getViewMetersInputResponseFactory(),

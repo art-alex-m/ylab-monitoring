@@ -3,6 +3,7 @@ package io.ylab.monitoring.app.console.config;
 import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
+import io.ylab.monitoring.auth.boundary.AuthUserLogoutInteractor;
 import io.ylab.monitoring.core.boundary.CoreGetActualMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreGetMonthMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreViewMeterReadingsHistoryInteractor;
@@ -34,7 +35,7 @@ public class AppAdminInteractorConfig extends AbstractInteractorConfig {
 
     private void init() {
         put(AppCommandName.EXIT, null);
-        put(AppCommandName.LOGOUT, null);
+        put(AppCommandName.LOGOUT, new AuthUserLogoutInteractor(eventPublisher));
 
         put(AppCommandName.READING_ACTUAL, new CoreGetActualMeterReadingsInteractor(
                 responseFactoryConfig.getActualMeterReadingsInputResponseFactory(),

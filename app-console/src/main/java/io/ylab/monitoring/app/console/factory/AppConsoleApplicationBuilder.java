@@ -135,7 +135,6 @@ public class AppConsoleApplicationBuilder {
     private void initAnonymousInteractors() {
         interactorConfigMap.put(DomainRole.ANONYMOUS, AppAnonymousInteractorConfig.builder()
                 .databaseConfig(databaseConfig)
-                .responseFactoryConfig(responseFactoryConfig)
                 .eventPublisher(eventPublisher)
                 .build());
     }

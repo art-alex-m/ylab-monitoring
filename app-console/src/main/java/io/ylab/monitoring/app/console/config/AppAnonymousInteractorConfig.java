@@ -3,6 +3,8 @@ package io.ylab.monitoring.app.console.config;
 import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
+import io.ylab.monitoring.auth.boundary.AuthUserLoginInteractor;
+import io.ylab.monitoring.auth.boundary.AuthUserRegistrationInteractor;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import lombok.Builder;
 
@@ -14,21 +16,19 @@ public class AppAnonymousInteractorConfig extends AbstractInteractorConfig {
 
     private final MonitoringEventPublisher eventPublisher;
 
-    private final AppInputResponseFactoryConfig responseFactoryConfig;
-
     @Builder
-    public AppAnonymousInteractorConfig(DatabaseConfig databaseConfig, MonitoringEventPublisher eventPublisher,
-            AppInputResponseFactoryConfig responseFactoryConfig) {
+    public AppAnonymousInteractorConfig(DatabaseConfig databaseConfig, MonitoringEventPublisher eventPublisher) {
         this.databaseConfig = databaseConfig;
         this.eventPublisher = eventPublisher;
-        this.responseFactoryConfig = responseFactoryConfig;
         init();
     }
 
     private void init() {
         put(AppCommandName.EXIT, null);
 
-        put(AppCommandName.REGISTRATION, null);
-        put(AppCommandName.LOGIN, null);
+        put(AppCommandName.REGISTRATION, new AuthUserRegistrationInteractor(
+                databaseConfig.getUserRegistrationInputDbRepository(), eventPublisher));
+        put(AppCommandName.LOGIN, new AuthUserLoginInteractor(eventPublisher,
+                databaseConfig.getUserLoginInputDbRepository()));
     }
 }

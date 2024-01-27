@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.console;
 
 import io.ylab.monitoring.app.console.exception.AppProgramExitException;
 import io.ylab.monitoring.app.console.model.AppConsoleApplication;
+import io.ylab.monitoring.domain.core.exception.MonitoringException;
 
 import java.util.Scanner;
 
@@ -26,7 +27,7 @@ public class Main {
                 application.execute(commandText);
             } catch (AppProgramExitException ex) {
                 break;
-            } catch (IllegalArgumentException | IllegalCallerException ex) {
+            } catch (IllegalArgumentException | IllegalCallerException | MonitoringException ex) {
                 System.out.println(ex.getMessage());
             }
         }

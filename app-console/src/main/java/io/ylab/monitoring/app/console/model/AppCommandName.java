@@ -5,7 +5,7 @@ package io.ylab.monitoring.app.console.model;
  */
 public enum AppCommandName {
     HELP("/help"),
-    REGISTRATION("/registration"),
+    REGISTRATION("/register"),
     LOGIN("/login"),
     LOGOUT("/logout"),
     METERS_LIST("/meters-list"),

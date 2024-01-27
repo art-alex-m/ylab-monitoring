@@ -7,6 +7,8 @@ import io.ylab.monitoring.app.console.service.AppCommandParser;
 import io.ylab.monitoring.auth.model.AuthAuthUser;
 import io.ylab.monitoring.core.model.CoreMeter;
 import io.ylab.monitoring.core.service.CorePeriodService;
+import io.ylab.monitoring.domain.auth.event.UserLogined;
+import io.ylab.monitoring.domain.auth.event.UserLogouted;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
 import io.ylab.monitoring.domain.core.model.DomainRole;
 import io.ylab.monitoring.domain.core.model.Meter;
@@ -64,11 +66,7 @@ public class AppConsoleApplicationBuilder {
     }
 
     public AppConsoleApplicationBuilder withDefaultAdmin() {
-        adminUser = AuthAuthUser.builder()
-                .role(DomainRole.ADMIN)
-                .username("admin")
-                .password("admin").build();
-        return this;
+        return withAdmin("admin", "admin");
     }
 
     public AppConsoleApplication build() {
@@ -94,6 +92,9 @@ public class AppConsoleApplicationBuilder {
     }
 
     private void initEventListeners() {
+        eventPublisher
+                .subscribe(e -> userContext.setUser((AuthUser) e.getUser()), UserLogined.class)
+                .subscribe(e -> userContext.setAnonymous(), UserLogouted.class);
     }
 
     /**

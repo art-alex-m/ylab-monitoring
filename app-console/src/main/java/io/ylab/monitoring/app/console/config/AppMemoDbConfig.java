@@ -12,6 +12,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Конфигуратор хранилища в оперативной памяти
+ */
 @Getter
 public class AppMemoDbConfig implements DatabaseConfig {
 

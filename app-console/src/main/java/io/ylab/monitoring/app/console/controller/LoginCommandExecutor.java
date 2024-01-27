@@ -6,6 +6,7 @@ import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
+import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -17,12 +18,12 @@ public class LoginCommandExecutor extends AbstractCommandExecutor {
 
     private final UserLoginInput interactor;
 
-    public LoginCommandExecutor(UserLoginInput interactor, PrintStream out) {
+    public LoginCommandExecutor(MonitoringInput interactor, PrintStream out) {
         super(new AppCommand(
                         List.of(AppCommandName.LOGIN.name, "<login>", "<password>")),
                 "Make identification in system",
                 out);
-        this.interactor = interactor;
+        this.interactor = (UserLoginInput) interactor;
     }
 
     @Override

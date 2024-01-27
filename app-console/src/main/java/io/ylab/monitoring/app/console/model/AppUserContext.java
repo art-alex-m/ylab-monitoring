@@ -14,18 +14,19 @@ public class AppUserContext {
 
     private DomainRole role;
 
-    public void setUser(AuthUser user) {
+    public boolean setUser(AuthUser user) {
         if (user == null) {
-            setAnonymous();
-            return;
+            return setAnonymous();
         }
         this.role = user.getRole();
         this.user = new User(user.getId());
+        return true;
     }
 
-    public void setAnonymous() {
+    public boolean setAnonymous() {
         this.user = null;
         this.role = DomainRole.ANONYMOUS;
+        return true;
     }
 
     @Getter

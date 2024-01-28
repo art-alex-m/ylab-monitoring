@@ -1,5 +1,6 @@
 package io.ylab.monitoring.domain.core.boundary;
 
+import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 import io.ylab.monitoring.domain.core.exception.MonitoringException;
 import io.ylab.monitoring.domain.core.in.SubmissionMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.out.SubmissionMeterReadingsInputResponse;
@@ -7,7 +8,7 @@ import io.ylab.monitoring.domain.core.out.SubmissionMeterReadingsInputResponse;
 /**
  * Сценарий "Подача показаний"
  */
-public interface SubmissionMeterReadingsInput {
+public interface SubmissionMeterReadingsInput extends MonitoringInput {
 
     /**
      * Выполняет сохранение показания счетчика

@@ -12,13 +12,14 @@
         <module>domain-auth</module>
         <module>domain-core</module>
         <module>domain-audit</module>
+        <module>domain-core-model</module>
+        <module>domain-core-repo</module>
+        <module>core-model</module>
         <module>app-console</module>
         <module>auth</module>
         <module>core</module>
         <module>audit</module>
-        <module>domain-core-model</module>
-        <module>db-memin</module>
-        <module>domain-core-repo</module>
+        <module>db-memo</module>
     </modules>
 
     <properties>

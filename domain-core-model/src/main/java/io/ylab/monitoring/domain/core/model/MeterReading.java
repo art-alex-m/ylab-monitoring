@@ -10,7 +10,7 @@ public interface MeterReading {
     /**
      * Возвращает идентификатор показания счетчика
      *
-     * @return идентификатор
+     * @return UUID
      */
     UUID getId();
 

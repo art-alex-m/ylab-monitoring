@@ -2,7 +2,11 @@ package io.ylab.monitoring.domain.audit.boundary;
 
 import io.ylab.monitoring.domain.audit.in.ViewAuditLogInputRequest;
 import io.ylab.monitoring.domain.audit.out.ViewAuditLogInputResponse;
+import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 
-public interface ViewAuditLogInput {
+/**
+ * Сценарий "Просмотр лога действий"
+ */
+public interface ViewAuditLogInput extends MonitoringInput {
     ViewAuditLogInputResponse view(ViewAuditLogInputRequest request);
 }

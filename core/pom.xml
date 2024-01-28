@@ -20,11 +20,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.ylab.monitoring.domain.core.model</groupId>
-            <artifactId>monitoring-domain-core-model</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>io.ylab.monitoring.domain.core</groupId>
             <artifactId>monitoring-domain-core</artifactId>
             <version>1.0.0</version>

@@ -10,6 +10,7 @@ public enum AppCommandName {
     LOGOUT("/logout"),
     METER_LIST("/meter-list"),
     READING_SUBMIT("/reading-submit"),
+    READING_SUBMIT_EXT("/reading-submit-ext"),
     READING_ACTUAL("/reading-actual"),
     READING_MONTH("/reading-month"),
     READING_HISTORY("/reading-history"),

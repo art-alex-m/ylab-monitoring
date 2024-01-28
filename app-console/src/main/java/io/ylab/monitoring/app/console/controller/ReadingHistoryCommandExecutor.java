@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.console.controller;
 
+import io.ylab.monitoring.app.console.in.AppViewMeterReadingsHistoryInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
@@ -26,7 +27,7 @@ public class ReadingHistoryCommandExecutor extends AbstractCommandExecutor {
 
     @Override
     protected boolean doWork(AppCommand command) {
-        out.println("Not implemented yet");
+        out.println(interactor.find(new AppViewMeterReadingsHistoryInputRequest(userContext.getUser())));
         return true;
     }
 }

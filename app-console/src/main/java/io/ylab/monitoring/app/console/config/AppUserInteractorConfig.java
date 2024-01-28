@@ -5,6 +5,7 @@ import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.auth.boundary.AuthUserLogoutInteractor;
 import io.ylab.monitoring.core.boundary.*;
+import io.ylab.monitoring.domain.core.boundary.SubmissionMeterReadingsInput;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import io.ylab.monitoring.domain.core.service.PeriodService;
 import lombok.Builder;
@@ -39,13 +40,16 @@ public class AppUserInteractorConfig extends AbstractInteractorConfig {
                 responseFactoryConfig.getViewMetersInputResponseFactory(),
                 databaseConfig.getViewMetersInputDbRepository(), eventPublisher));
 
-        put(AppCommandName.READING_SUBMIT, CoreSubmissionMeterReadingsInteractor.builder()
+        SubmissionMeterReadingsInput submissionInteractor = CoreSubmissionMeterReadingsInteractor.builder()
                 .eventPublisher(eventPublisher)
                 .meterDbRepository(databaseConfig.getSubmissionMeterReadingsInputMeterDbRepository())
                 .periodService(periodService)
                 .readingsDbRepository(databaseConfig.getSubmissionMeterReadingsInputDbRepository())
-                .build()
-        );
+                .responseFactory(responseFactoryConfig.getSubmissionMeterReadingsInputResponseFactory())
+                .build();
+
+        put(AppCommandName.READING_SUBMIT, submissionInteractor);
+        put(AppCommandName.READING_SUBMIT_EXT, submissionInteractor);
 
         put(AppCommandName.READING_ACTUAL, new CoreGetActualMeterReadingsInteractor(
                 responseFactoryConfig.getActualMeterReadingsInputResponseFactory(),

@@ -5,6 +5,6 @@ package io.ylab.monitoring.domain.core.exception;
  */
 public class MeterReadingExistsException extends MonitoringException {
     public MeterReadingExistsException(String message) {
-        super(message);
+        super("Meter reading already exists: " + message);
     }
 }

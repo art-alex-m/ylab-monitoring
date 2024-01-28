@@ -33,6 +33,7 @@ public class AppCommandExecutorBuilderFactory {
         executorBuilderMap.put(AppCommandName.LOGOUT, LogoutCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.METER_LIST, MeterListCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.READING_SUBMIT, ReadingSubmitCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.READING_SUBMIT_EXT, ReadingSubmitExtCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.READING_ACTUAL, ReadingActualCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.READING_MONTH, ReadingMonthCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.READING_HISTORY, ReadingHistoryCommandExecutor::new);

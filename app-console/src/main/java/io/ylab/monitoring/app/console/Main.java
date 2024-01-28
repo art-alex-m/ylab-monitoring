@@ -15,20 +15,20 @@ public class Main {
                 .withMeter("teplo")
                 .build();
 
-        System.out.println("Welcome!");
+        System.out.println("Welcome to Monitoring Service!");
         System.out.println("Type /help to see available commands");
 
         Scanner scanner = new Scanner(System.in);
 
         while (!Thread.interrupted()) {
-            System.out.println("Input new command");
+            System.out.println("Type new command, please");
             try {
                 String commandText = scanner.nextLine();
                 application.execute(commandText);
             } catch (AppProgramExitException ex) {
                 break;
             } catch (IllegalArgumentException | IllegalCallerException | MonitoringException ex) {
-                System.out.println(ex.getMessage());
+                System.out.println("ERROR: " + ex.getMessage());
             }
         }
 

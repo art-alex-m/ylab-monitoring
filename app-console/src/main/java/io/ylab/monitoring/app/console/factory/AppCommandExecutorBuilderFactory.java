@@ -31,11 +31,11 @@ public class AppCommandExecutorBuilderFactory {
         executorBuilderMap.put(AppCommandName.REGISTRATION, (c, i, o) -> new RegistrationCommandExecutor(i, o));
         executorBuilderMap.put(AppCommandName.LOGIN, (c, i, o) -> new LoginCommandExecutor(i, o));
         executorBuilderMap.put(AppCommandName.LOGOUT, LogoutCommandExecutor::new);
-        executorBuilderMap.put(AppCommandName.METERS_LIST, (c, i, o) -> new UnknownCommandExecutor());
-        executorBuilderMap.put(AppCommandName.READING_SUBMIT, (c, i, o) -> new UnknownCommandExecutor());
-        executorBuilderMap.put(AppCommandName.READING_ACTUAL, (c, i, o) -> new UnknownCommandExecutor());
-        executorBuilderMap.put(AppCommandName.READING_MONTH, (c, i, o) -> new UnknownCommandExecutor());
-        executorBuilderMap.put(AppCommandName.READING_HISTORY, (c, i, o) -> new UnknownCommandExecutor());
+        executorBuilderMap.put(AppCommandName.METER_LIST, MeterListCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.READING_SUBMIT, ReadingSubmitCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.READING_ACTUAL, ReadingActualCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.READING_MONTH, ReadingMonthCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.READING_HISTORY, ReadingHistoryCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.AUDIT_LOG, (c, i, o) -> new UnknownCommandExecutor());
     }
 }

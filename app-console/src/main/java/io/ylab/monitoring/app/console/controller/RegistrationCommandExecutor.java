@@ -11,6 +11,9 @@ import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 import java.io.PrintStream;
 import java.util.List;
 
+/**
+ * Контроллер регистрации нового пользователя
+ */
 public class RegistrationCommandExecutor extends AbstractCommandExecutor {
     private final UserRegistrationInput interactor;
 
@@ -25,9 +28,7 @@ public class RegistrationCommandExecutor extends AbstractCommandExecutor {
     @Override
     protected boolean doWork(AppCommand command) {
 
-        if (command.getOperands().size() != getSignature().getOperands().size()) {
-            throw new IllegalArgumentException("Insufficient data");
-        }
+        operandSizeValidator(command);
 
         UserRegistrationInputRequest request = new AppUserRegistrationInputRequest(command.getOperands().get(1),
                 command.getOperands().get(2));

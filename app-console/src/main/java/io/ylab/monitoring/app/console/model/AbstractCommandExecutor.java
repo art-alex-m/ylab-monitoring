@@ -53,4 +53,10 @@ public abstract class AbstractCommandExecutor implements CommandExecutorChain {
     protected boolean commandNotMatch(AppCommand command) {
         return !signature.getStatement().equals(command.getStatement());
     }
+
+    protected void operandSizeValidator(AppCommand command) {
+        if (command.getOperands().size() != getSignature().getOperands().size()) {
+            throw new IllegalArgumentException("Insufficient data");
+        }
+    }
 }

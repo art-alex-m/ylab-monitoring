@@ -29,9 +29,7 @@ public class LoginCommandExecutor extends AbstractCommandExecutor {
     @Override
     protected boolean doWork(AppCommand command) {
 
-        if (command.getOperands().size() != getSignature().getOperands().size()) {
-            throw new IllegalArgumentException("Insufficient data");
-        }
+        operandSizeValidator(command);
 
         UserLoginInputRequest request = new AppUserLoginInputRequest(command.getOperands().get(1),
                 command.getOperands().get(2));

@@ -35,7 +35,7 @@ public class AppUserInteractorConfig extends AbstractInteractorConfig {
         put(AppCommandName.EXIT, null);
         put(AppCommandName.LOGOUT, new AuthUserLogoutInteractor(eventPublisher));
 
-        put(AppCommandName.METERS_LIST, new CoreViewMetersInteractor(
+        put(AppCommandName.METER_LIST, new CoreViewMetersInteractor(
                 responseFactoryConfig.getViewMetersInputResponseFactory(),
                 databaseConfig.getViewMetersInputDbRepository(), eventPublisher));
 

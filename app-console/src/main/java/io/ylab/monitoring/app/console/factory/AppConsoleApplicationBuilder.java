@@ -1,15 +1,18 @@
 package io.ylab.monitoring.app.console.factory;
 
 import io.ylab.monitoring.app.console.config.*;
+import io.ylab.monitoring.app.console.event.AppCreateAuditLogEventHandler;
 import io.ylab.monitoring.app.console.event.AppMonitoringEventPublisher;
 import io.ylab.monitoring.app.console.model.*;
 import io.ylab.monitoring.app.console.service.AppCommandParser;
+import io.ylab.monitoring.audit.boundary.AuditCreateAuditLogInteractor;
 import io.ylab.monitoring.auth.model.AuthAuthUser;
 import io.ylab.monitoring.core.model.CoreMeter;
 import io.ylab.monitoring.core.service.CorePeriodService;
 import io.ylab.monitoring.domain.auth.event.UserLogined;
 import io.ylab.monitoring.domain.auth.event.UserLogouted;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
+import io.ylab.monitoring.domain.core.event.MonitoringEvent;
 import io.ylab.monitoring.domain.core.model.DomainRole;
 import io.ylab.monitoring.domain.core.model.Meter;
 import io.ylab.monitoring.domain.core.service.PeriodService;
@@ -94,7 +97,8 @@ public class AppConsoleApplicationBuilder {
     private void initEventListeners() {
         eventPublisher
                 .subscribe(e -> userContext.setUser((AuthUser) e.getUser()), UserLogined.class)
-                .subscribe(e -> userContext.setAnonymous(), UserLogouted.class);
+                .subscribe(e -> userContext.setAnonymous(), UserLogouted.class)
+                .subscribe(createAuditLogEventHandler(), MonitoringEvent.class);
     }
 
     /**
@@ -150,5 +154,15 @@ public class AppConsoleApplicationBuilder {
                 .eventPublisher(eventPublisher)
                 .periodService(periodService)
                 .build());
+    }
+
+    /**
+     * Инициирует обработчик событий для ведения лога аудита
+     *
+     * @return объект
+     */
+    private AppCreateAuditLogEventHandler createAuditLogEventHandler() {
+        return new AppCreateAuditLogEventHandler(new AuditCreateAuditLogInteractor(
+                databaseConfig.getCreateAuditLogInputDbRepository()));
     }
 }

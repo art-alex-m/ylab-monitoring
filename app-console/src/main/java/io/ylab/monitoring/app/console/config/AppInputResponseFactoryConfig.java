@@ -2,7 +2,9 @@ package io.ylab.monitoring.app.console.config;
 
 import io.ylab.monitoring.app.console.out.AppMeterReadingsInputResponseFactory;
 import io.ylab.monitoring.app.console.out.AppSubmissionMeterReadingsInputResponseFactory;
+import io.ylab.monitoring.app.console.out.AppViewAuditLogInputResponseFactory;
 import io.ylab.monitoring.app.console.out.AppViewMetersInputResponseFactory;
+import io.ylab.monitoring.domain.audit.out.ViewAuditLogInputResponseFactory;
 import io.ylab.monitoring.domain.core.out.*;
 import lombok.Getter;
 
@@ -16,6 +18,7 @@ public class AppInputResponseFactoryConfig {
     private SubmissionMeterReadingsInputResponseFactory submissionMeterReadingsInputResponseFactory;
     private ViewMeterReadingsHistoryInputResponseFactory viewMeterReadingsHistoryInputResponseFactory;
     private ViewMetersInputResponseFactory viewMetersInputResponseFactory;
+    private ViewAuditLogInputResponseFactory viewAuditLogInputResponseFactory;
 
     public AppInputResponseFactoryConfig() {
         initFactories();
@@ -28,5 +31,6 @@ public class AppInputResponseFactoryConfig {
         viewMeterReadingsHistoryInputResponseFactory = readingsInputResponseFactory;
         submissionMeterReadingsInputResponseFactory = new AppSubmissionMeterReadingsInputResponseFactory();
         viewMetersInputResponseFactory = new AppViewMetersInputResponseFactory();
+        viewAuditLogInputResponseFactory = new AppViewAuditLogInputResponseFactory();
     }
 }

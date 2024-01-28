@@ -37,6 +37,6 @@ public class AppCommandExecutorBuilderFactory {
         executorBuilderMap.put(AppCommandName.READING_ACTUAL, ReadingActualCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.READING_MONTH, ReadingMonthCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.READING_HISTORY, ReadingHistoryCommandExecutor::new);
-        executorBuilderMap.put(AppCommandName.AUDIT_LOG, (c, i, o) -> new UnknownCommandExecutor());
+        executorBuilderMap.put(AppCommandName.AUDIT_LOG, AuditLogCommandExecutor::new);
     }
 }

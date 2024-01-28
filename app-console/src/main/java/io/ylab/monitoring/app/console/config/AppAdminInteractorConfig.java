@@ -3,6 +3,7 @@ package io.ylab.monitoring.app.console.config;
 import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
+import io.ylab.monitoring.audit.boundary.AuditViewAuditLogInteractor;
 import io.ylab.monitoring.auth.boundary.AuthUserLogoutInteractor;
 import io.ylab.monitoring.core.boundary.CoreGetActualMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreGetMonthMeterReadingsInteractor;
@@ -51,5 +52,8 @@ public class AppAdminInteractorConfig extends AbstractInteractorConfig {
         put(AppCommandName.READING_HISTORY, new CoreViewMeterReadingsHistoryInteractor(
                 responseFactoryConfig.getViewMeterReadingsHistoryInputResponseFactory(),
                 databaseConfig.getAdminViewMeterReadingsHistoryInputDbRepository(), eventPublisher));
+
+        put(AppCommandName.AUDIT_LOG, new AuditViewAuditLogInteractor(databaseConfig.getViewAuditLogInputDbRepository(),
+                responseFactoryConfig.getViewAuditLogInputResponseFactory(), eventPublisher));
     }
 }

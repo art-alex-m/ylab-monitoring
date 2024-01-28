@@ -36,6 +36,9 @@ public class CoreSubmissionMeterReadingsInteractor implements SubmissionMeterRea
     private final PeriodService periodService;
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SubmissionMeterReadingsInputResponse submit(SubmissionMeterReadingsInputRequest request)
             throws MonitoringException {

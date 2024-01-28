@@ -16,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 @Builder
 public class CoreGetMonthMeterReadingsInteractor implements GetMonthMeterReadingsInput {
@@ -28,6 +31,9 @@ public class CoreGetMonthMeterReadingsInteractor implements GetMonthMeterReading
 
     private final MonitoringEventPublisher eventPublisher;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GetMonthMeterReadingsResponse find(GetMonthMeterReadingsInputRequest request) {
         eventPublisher.publish(CoreMonthMeterReadingsEntered.builder()

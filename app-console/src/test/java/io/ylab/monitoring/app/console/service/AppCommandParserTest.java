@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AppCommandParserTest {
-    public static Stream<Arguments> parse() {
+    public static Stream<Arguments> givenVariousTextCommands_whenParse_thenSuccess() {
         return Stream.of(
                 Arguments.of("test 1 2 3", new AppCommand(List.of("test", "1", "2", "3"))),
                 Arguments.of("test  ", new AppCommand(List.of("test"))),
@@ -22,7 +22,7 @@ class AppCommandParserTest {
 
     @ParameterizedTest
     @MethodSource
-    void parse(String text, AppCommand expected) {
+    void givenVariousTextCommands_whenParse_thenSuccess(String text, AppCommand expected) {
         AppCommandParser sut = new AppCommandParser();
 
         AppCommand result = sut.parse(text);

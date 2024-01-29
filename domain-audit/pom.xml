@@ -12,16 +12,11 @@
     <groupId>io.ylab.monitoring.domain.audit</groupId>
     <artifactId>monitoring-domain-audit</artifactId>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>io.ylab.monitoring.domain.core.model</groupId>
             <artifactId>monitoring-domain-core-model</artifactId>
-            <version>1.0.0</version>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -2,15 +2,27 @@ package io.ylab.monitoring.audit.event;
 
 import io.ylab.monitoring.domain.audit.event.ViewAuditLogFound;
 import io.ylab.monitoring.domain.audit.model.AuditItem;
+import io.ylab.monitoring.domain.core.model.DomainUser;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
 
+import java.time.Instant;
 import java.util.List;
 
-@SuperBuilder
 @Getter
 public class AuditViewAuditLogFound extends AuditMonitoringEvent implements ViewAuditLogFound {
-    private final String eventName = "finish use case 'view audit log'";
+    private static final String EVENT_NAME = "Finish use case 'view audit log'";
 
     private final List<AuditItem> auditLog;
+
+    @Builder
+    public AuditViewAuditLogFound(DomainUser user, Instant createdAt, List<AuditItem> auditLog) {
+        super(user, createdAt);
+        this.auditLog = auditLog;
+    }
+
+    @Override
+    public String getEventName() {
+        return EVENT_NAME;
+    }
 }

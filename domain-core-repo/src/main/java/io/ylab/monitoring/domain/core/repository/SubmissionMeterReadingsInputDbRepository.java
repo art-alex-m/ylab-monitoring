@@ -13,15 +13,17 @@ public interface SubmissionMeterReadingsInputDbRepository {
 
     /**
      * Сохраняет показание счетчика
-     *
-     * @return true если показание было сохранено
+     * @param reading показание счетчика
+     * @return истина если показание было сохранено
      */
     boolean save(MeterReading reading);
 
     /**
      * Проверяет наличие показания счетчика
-     *
-     * @return true если аналогичное показание уже существует
+     * @param user доменный пользователь
+     * @param period период
+     * @param meter тип показания счетчика
+     * @return Истина, если показание существует
      */
     boolean existsByUserAndPeriodAndMeter(DomainUser user, Instant period, Meter meter);
 }

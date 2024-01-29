@@ -12,7 +12,7 @@ public interface SubmissionMeterReadingsInputRequest {
     /**
      * Доменная информация о пользователе
      *
-     * @return объект
+     * @return DomainUser
      */
     DomainUser getUser();
 
@@ -32,7 +32,7 @@ public interface SubmissionMeterReadingsInputRequest {
     long getValue();
 
     /**
-     * Период за который подается показание
+     * Месяц, за который подается показание
      *
      * @return Дата время
      */

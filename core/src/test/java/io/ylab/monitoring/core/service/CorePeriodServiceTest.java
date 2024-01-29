@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CorePeriodServiceTest {
 
-    public static Stream<Arguments> setFistDayOfMonth() {
+    public static Stream<Arguments> givenVariousInstant_whenSetFistDayOfMonth_thenSuccess() {
         Instant expected = Instant.parse("2023-05-01T00:00:00.00Z");
         LocalDateTime dateTime = LocalDateTime.of(2023, 5, 30, 1, 1, 1);
 
@@ -31,7 +31,7 @@ class CorePeriodServiceTest {
 
     @ParameterizedTest
     @MethodSource
-    void setFistDayOfMonth(Instant rawPeriod, Instant expected) {
+    void givenVariousInstant_whenSetFistDayOfMonth_thenSuccess(Instant rawPeriod, Instant expected) {
         PeriodService sut = new CorePeriodService();
 
         Instant result = sut.setFistDayOfMonth(rawPeriod);

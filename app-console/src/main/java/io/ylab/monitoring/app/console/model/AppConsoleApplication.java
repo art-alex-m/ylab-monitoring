@@ -1,11 +1,15 @@
 package io.ylab.monitoring.app.console.model;
 
+import io.ylab.monitoring.app.console.exception.AppUndefinedCommandExecutorException;
 import io.ylab.monitoring.app.console.factory.AppConsoleApplicationBuilder;
 import io.ylab.monitoring.app.console.service.AppCommandParser;
 import io.ylab.monitoring.domain.core.model.DomainRole;
 
 import java.util.Map;
 
+/**
+ * Контекст консольного приложения
+ */
 public class AppConsoleApplication {
     private final AppCommandParser commandParser;
 
@@ -25,13 +29,14 @@ public class AppConsoleApplication {
         return new AppConsoleApplicationBuilder();
     }
 
-    public void execute(String textCommand) {
+    public void execute(String textCommand) throws AppUndefinedCommandExecutorException {
         DomainRole currentExecutorKey = userContext.getRole();
         if (roleExecutors.containsKey(currentExecutorKey)) {
             AppCommand command = commandParser.parse(textCommand);
             roleExecutors.get(currentExecutorKey).execute(command);
             return;
         }
-        throw new RuntimeException("Undefined command executor chain for " + currentExecutorKey.name());
+        throw new AppUndefinedCommandExecutorException(
+                "Undefined command executor chain for " + currentExecutorKey.name());
     }
 }

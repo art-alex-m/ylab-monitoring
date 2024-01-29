@@ -8,6 +8,9 @@ import lombok.Getter;
 
 import java.util.UUID;
 
+/**
+ * Контекст авторизованного пользователя
+ */
 @Getter
 public class AppUserContext {
     private DomainUser user;

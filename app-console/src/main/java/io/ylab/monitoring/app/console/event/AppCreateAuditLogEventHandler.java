@@ -6,6 +6,9 @@ import io.ylab.monitoring.domain.core.event.MonitoringEvent;
 import io.ylab.monitoring.domain.core.event.MonitoringEventHandler;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Обработчик событий для ведения лога аудита
+ */
 @RequiredArgsConstructor
 public class AppCreateAuditLogEventHandler implements MonitoringEventHandler {
 

@@ -32,7 +32,7 @@ public class AppMonitoringEventPublisher implements MonitoringEventPublisher {
     /**
      * Добавляет слушателя событий
      *
-     * @param handler Слушатель
+     * @param handler Обработчик
      * @param events  Список событий
      * @return Истина
      */
@@ -45,6 +45,9 @@ public class AppMonitoringEventPublisher implements MonitoringEventPublisher {
         return this;
     }
 
+    /**
+     * Контейнер для хранения обработчиков
+     */
     @AllArgsConstructor
     @Getter
     private static class HandlerContainer {
@@ -52,6 +55,12 @@ public class AppMonitoringEventPublisher implements MonitoringEventPublisher {
 
         private final List<Class<? extends MonitoringEvent>> events;
 
+        /**
+         * Проверяет, что событие может быть обработано данным обработчиком
+         *
+         * @param eventObj Класс полученного события
+         * @return Истина, если класс, привязанного к обработчику события, достижим из полученного
+         */
         public boolean supports(Class<?> eventObj) {
             for (Class<?> supportEvent : events) {
                 if (supportEvent.isAssignableFrom(eventObj)) {

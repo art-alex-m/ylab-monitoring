@@ -1,6 +1,7 @@
 package io.ylab.monitoring.app.console.factory;
 
 import io.ylab.monitoring.app.console.controller.*;
+import io.ylab.monitoring.app.console.exception.AppUndefinedExecutorBuilderException;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 
 import java.util.HashMap;
@@ -16,10 +17,17 @@ public class AppCommandExecutorBuilderFactory {
         initBuilders();
     }
 
-    public CommandExecutorBuilder getBuilder(AppCommandName name) {
+    /**
+     * Возвращает построитель обработчика команды по имени
+     *
+     * @param name AppCommandName
+     * @return CommandExecutorBuilder
+     * @throws AppUndefinedExecutorBuilderException Неизвестный построитель
+     */
+    public CommandExecutorBuilder getBuilder(AppCommandName name) throws AppUndefinedExecutorBuilderException {
         CommandExecutorBuilder builder = executorBuilderMap.get(name);
         if (builder == null) {
-            throw new RuntimeException("Unknown builder for command " + name.name);
+            throw new AppUndefinedExecutorBuilderException("Unknown builder for command " + name.name);
         }
         return builder;
     }

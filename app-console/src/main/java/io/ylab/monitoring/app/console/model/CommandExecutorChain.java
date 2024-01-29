@@ -1,5 +1,8 @@
 package io.ylab.monitoring.app.console.model;
 
+/**
+ * Интерфейс цепочки команд
+ */
 public interface CommandExecutorChain {
     void execute(AppCommand command);
 

@@ -5,8 +5,11 @@ import java.io.PrintStream;
 public abstract class AbstractCommandExecutor implements CommandExecutorChain {
 
     protected final PrintStream out;
+
     private final AppCommand signature;
+
     private final String description;
+
     private CommandExecutorChain next;
 
     protected AbstractCommandExecutor(AppCommand signature, String description, PrintStream out) {

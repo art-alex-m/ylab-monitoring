@@ -2,6 +2,9 @@ package io.ylab.monitoring.app.console.model;
 
 import java.util.Iterator;
 
+/**
+ * Итератор цепочки команд
+ */
 public class AppCommandExecutorChainIterator implements Iterator<CommandExecutorChain> {
     protected CommandExecutorChain current;
 

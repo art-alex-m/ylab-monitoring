@@ -33,11 +33,11 @@ public class AppCommandExecutorBuilderFactory {
     }
 
     private void initBuilders() {
-        executorBuilderMap.put(AppCommandName.HELP, (c, i, o) -> new HelpCommandExecutor(o));
-        executorBuilderMap.put(AppCommandName.EXIT, (c, i, o) -> new ExitCommandExecutor(o));
-        executorBuilderMap.put(AppCommandName.UNKNOWN, (c, i, o) -> new UnknownCommandExecutor());
-        executorBuilderMap.put(AppCommandName.REGISTRATION, (c, i, o) -> new RegistrationCommandExecutor(i, o));
-        executorBuilderMap.put(AppCommandName.LOGIN, (c, i, o) -> new LoginCommandExecutor(i, o));
+        executorBuilderMap.put(AppCommandName.HELP, HelpCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.EXIT, ExitCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.UNKNOWN, UnknownCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.REGISTRATION, RegistrationCommandExecutor::new);
+        executorBuilderMap.put(AppCommandName.LOGIN, LoginCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.LOGOUT, LogoutCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.METER_LIST, MeterListCommandExecutor::new);
         executorBuilderMap.put(AppCommandName.READING_SUBMIT, ReadingSubmitCommandExecutor::new);

@@ -24,6 +24,9 @@ import java.util.*;
  * Конфигуратор контекста консольного приложения
  */
 public class AppConsoleApplicationBuilder {
+    private final static String ADMIN_DEFAULT_LOGIN = "admin";
+
+    private final static String ADMIN_DEFAULT_PASSWORD = "admin";
 
     private final Map<DomainRole, CommandExecutorChain> roleExecutors = new HashMap<>();
 
@@ -69,7 +72,7 @@ public class AppConsoleApplicationBuilder {
     }
 
     public AppConsoleApplicationBuilder withDefaultAdmin() {
-        return withAdmin("admin", "admin");
+        return withAdmin(ADMIN_DEFAULT_LOGIN, ADMIN_DEFAULT_PASSWORD);
     }
 
     public AppConsoleApplication build() {
@@ -96,8 +99,8 @@ public class AppConsoleApplicationBuilder {
 
     private void initEventListeners() {
         eventPublisher
-                .subscribe(e -> userContext.setUser((AuthUser) e.getUser()), UserLogined.class)
-                .subscribe(e -> userContext.setAnonymous(), UserLogouted.class)
+                .subscribe(event -> userContext.setUser((AuthUser) event.getUser()), UserLogined.class)
+                .subscribe(event -> userContext.setAnonymous(), UserLogouted.class)
                 .subscribe(createAuditLogEventHandler(), MonitoringEvent.class);
     }
 

@@ -23,9 +23,9 @@ public class MemoAdminMeterReadingsDbRepository
     @Override
     public List<MeterReading> findActualByUser(DomainUser user) {
         return Optional.ofNullable(database.getDb())
-                .map(m -> m.values().stream())
-                .map(s -> s.map(n -> n.firstEntry().getValue()))
-                .map(s -> s.flatMap(m -> m.values().stream()))
+                .map(map -> map.values().stream())
+                .map(stream -> stream.map(navMap -> navMap.firstEntry().getValue()))
+                .map(stream -> stream.flatMap(map -> map.values().stream()))
                 .map(Stream::toList)
                 .orElse(Collections.emptyList());
     }
@@ -33,11 +33,11 @@ public class MemoAdminMeterReadingsDbRepository
     @Override
     public List<MeterReading> findByUserAndPeriod(DomainUser user, Instant period) {
         return Optional.ofNullable(database.getDb())
-                .map(m -> m.values().stream())
-                .map(s -> s
-                        .filter(n -> n.containsKey(period))
-                        .map(n -> n.get(period))
-                        .flatMap(n -> n.values().stream())
+                .map(map -> map.values().stream())
+                .map(stream -> stream
+                        .filter(navMap -> navMap.containsKey(period))
+                        .map(navMap -> navMap.get(period))
+                        .flatMap(navMap -> navMap.values().stream())
                 )
                 .map(Stream::toList)
                 .orElse(Collections.emptyList());
@@ -46,9 +46,9 @@ public class MemoAdminMeterReadingsDbRepository
     @Override
     public List<MeterReading> findByUser(DomainUser user) {
         return Optional.ofNullable(database.getDb())
-                .map(m -> m.values().stream())
-                .map(s -> s.flatMap(m -> m.values().stream()))
-                .map(s -> s.flatMap(m -> m.values().stream()))
+                .map(map -> map.values().stream())
+                .map(stream -> stream.flatMap(map -> map.values().stream()))
+                .map(stream -> stream.flatMap(map -> map.values().stream()))
                 .map(Stream::toList)
                 .orElse(Collections.emptyList());
     }

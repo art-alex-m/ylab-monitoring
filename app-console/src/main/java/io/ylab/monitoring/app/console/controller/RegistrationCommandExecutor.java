@@ -4,6 +4,7 @@ import io.ylab.monitoring.app.console.in.AppUserRegistrationInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
+import io.ylab.monitoring.app.console.model.AppUserContext;
 import io.ylab.monitoring.domain.auth.boundary.UserRegistrationInput;
 import io.ylab.monitoring.domain.auth.in.UserRegistrationInputRequest;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
@@ -16,6 +17,10 @@ import java.util.List;
  */
 public class RegistrationCommandExecutor extends AbstractCommandExecutor {
     private final UserRegistrationInput interactor;
+
+    public RegistrationCommandExecutor(AppUserContext userContext, MonitoringInput interactor, PrintStream out) {
+        this(interactor, out);
+    }
 
     public RegistrationCommandExecutor(MonitoringInput interactor, PrintStream out) {
         super(new AppCommand(

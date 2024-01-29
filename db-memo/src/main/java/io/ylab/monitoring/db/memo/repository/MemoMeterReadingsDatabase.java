@@ -32,9 +32,9 @@ public class MemoMeterReadingsDatabase {
         NavigableMap<Instant, Map<String, MeterReading>> userReadings;
         Map<String, MeterReading> instantReadings;
 
-        userReadings = db.computeIfAbsent(userId, t -> new TreeMap<>(Comparator.reverseOrder()));
+        userReadings = db.computeIfAbsent(userId, tree -> new TreeMap<>(Comparator.reverseOrder()));
 
-        instantReadings = userReadings.computeIfAbsent(meterReading.getPeriod(), k -> new HashMap<>());
+        instantReadings = userReadings.computeIfAbsent(meterReading.getPeriod(), map -> new HashMap<>());
 
         return instantReadings.putIfAbsent(meterReading.getMeter().getName(), meterReading);
     }

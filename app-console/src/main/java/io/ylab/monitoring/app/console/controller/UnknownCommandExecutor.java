@@ -2,6 +2,10 @@ package io.ylab.monitoring.app.console.controller;
 
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
+import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
+
+import java.io.PrintStream;
 
 /**
  * Обработчик неизвестной команды
@@ -10,6 +14,11 @@ import io.ylab.monitoring.app.console.model.AppCommand;
  * </p>
  */
 public class UnknownCommandExecutor extends AbstractCommandExecutor {
+
+    public UnknownCommandExecutor(AppUserContext userContext, MonitoringInput interactor, PrintStream out) {
+        this();
+    }
+
     public UnknownCommandExecutor() {
         super(new AppCommand(), "If command was not processed", null);
     }

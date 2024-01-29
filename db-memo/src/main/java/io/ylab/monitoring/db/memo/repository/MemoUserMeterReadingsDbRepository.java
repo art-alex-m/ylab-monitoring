@@ -25,8 +25,8 @@ public class MemoUserMeterReadingsDbRepository
     @Override
     public List<MeterReading> findActualByUser(DomainUser user) {
         return Optional.ofNullable(database.read(user.getId()))
-                .map(m -> m.firstEntry().getValue())
-                .map(m -> m.values().stream())
+                .map(map -> map.firstEntry().getValue())
+                .map(map -> map.values().stream())
                 .map(Stream::toList)
                 .orElse(Collections.emptyList());
     }
@@ -34,8 +34,8 @@ public class MemoUserMeterReadingsDbRepository
     @Override
     public List<MeterReading> findByUserAndPeriod(DomainUser user, Instant period) {
         return Optional.ofNullable(database.read(user.getId()))
-                .map(m -> m.get(period))
-                .map(m -> m.values().stream())
+                .map(map -> map.get(period))
+                .map(map -> map.values().stream())
                 .map(Stream::toList)
                 .orElse(Collections.emptyList());
     }
@@ -48,16 +48,16 @@ public class MemoUserMeterReadingsDbRepository
     @Override
     public boolean existsByUserAndPeriodAndMeter(DomainUser user, Instant period, Meter meter) {
         return Optional.ofNullable(database.read(user.getId()))
-                .map(m -> m.get(period))
-                .map(m -> m.get(meter.getName()))
+                .map(map -> map.get(period))
+                .map(map -> map.get(meter.getName()))
                 .isPresent();
     }
 
     @Override
     public List<MeterReading> findByUser(DomainUser user) {
         return Optional.ofNullable(database.read(user.getId()))
-                .map(m -> m.values().stream())
-                .map(s -> s.flatMap(m -> m.values().stream()))
+                .map(map -> map.values().stream())
+                .map(stream -> stream.flatMap(map -> map.values().stream()))
                 .map(Stream::toList)
                 .orElse(Collections.emptyList());
     }

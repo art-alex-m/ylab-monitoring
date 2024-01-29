@@ -4,6 +4,7 @@ import io.ylab.monitoring.app.console.in.AppUserLoginInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
+import io.ylab.monitoring.app.console.model.AppUserContext;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
@@ -17,6 +18,10 @@ import java.util.List;
 public class LoginCommandExecutor extends AbstractCommandExecutor {
 
     private final UserLoginInput interactor;
+
+    public LoginCommandExecutor(AppUserContext userContext, MonitoringInput interactor, PrintStream out) {
+        this(interactor, out);
+    }
 
     public LoginCommandExecutor(MonitoringInput interactor, PrintStream out) {
         super(new AppCommand(

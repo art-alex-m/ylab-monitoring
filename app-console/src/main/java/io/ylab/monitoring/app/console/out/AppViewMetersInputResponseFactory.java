@@ -10,6 +10,9 @@ import java.util.List;
  * {@inheritDoc}
  */
 public class AppViewMetersInputResponseFactory implements ViewMetersInputResponseFactory {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ViewMetersInputResponse create(List<Meter> meterList) {
         return new AppViewMetersInputResponse(meterList);

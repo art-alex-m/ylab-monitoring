@@ -52,11 +52,24 @@ public class AppConsoleApplicationBuilder {
 
     private AuthUser adminUser;
 
+    /**
+     * Добавляет новый тип показания счетчика в базу
+     *
+     * @param meterName строка
+     * @return AppConsoleApplicationBuilder
+     */
     public AppConsoleApplicationBuilder withMeter(String meterName) {
         meterList.add(new CoreMeter(UUID.randomUUID(), meterName));
         return this;
     }
 
+    /**
+     * Устанавливает логи и пароль пользователя с ролю администратора
+     *
+     * @param username имя пользователя
+     * @param password пароль
+     * @return AppConsoleApplicationBuilder
+     */
     public AppConsoleApplicationBuilder withAdmin(String username, String password) {
         adminUser = AuthAuthUser.builder()
                 .role(DomainRole.ADMIN)
@@ -66,11 +79,22 @@ public class AppConsoleApplicationBuilder {
         return this;
     }
 
+    /**
+     * Устанавливает конфигурацию базы данных приложения
+     *
+     * @param config DatabaseConfig
+     * @return AppConsoleApplicationBuilder
+     */
     public AppConsoleApplicationBuilder withDatabaseConfig(DatabaseConfig config) {
         databaseConfig = config;
         return this;
     }
 
+    /**
+     * Устанавливает логин и пароль администратора по-умолчанию "admin/admin"
+     *
+     * @return AppConsoleApplicationBuilder
+     */
     public AppConsoleApplicationBuilder withDefaultAdmin() {
         return withAdmin(ADMIN_DEFAULT_LOGIN, ADMIN_DEFAULT_PASSWORD);
     }

@@ -29,6 +29,12 @@ public class AppConsoleApplication {
         return new AppConsoleApplicationBuilder();
     }
 
+    /**
+     * Выполняет текстовую команду
+     *
+     * @param textCommand текст
+     * @throws AppUndefinedCommandExecutorException когда нет подходящего исполнителя команды
+     */
     public void execute(String textCommand) throws AppUndefinedCommandExecutorException {
         DomainRole currentExecutorKey = userContext.getRole();
         if (roleExecutors.containsKey(currentExecutorKey)) {

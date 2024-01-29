@@ -8,6 +8,9 @@ import io.ylab.monitoring.domain.core.out.SubmissionMeterReadingsInputResponseFa
  * {@inheritDoc}
  */
 public class AppSubmissionMeterReadingsInputResponseFactory implements SubmissionMeterReadingsInputResponseFactory {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SubmissionMeterReadingsInputResponse create(MeterReading meterReading) {
         return new AppSubmissionMeterReadingsInputResponse(meterReading);

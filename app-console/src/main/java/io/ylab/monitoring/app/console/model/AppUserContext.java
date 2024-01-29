@@ -17,6 +17,12 @@ public class AppUserContext {
 
     private DomainRole role;
 
+    /**
+     * Установить контекст зарегистрированного пользователя
+     *
+     * @param user AuthUser
+     * @return истина
+     */
     public boolean setUser(AuthUser user) {
         if (user == null) {
             return setAnonymous();
@@ -26,12 +32,20 @@ public class AppUserContext {
         return true;
     }
 
+    /**
+     * Устанавливает контекст анонимного пользователя
+     *
+     * @return истина
+     */
     public boolean setAnonymous() {
         this.user = null;
         this.role = DomainRole.ANONYMOUS;
         return true;
     }
 
+    /**
+     * Информация о доменном пользователе для хранения в контексте
+     */
     @Getter
     @AllArgsConstructor
     private static class User implements DomainUser {

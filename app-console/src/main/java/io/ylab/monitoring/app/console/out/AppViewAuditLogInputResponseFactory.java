@@ -10,6 +10,9 @@ import java.util.List;
  * {@inheritDoc}
  */
 public class AppViewAuditLogInputResponseFactory implements ViewAuditLogInputResponseFactory {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ViewAuditLogInputResponse create(List<AuditItem> auditItemList) {
         return new AppViewAuditLogInputResponse(auditItemList);

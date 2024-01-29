@@ -18,7 +18,7 @@ public class AppCommandExecutorBuilderFactory {
     }
 
     /**
-     * Возвращает построитель обработчика команды по имени
+     * По имени возвращает построитель обработчика команды
      *
      * @param name AppCommandName
      * @return CommandExecutorBuilder

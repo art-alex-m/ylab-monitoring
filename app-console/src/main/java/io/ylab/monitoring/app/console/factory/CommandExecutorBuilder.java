@@ -12,7 +12,7 @@ import java.io.PrintStream;
 @FunctionalInterface
 public interface CommandExecutorBuilder {
     /**
-     * Команда-обработчик для переданного сценария ядра
+     * Команда-обработчик для вызова сценария ядра
      *
      * @param userContext контекст пользователя
      * @param interactor  сценарий ядра

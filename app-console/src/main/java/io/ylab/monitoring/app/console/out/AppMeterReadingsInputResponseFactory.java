@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class AppMeterReadingsInputResponseFactory implements GetActualMeterReadingsInputResponseFactory,
         GetMonthMeterReadingsResponseFactory, ViewMeterReadingsHistoryInputResponseFactory {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AppMeterReadingsInputResponse create(List<MeterReading> meterReadings) {
         return new AppMeterReadingsInputResponse(meterReadings);

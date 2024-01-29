@@ -7,6 +7,9 @@ import lombok.Getter;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Базовая логика конфигурирования сценариев ядра
+ */
 @Getter
 public abstract class AbstractInteractorConfig {
     private final Set<Entry> interactors = new LinkedHashSet<>();

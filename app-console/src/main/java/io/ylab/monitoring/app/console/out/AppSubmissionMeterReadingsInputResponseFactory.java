@@ -4,6 +4,9 @@ import io.ylab.monitoring.domain.core.model.MeterReading;
 import io.ylab.monitoring.domain.core.out.SubmissionMeterReadingsInputResponse;
 import io.ylab.monitoring.domain.core.out.SubmissionMeterReadingsInputResponseFactory;
 
+/**
+ * {@inheritDoc}
+ */
 public class AppSubmissionMeterReadingsInputResponseFactory implements SubmissionMeterReadingsInputResponseFactory {
     @Override
     public SubmissionMeterReadingsInputResponse create(MeterReading meterReading) {

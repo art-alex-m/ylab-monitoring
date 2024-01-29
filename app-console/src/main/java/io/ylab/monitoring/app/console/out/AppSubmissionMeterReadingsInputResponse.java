@@ -5,13 +5,16 @@ import io.ylab.monitoring.domain.core.out.SubmissionMeterReadingsInputResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 @Getter
 public class AppSubmissionMeterReadingsInputResponse implements SubmissionMeterReadingsInputResponse {
 
     private final MeterReading meterReading;
 
-    private final String separator = ", ";
+    private final static String SEPARATOR = ", ";
 
     @Override
     public String toString() {
@@ -20,9 +23,9 @@ public class AppSubmissionMeterReadingsInputResponse implements SubmissionMeterR
         stringBuilder
                 .append("Reading saved: ")
                 .append(meterReading.getMeter().getName())
-                .append(separator)
+                .append(SEPARATOR)
                 .append(meterReading.getPeriod())
-                .append(separator)
+                .append(SEPARATOR)
                 .append(meterReading.getValue());
 
         return stringBuilder.toString();

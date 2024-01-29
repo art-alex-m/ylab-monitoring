@@ -8,6 +8,9 @@ import lombok.Getter;
 
 import java.time.Instant;
 
+/**
+ * {@inheritDoc}
+ */
 @AllArgsConstructor
 @Getter
 @Builder

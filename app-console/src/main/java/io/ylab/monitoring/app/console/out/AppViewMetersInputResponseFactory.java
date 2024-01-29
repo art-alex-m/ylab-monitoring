@@ -6,6 +6,9 @@ import io.ylab.monitoring.domain.core.out.ViewMetersInputResponseFactory;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 public class AppViewMetersInputResponseFactory implements ViewMetersInputResponseFactory {
     @Override
     public ViewMetersInputResponse create(List<Meter> meterList) {

@@ -14,6 +14,9 @@ public class AppCreateAuditLogEventHandler implements MonitoringEventHandler {
 
     private final CreateAuditLogInput interactor;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean handle(MonitoringEvent event) {
 

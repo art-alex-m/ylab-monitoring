@@ -10,10 +10,16 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 public class AppMonitoringEventPublisher implements MonitoringEventPublisher {
 
     private final List<HandlerContainer> handlerContainers = new LinkedList<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean publish(MonitoringEvent event) {
 

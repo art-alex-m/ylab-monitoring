@@ -4,6 +4,9 @@ import io.ylab.monitoring.domain.auth.in.UserRegistrationInputRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * {@inheritDoc}
+ */
 @AllArgsConstructor
 @Getter
 public class AppUserRegistrationInputRequest implements UserRegistrationInputRequest {

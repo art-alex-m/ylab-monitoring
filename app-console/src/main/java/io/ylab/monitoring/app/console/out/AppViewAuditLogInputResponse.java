@@ -7,13 +7,16 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 @Getter
 public class AppViewAuditLogInputResponse implements ViewAuditLogInputResponse {
     private final List<AuditItem> auditLog;
 
-    private final String separator = " | ";
-    private final String head = "OCCURRED_AT | USER_ID | EVENT_NAME";
+    private final static String SEPARATOR = " | ";
+    private final static String HEAD = "OCCURRED_AT | USER_ID | EVENT_NAME";
 
     @Override
     public String toString() {
@@ -23,12 +26,12 @@ public class AppViewAuditLogInputResponse implements ViewAuditLogInputResponse {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(head).append("\n");
+        stringBuilder.append(HEAD).append("\n");
         auditLog.forEach(item -> stringBuilder
                 .append(item.getOccurredAt())
-                .append(separator)
+                .append(SEPARATOR)
                 .append(item.getUser().getId())
-                .append(separator)
+                .append(SEPARATOR)
                 .append(item.getName())
                 .append("\n"));
 

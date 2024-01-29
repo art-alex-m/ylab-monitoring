@@ -6,14 +6,17 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Базовый класс ответов ядра с логикой форматирования в строку для вывода в консоль
+ */
 @RequiredArgsConstructor
 @Getter
 public abstract class AbstractMeterReadingsInputResponse {
     private final List<MeterReading> meterReadings;
 
-    private final String separator = " | ";
+    private final static String SEPARATOR = " | ";
 
-    private final String header = "USER_ID | PERIOD | METER_NAME | METER_VALUE";
+    private final static String HEADER = "USER_ID | PERIOD | METER_NAME | METER_VALUE";
 
     @Override
     public String toString() {
@@ -23,14 +26,14 @@ public abstract class AbstractMeterReadingsInputResponse {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(header).append("\n");
+        stringBuilder.append(HEADER).append("\n");
         meterReadings.forEach(item -> stringBuilder
                 .append(item.getUser().getId())
-                .append(separator)
+                .append(SEPARATOR)
                 .append(item.getPeriod())
-                .append(separator)
+                .append(SEPARATOR)
                 .append(item.getMeter().getName())
-                .append(separator)
+                .append(SEPARATOR)
                 .append(item.getValue())
                 .append("\n"));
 

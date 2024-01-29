@@ -7,6 +7,9 @@ import io.ylab.monitoring.domain.core.out.ViewMeterReadingsHistoryInputResponseF
 
 import java.util.List;
 
+/**
+ * Реализация фабрик ответов ядра в сценариях получения списков показаний счетчиков
+ */
 public class AppMeterReadingsInputResponseFactory implements GetActualMeterReadingsInputResponseFactory,
         GetMonthMeterReadingsResponseFactory, ViewMeterReadingsHistoryInputResponseFactory {
     @Override

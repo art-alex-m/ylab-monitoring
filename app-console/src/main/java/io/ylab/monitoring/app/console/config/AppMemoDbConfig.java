@@ -39,6 +39,9 @@ public class AppMemoDbConfig implements DatabaseConfig {
         init();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public DatabaseConfig setMeters(List<Meter> meterList) {
         meterList.forEach(m -> memoUserMetersDbRepository.store(m));
         return this;

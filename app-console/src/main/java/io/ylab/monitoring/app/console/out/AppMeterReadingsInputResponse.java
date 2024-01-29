@@ -7,6 +7,9 @@ import io.ylab.monitoring.domain.core.out.ViewMeterReadingsHistoryInputResponse;
 
 import java.util.List;
 
+/**
+ * Реализация интерфейсов ответов ядра в сценариях получения списков показаний счетчиков
+ */
 public class AppMeterReadingsInputResponse extends AbstractMeterReadingsInputResponse
         implements GetActualMeterReadingsInputResponse, GetMonthMeterReadingsResponse,
         ViewMeterReadingsHistoryInputResponse {

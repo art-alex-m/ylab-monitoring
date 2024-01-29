@@ -5,6 +5,9 @@ import io.ylab.monitoring.domain.core.model.DomainUser;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 @Getter
 public class AppViewMetersInputRequest implements ViewMetersInputRequest {

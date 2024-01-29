@@ -9,7 +9,16 @@ import io.ylab.monitoring.domain.core.repository.*;
 
 import java.util.List;
 
+/**
+ * Конфигурация репозиториев
+ */
 public interface DatabaseConfig {
+    /**
+     * Установить типы показаний счетчиков
+     *
+     * @param meterList список типов показаний счетчиков
+     * @return DatabaseConfig
+     */
     DatabaseConfig setMeters(List<Meter> meterList);
 
     GetActualMeterReadingsInputDbRepository getUserActualMeterReadingsInputDbRepository();

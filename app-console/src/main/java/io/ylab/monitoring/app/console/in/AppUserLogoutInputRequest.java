@@ -5,6 +5,9 @@ import io.ylab.monitoring.domain.core.model.DomainUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * {@inheritDoc}
+ */
 @AllArgsConstructor
 @Getter
 public class AppUserLogoutInputRequest implements UserLogoutInputRequest {

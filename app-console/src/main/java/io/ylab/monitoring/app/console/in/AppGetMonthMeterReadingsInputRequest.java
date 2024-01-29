@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 @Getter
 public class AppGetMonthMeterReadingsInputRequest implements GetMonthMeterReadingsInputRequest {

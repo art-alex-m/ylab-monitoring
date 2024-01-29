@@ -6,6 +6,9 @@ import io.ylab.monitoring.domain.audit.out.ViewAuditLogInputResponseFactory;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 public class AppViewAuditLogInputResponseFactory implements ViewAuditLogInputResponseFactory {
     @Override
     public ViewAuditLogInputResponse create(List<AuditItem> auditItemList) {

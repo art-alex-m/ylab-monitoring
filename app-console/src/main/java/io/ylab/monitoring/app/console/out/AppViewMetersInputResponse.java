@@ -7,12 +7,15 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 @Getter
 public class AppViewMetersInputResponse implements ViewMetersInputResponse {
     private final List<Meter> meters;
 
-    private final String header = "METER_NAME";
+    private final static String HEADER = "METER_NAME";
 
     @Override
     public String toString() {
@@ -21,7 +24,7 @@ public class AppViewMetersInputResponse implements ViewMetersInputResponse {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(header).append("\n");
+        stringBuilder.append(HEADER).append("\n");
         meters.forEach(item -> stringBuilder.append(item.getName()).append("\n"));
 
         return stringBuilder.toString();

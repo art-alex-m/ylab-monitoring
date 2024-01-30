@@ -7,6 +7,7 @@ import io.ylab.monitoring.domain.auth.exception.UserNotFoundException;
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
 import io.ylab.monitoring.domain.auth.repository.UserLoginInputDbRepository;
+import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,8 @@ public class AuthUserLoginInteractor implements UserLoginInput {
 
     private final UserLoginInputDbRepository inputDbRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public boolean login(UserLoginInputRequest request) throws UserNotFoundException {
         eventPublisher.publish(AuthUserLoginEntered.builder()
@@ -25,7 +28,7 @@ public class AuthUserLoginInteractor implements UserLoginInput {
         AuthUser user = inputDbRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UserNotFoundException(request.getUsername()));
 
-        if (request.getPassword().isEmpty() || !user.getPassword().equals(request.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new UserNotFoundException(request.getUsername());
         }
 

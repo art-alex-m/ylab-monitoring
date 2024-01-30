@@ -6,11 +6,17 @@ import io.ylab.monitoring.domain.audit.in.CreateAuditLogInputRequest;
 import io.ylab.monitoring.domain.audit.repository.CreateAuditLogInputDbRepository;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 public class AuditCreateAuditLogInteractor implements CreateAuditLogInput {
 
     private final CreateAuditLogInputDbRepository inputDbRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean create(CreateAuditLogInputRequest request) {
 

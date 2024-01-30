@@ -5,6 +5,7 @@ import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.auth.boundary.AuthUserLogoutInteractor;
 import io.ylab.monitoring.core.boundary.*;
+import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.boundary.SubmissionMeterReadingsInput;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import io.ylab.monitoring.domain.core.service.PeriodService;
@@ -24,7 +25,8 @@ public class AppUserInteractorConfig extends AbstractInteractorConfig {
 
     @Builder
     public AppUserInteractorConfig(DatabaseConfig databaseConfig, MonitoringEventPublisher eventPublisher,
-            AppInputResponseFactoryConfig responseFactoryConfig, PeriodService periodService) {
+            AppInputResponseFactoryConfig responseFactoryConfig, PeriodService periodService,
+            PasswordEncoder passwordEncoder) {
         this.databaseConfig = databaseConfig;
         this.eventPublisher = eventPublisher;
         this.responseFactoryConfig = responseFactoryConfig;

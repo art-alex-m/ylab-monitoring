@@ -2,8 +2,6 @@ package io.ylab.monitoring.domain.auth.repository;
 
 import io.ylab.monitoring.domain.auth.model.AuthUser;
 
-import java.util.Optional;
-
 /**
  * Репозиторий пользовательских учетных записей в сценарии "Регистрация"
  */
@@ -17,10 +15,10 @@ public interface UserRegistrationInputDbRepository {
     boolean create(AuthUser user);
 
     /**
-     * Поиск учетной информации по логину пользователя
+     * Проверка учетной информации по логину пользователя
      *
      * @param username Логин
-     * @return Объект
+     * @return Истина если логин уже занят
      */
-    Optional<AuthUser> findByUsername(String username);
+    boolean existsByUsername(String username);
 }

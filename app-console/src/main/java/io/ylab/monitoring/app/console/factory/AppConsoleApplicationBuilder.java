@@ -7,11 +7,13 @@ import io.ylab.monitoring.app.console.model.*;
 import io.ylab.monitoring.app.console.service.AppCommandParser;
 import io.ylab.monitoring.audit.boundary.AuditCreateAuditLogInteractor;
 import io.ylab.monitoring.auth.model.AuthAuthUser;
+import io.ylab.monitoring.auth.service.AuthPasswordEncoder;
 import io.ylab.monitoring.core.model.CoreMeter;
 import io.ylab.monitoring.core.service.CorePeriodService;
 import io.ylab.monitoring.domain.auth.event.UserLogined;
 import io.ylab.monitoring.domain.auth.event.UserLogouted;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
+import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEvent;
 import io.ylab.monitoring.domain.core.model.DomainRole;
 import io.ylab.monitoring.domain.core.model.Meter;
@@ -27,6 +29,8 @@ public class AppConsoleApplicationBuilder {
     private final static String ADMIN_DEFAULT_LOGIN = "admin";
 
     private final static String ADMIN_DEFAULT_PASSWORD = "admin";
+
+    private final static String DEFAULT_PASSWORD_SALT = "gahhc5X5bYPIbsKSQw";
 
     private final Map<DomainRole, CommandExecutorChain> roleExecutors = new HashMap<>();
 
@@ -47,6 +51,8 @@ public class AppConsoleApplicationBuilder {
     private Map<DomainRole, AbstractInteractorConfig> interactorConfigMap = new HashMap<>();
 
     private AppCommandExecutorBuilderFactory executorBuilderFactory = new AppCommandExecutorBuilderFactory();
+
+    private PasswordEncoder passwordEncoder = new AuthPasswordEncoder().setSalt(DEFAULT_PASSWORD_SALT);
 
     private List<Meter> meterList = new LinkedList<>();
 
@@ -74,7 +80,7 @@ public class AppConsoleApplicationBuilder {
         adminUser = AuthAuthUser.builder()
                 .role(DomainRole.ADMIN)
                 .username(username)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .build();
         return this;
     }
@@ -168,6 +174,7 @@ public class AppConsoleApplicationBuilder {
         interactorConfigMap.put(DomainRole.ANONYMOUS, AppAnonymousInteractorConfig.builder()
                 .databaseConfig(databaseConfig)
                 .eventPublisher(eventPublisher)
+                .passwordEncoder(passwordEncoder)
                 .build());
     }
 

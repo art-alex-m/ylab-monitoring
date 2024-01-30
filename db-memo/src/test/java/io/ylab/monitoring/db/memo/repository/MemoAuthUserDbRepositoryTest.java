@@ -39,6 +39,18 @@ class MemoAuthUserDbRepositoryTest {
 
     @ParameterizedTest
     @CsvSource({"test-user,true", "test-admin,false"})
+    void existsByUsername(String username, boolean expected) {
+        AuthUser user = TestAuthUser.builder().username("test-user").build();
+        MemoAuthUserDbRepository sut = new MemoAuthUserDbRepository();
+        sut.create(user);
+
+        boolean result = sut.existsByUsername(username);
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"test-user,true", "test-admin,false"})
     void findByUsername(String username, boolean expected) {
         AuthUser user = TestAuthUser.builder().username("test-user").build();
         MemoAuthUserDbRepository sut = new MemoAuthUserDbRepository();

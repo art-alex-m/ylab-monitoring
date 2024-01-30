@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+/**
+ * {@inheritDoc}
+ */
 @RequiredArgsConstructor
 public class AuditViewAuditLogInteractor implements ViewAuditLogInput {
 
@@ -22,6 +25,9 @@ public class AuditViewAuditLogInteractor implements ViewAuditLogInput {
 
     private final MonitoringEventPublisher eventPublisher;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ViewAuditLogInputResponse view(ViewAuditLogInputRequest request) {
 

@@ -8,20 +8,32 @@
     <artifactId>ylab-monitoring</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+    <description>Monitoring service</description>
+
     <modules>
         <module>domain-auth</module>
         <module>domain-core</module>
         <module>domain-audit</module>
+        <module>domain-core-model</module>
+        <module>domain-core-repo</module>
+        <module>core-model</module>
         <module>app-console</module>
         <module>auth</module>
         <module>core</module>
         <module>audit</module>
+        <module>db-memo</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <versions.maven-jar-plugin>3.3.0</versions.maven-jar-plugin>
+        <versions.maven-dependency-plugin>3.6.0</versions.maven-dependency-plugin>
+        <versions.lombok>1.18.30</versions.lombok>
+        <versions.junit-jupiter>5.10.1</versions.junit-jupiter>
+        <versions.mockito-junit-jupiter>5.7.0</versions.mockito-junit-jupiter>
+        <versions.assertj-core>3.25.1</versions.assertj-core>
     </properties>
 
 </project>

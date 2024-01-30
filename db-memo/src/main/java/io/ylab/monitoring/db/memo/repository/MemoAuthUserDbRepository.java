@@ -18,6 +18,11 @@ public class MemoAuthUserDbRepository implements UserLoginInputDbRepository, Use
     }
 
     @Override
+    public boolean existsByUsername(String username) {
+        return database.containsKey(username);
+    }
+
+    @Override
     public Optional<AuthUser> findByUsername(String username) {
         return Optional.ofNullable(database.get(username));
     }

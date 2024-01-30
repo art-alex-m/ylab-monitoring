@@ -114,7 +114,7 @@ class CoreSubmissionMeterReadingsInteractorTest {
     }
 
     @Test
-    void givenRequest_whenSubmit_thenThrowMeterNotFoundException() {
+    void givenDbNoMeter_whenSubmit_thenThrowMeterNotFoundException() {
         given(meterDbRepository.findByName(request.getMeterName())).willReturn(Optional.empty());
         ArgumentCaptor<MeterReadingSubmissionEntered> enteredCaptor = ArgumentCaptor.forClass(
                 MeterReadingSubmissionEntered.class);
@@ -135,7 +135,7 @@ class CoreSubmissionMeterReadingsInteractorTest {
     }
 
     @Test
-    void givenRequest_whenSubmit_thenThrowMeterReadingExistsException() {
+    void givenDbMeterReadingExists_whenSubmit_thenThrowMeterReadingExistsException() {
         given(request.getPeriod()).willReturn(testPeriod);
         given(request.getValue()).willReturn(testValue);
         given(meterDbRepository.findByName(request.getMeterName())).willReturn(Optional.of(testMeter));

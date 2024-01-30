@@ -5,6 +5,7 @@ import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.auth.boundary.AuthUserLoginInteractor;
 import io.ylab.monitoring.auth.boundary.AuthUserRegistrationInteractor;
+import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import lombok.Builder;
 
@@ -16,10 +17,14 @@ public class AppAnonymousInteractorConfig extends AbstractInteractorConfig {
 
     private final MonitoringEventPublisher eventPublisher;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Builder
-    public AppAnonymousInteractorConfig(DatabaseConfig databaseConfig, MonitoringEventPublisher eventPublisher) {
+    public AppAnonymousInteractorConfig(DatabaseConfig databaseConfig, MonitoringEventPublisher eventPublisher,
+            PasswordEncoder passwordEncoder) {
         this.databaseConfig = databaseConfig;
         this.eventPublisher = eventPublisher;
+        this.passwordEncoder = passwordEncoder;
         init();
     }
 
@@ -27,8 +32,8 @@ public class AppAnonymousInteractorConfig extends AbstractInteractorConfig {
         put(AppCommandName.EXIT, null);
 
         put(AppCommandName.LOGIN, new AuthUserLoginInteractor(eventPublisher,
-                databaseConfig.getUserLoginInputDbRepository()));
+                databaseConfig.getUserLoginInputDbRepository(), passwordEncoder));
         put(AppCommandName.REGISTRATION, new AuthUserRegistrationInteractor(
-                databaseConfig.getUserRegistrationInputDbRepository(), eventPublisher));
+                databaseConfig.getUserRegistrationInputDbRepository(), eventPublisher, passwordEncoder));
     }
 }

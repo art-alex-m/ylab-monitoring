@@ -8,6 +8,7 @@ import io.ylab.monitoring.domain.auth.exception.UserExistsException;
 import io.ylab.monitoring.domain.auth.in.UserRegistrationInputRequest;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
 import io.ylab.monitoring.domain.auth.repository.UserRegistrationInputDbRepository;
+import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import io.ylab.monitoring.domain.core.model.DomainRole;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +20,21 @@ public class AuthUserRegistrationInteractor implements UserRegistrationInput {
 
     private final MonitoringEventPublisher eventPublisher;
 
+    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public boolean register(UserRegistrationInputRequest request) throws UserExistsException {
         eventPublisher.publish(AuthUserRegistrationEntered.builder()
                 .request(request).build());
 
-        if (inputDbRepository.findByUsername(request.getUsername()).isPresent()) {
+        if (inputDbRepository.existsByUsername(request.getUsername())) {
             throw new UserExistsException(request.getUsername());
         }
 
         AuthUser authUser = AuthAuthUser.builder()
                 .username(request.getUsername())
-                .password(request.getPassword()) // TODO: Password hashing
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(DomainRole.USER)
                 .build();
 

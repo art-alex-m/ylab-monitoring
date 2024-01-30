@@ -9,4 +9,8 @@ public abstract class AuthMonitoringException extends MonitoringException {
     AuthMonitoringException(String message) {
         super(message);
     }
+
+    AuthMonitoringException(Throwable throwable) {
+        super(throwable);
+    }
 }

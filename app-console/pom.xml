@@ -44,6 +44,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>io.ylab.monitoring.db.jdbc</groupId>
+            <artifactId>monitoring-db-jdbc</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>io.ylab.monitoring.db.migrations</groupId>
             <artifactId>monitoring-db-migrations</artifactId>
             <version>${project.parent.version}</version>

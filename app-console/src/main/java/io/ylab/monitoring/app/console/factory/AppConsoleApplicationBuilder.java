@@ -13,6 +13,7 @@ import io.ylab.monitoring.core.service.CorePeriodService;
 import io.ylab.monitoring.domain.auth.event.UserLogined;
 import io.ylab.monitoring.domain.auth.event.UserLogouted;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
+import io.ylab.monitoring.domain.auth.repository.UserRegistrationInputDbRepository;
 import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEvent;
 import io.ylab.monitoring.domain.core.model.DomainRole;
@@ -169,12 +170,21 @@ public class AppConsoleApplicationBuilder {
         if (adminUser == null) {
             return;
         }
-        AuthUser encodedUser = ((AuthAuthUser) adminUser).toBuilder()
-                .password(passwordEncoder.encode(adminUser.getPassword()))
-                .build();
+
+        UserRegistrationInputDbRepository userRepository = databaseConfig.getUserRegistrationInputDbRepository();
+
         try {
-            databaseConfig.getUserRegistrationInputDbRepository().create(encodedUser);
-        } catch (Exception ignored) {
+            if (userRepository.existsByUsername(adminUser.getUsername())) {
+                return;
+            }
+
+            AuthUser encodedUser = ((AuthAuthUser) adminUser).toBuilder()
+                    .password(passwordEncoder.encode(adminUser.getPassword()))
+                    .build();
+
+            userRepository.create(encodedUser);
+        } catch (Exception ex) {
+            System.out.println(ex.getLocalizedMessage());
         }
     }
 

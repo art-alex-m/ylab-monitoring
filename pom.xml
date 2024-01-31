@@ -23,6 +23,7 @@
         <module>audit</module>
         <module>db-memo</module>
         <module>db-migrations</module>
+        <module>db-jdbc</module>
     </modules>
 
     <properties>

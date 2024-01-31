@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.console;
 
+import io.ylab.monitoring.app.console.config.AppJdbcDbConfig;
 import io.ylab.monitoring.app.console.exception.AppProgramExitException;
 import io.ylab.monitoring.app.console.exception.AppPropertiesFileException;
 import io.ylab.monitoring.app.console.model.AppConsoleApplication;
@@ -16,10 +17,14 @@ public class Main {
 
         Properties appProperties = loadAppProperties();
 
+        String url = appProperties.getProperty("ylab.monitoring.db.jdbc.url");
+        String username = appProperties.getProperty("ylab.monitoring.db.username");
+        String password = appProperties.getProperty("ylab.monitoring.db.password");
+
         LiquibaseMigrationService.builder()
-                .url(appProperties.getProperty("ylab.monitoring.db.jdbc.url"))
-                .username(appProperties.getProperty("ylab.monitoring.db.username"))
-                .password(appProperties.getProperty("ylab.monitoring.db.password"))
+                .url(appProperties.getProperty("ylab.monitoring.db.liquibase.url", url))
+                .username(username)
+                .password(password)
                 .build()
                 .migrate("!test");
 
@@ -28,6 +33,7 @@ public class Main {
                         appProperties.getProperty("ylab.monitoring.admin.password"))
                 .withMeters(appProperties.getProperty("ylab.monitoring.startup.meters"))
                 .withPasswordSalt(appProperties.getProperty("ylab.monitoring.auth.password.salt"))
+                .withDatabaseConfig(AppJdbcDbConfig.builder().url(url).password(password).username(username).build())
                 .build();
 
         System.out.println("Welcome to Monitoring Service!");

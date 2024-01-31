@@ -11,7 +11,6 @@ import liquibase.resource.ClassLoaderResourceAccessor;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class LiquibaseMigrationService {
                     .findCorrectDatabaseImplementation(new JdbcConnection(connection));
             Liquibase liquibase =
                     new Liquibase(CHANGELOG_MASTER_FILE, new ClassLoaderResourceAccessor(), database);
-            liquibase.update(new Contexts(contexts), new PrintWriter(System.out));
+            liquibase.update(new Contexts(contexts));
         } catch (SQLException | LiquibaseException ex) {
             throw new DatabaseMigrationException(ex);
         }

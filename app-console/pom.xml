@@ -43,12 +43,23 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.ylab.monitoring.db.migrations</groupId>
+            <artifactId>monitoring-db-migrations</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${versions.lombok}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${versions.postgresql-driver}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>

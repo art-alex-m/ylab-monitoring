@@ -1,18 +1,33 @@
 package io.ylab.monitoring.app.console;
 
 import io.ylab.monitoring.app.console.exception.AppProgramExitException;
+import io.ylab.monitoring.app.console.exception.AppPropertiesFileException;
 import io.ylab.monitoring.app.console.model.AppConsoleApplication;
+import io.ylab.monitoring.db.migrations.service.LiquibaseMigrationService;
 import io.ylab.monitoring.domain.core.exception.MonitoringException;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        Properties appProperties = loadAppProperties();
+
+        LiquibaseMigrationService.builder()
+                .url(appProperties.getProperty("ylab.monitoring.db.jdbc.url"))
+                .username(appProperties.getProperty("ylab.monitoring.db.username"))
+                .password(appProperties.getProperty("ylab.monitoring.db.password"))
+                .build()
+                .migrate("!test");
+
         AppConsoleApplication application = AppConsoleApplication.builder()
-                .withDefaultAdmin()
-                .withMeter("gaz")
-                .withMeter("electro")
-                .withMeter("teplo")
+                .withAdmin(appProperties.getProperty("ylab.monitoring.admin.username"),
+                        appProperties.getProperty("ylab.monitoring.admin.password"))
+                .withMeters(appProperties.getProperty("ylab.monitoring.startup.meters"))
+                .withPasswordSalt(appProperties.getProperty("ylab.monitoring.auth.password.salt"))
                 .build();
 
         System.out.println("Welcome to Monitoring Service!");
@@ -33,5 +48,22 @@ public class Main {
         }
 
         scanner.close();
+    }
+
+    /**
+     * Загружает файл настроек application.properties
+     *
+     * @return Properties
+     */
+    private static Properties loadAppProperties() {
+        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        String defaultConfigFile = rootPath + "application.properties";
+        Properties appProperties = new Properties();
+        try {
+            appProperties.load(new FileInputStream(defaultConfigFile));
+            return appProperties;
+        } catch (IOException ex) {
+            throw new AppPropertiesFileException(ex);
+        }
     }
 }

@@ -22,6 +22,7 @@
         <module>core</module>
         <module>audit</module>
         <module>db-memo</module>
+        <module>db-migrations</module>
     </modules>
 
     <properties>
@@ -34,6 +35,8 @@
         <versions.junit-jupiter>5.10.1</versions.junit-jupiter>
         <versions.mockito-junit-jupiter>5.7.0</versions.mockito-junit-jupiter>
         <versions.assertj-core>3.25.1</versions.assertj-core>
+        <versions.liquibase-core>4.24.0</versions.liquibase-core>
+        <versions.postgresql-driver>42.6.0</versions.postgresql-driver>
     </properties>
 
 </project>

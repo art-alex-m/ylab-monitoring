@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: artalexm
+      changes:
+        - createTable:
+            tableName: audit_items
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_uuid
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+                    checkConstraint: LENGTH(name) > 0
+              - column:
+                  name: occurred_at
+                  type: timestamp
+                  constraints:
+                    nullable: false

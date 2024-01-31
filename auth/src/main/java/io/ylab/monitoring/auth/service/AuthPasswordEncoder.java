@@ -8,7 +8,6 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.util.Base64;
-import java.util.Objects;
 
 public class AuthPasswordEncoder implements PasswordEncoder {
 
@@ -22,29 +21,20 @@ public class AuthPasswordEncoder implements PasswordEncoder {
 
     private final SecretKeyFactory keyFactory;
 
-    private byte[] salt;
+    private final byte[] salt;
 
-    public AuthPasswordEncoder() {
+    public AuthPasswordEncoder(byte[] salt) {
         try {
             this.keyFactory = SecretKeyFactory.getInstance(alogo);
         } catch (Exception ex) {
             throw new PasswordEncoderException(ex);
         }
-        SecureRandom random = new SecureRandom();
-        salt = new byte[SALT_LENGTH];
-        random.nextBytes(salt);
-    }
-
-    /**
-     * Устанавливает соль шифрования
-     *
-     * @param salt строка
-     * @return AuthPasswordEncoder
-     */
-    public AuthPasswordEncoder setSalt(String salt) {
-        Objects.requireNonNull(salt);
-        this.salt = salt.getBytes();
-        return this;
+        if (salt == null || salt.length == 0) {
+            SecureRandom random = new SecureRandom();
+            salt = new byte[SALT_LENGTH];
+            random.nextBytes(salt);
+        }
+        this.salt = salt;
     }
 
     @Override

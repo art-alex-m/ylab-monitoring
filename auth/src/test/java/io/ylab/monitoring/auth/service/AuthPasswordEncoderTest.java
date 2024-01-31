@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 
 class AuthPasswordEncoderTest {
 
@@ -35,27 +34,8 @@ class AuthPasswordEncoderTest {
     }
 
     @Test
-    void givenStringSalt_whenSetSalt_thenSuccess() {
-        String someSalt = "some-salt";
-        AuthPasswordEncoder passwordEncoder = new AuthPasswordEncoder();
-
-        AuthPasswordEncoder result = passwordEncoder.setSalt(someSalt);
-
-        assertThat(result).isNotNull().isInstanceOf(PasswordEncoder.class);
-    }
-
-    @Test
-    void givenNullSalt_whenSetSalt_thenException() {
-        AuthPasswordEncoder passwordEncoder = new AuthPasswordEncoder();
-
-        Throwable result = catchThrowable(() -> passwordEncoder.setSalt(null));
-
-        assertThat(result).isNotNull().isInstanceOf(NullPointerException.class);
-    }
-
-    @Test
     void givenTestSaltAndTestPassword_whenEncode_thenSuccess() {
-        PasswordEncoder passwordEncoder = new AuthPasswordEncoder().setSalt(testSalt);
+        PasswordEncoder passwordEncoder = new AuthPasswordEncoder(testSalt.getBytes());
 
         String result = passwordEncoder.encode(testPassword);
 
@@ -65,7 +45,7 @@ class AuthPasswordEncoderTest {
     @ParameterizedTest
     @MethodSource
     void givenPasswordAndSalt_whenMatches_thenSuccess(String password, String salt, String hash, boolean expected) {
-        PasswordEncoder passwordEncoder = new AuthPasswordEncoder().setSalt(salt);
+        PasswordEncoder passwordEncoder = new AuthPasswordEncoder(salt.getBytes());
 
         boolean result = passwordEncoder.matches(password, hash);
 

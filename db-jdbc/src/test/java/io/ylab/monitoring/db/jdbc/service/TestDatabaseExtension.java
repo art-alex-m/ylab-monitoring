@@ -14,6 +14,17 @@ import java.util.Arrays;
 
 /**
  * Расширение для организации тестирования с временной БД
+ *
+ * <p>
+ * <code><pre>
+ * {@code @ExtendWith(TestDatabaseExtension.class)}
+ * class JdbcAuthUserDbRepositoryTest {
+ *
+ *     {@code }@TestConnection}
+ *     private Connection connection;
+ * }
+ * </pre></code>
+ * </p>
  */
 public class TestDatabaseExtension implements BeforeAllCallback, AfterAllCallback, TestInstancePostProcessor {
 

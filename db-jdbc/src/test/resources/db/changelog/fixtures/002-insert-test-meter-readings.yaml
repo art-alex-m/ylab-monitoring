@@ -1,0 +1,121 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: artalexm
+      context: test
+      comment: Insert test meters
+      changes:
+        - insert:
+            schemaName: monitoring
+            tableName: meters
+            columns:
+              - column:
+                  name: uuid
+                  value: 55524aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: name
+                  value: meter1
+        - insert:
+            schemaName: monitoring
+            tableName: meters
+            columns:
+              - column:
+                  name: uuid
+                  value: 55534aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: name
+                  value: meter2
+  - changeSet:
+      id: 2
+      author: artalexm
+      context: test
+      comment: Insert test meter readings
+      changes:
+        - insert:
+            schemaName: monitoring
+            tableName: meter_readings
+            columns:
+              - column:
+                  name: uuid
+                  value: 66624aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: meter_uuid
+                  value: 55524aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: period
+                  value: 2023-07-01T00:00:00.00Z
+              - column:
+                  name: value
+                  value: 117
+              - column:
+                  name: created_at
+                  value: 2024-02-01T00:00:00.00Z
+        - insert:
+            schemaName: monitoring
+            tableName: meter_readings
+            columns:
+              - column:
+                  name: uuid
+                  value: 66634aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: meter_uuid
+                  value: 55524aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: period
+                  value: 2023-07-01T00:00:00.00Z
+              - column:
+                  name: value
+                  value: 217
+              - column:
+                  name: created_at
+                  value: 2024-02-01T00:00:00.00Z
+        - insert:
+            schemaName: monitoring
+            tableName: meter_readings
+            columns:
+              - column:
+                  name: uuid
+                  value: 66644aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: meter_uuid
+                  value: 55534aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: period
+                  value: 2023-07-01T00:00:00.00Z
+              - column:
+                  name: value
+                  value: 127
+              - column:
+                  name: created_at
+                  value: 2024-02-01T00:00:00.00Z
+        - insert:
+            schemaName: monitoring
+            tableName: meter_readings
+            columns:
+              - column:
+                  name: uuid
+                  value: 66654aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: meter_uuid
+                  value: 55524aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: period
+                  value: 2023-08-01T00:00:00.00Z
+              - column:
+                  name: value
+                  value: 118
+              - column:
+                  name: created_at
+                  value: 2024-02-01T00:00:00.00Z

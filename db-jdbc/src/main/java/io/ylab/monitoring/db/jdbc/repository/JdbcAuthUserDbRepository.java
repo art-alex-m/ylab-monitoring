@@ -31,7 +31,7 @@ public class JdbcAuthUserDbRepository implements UserLoginInputDbRepository, Use
                     return Optional.of(JdbcAuthUser.builder()
                             .id(UUID.fromString(resultSet.getString(JdbcAuthUser.ID)))
                             .password(resultSet.getString(JdbcAuthUser.PASSWORD))
-                            .username(JdbcAuthUser.USERNAME)
+                            .username(resultSet.getString(JdbcAuthUser.USERNAME))
                             .role(DomainRole.valueOf(resultSet.getString(JdbcAuthUser.ROLE))).build());
                 }
             }
@@ -51,7 +51,7 @@ public class JdbcAuthUserDbRepository implements UserLoginInputDbRepository, Use
             statement.setString(2, user.getUsername());
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getRole().name());
-            return statement.execute();
+            return statement.executeUpdate() > 0;
         } catch (SQLException ex) {
             throw new JdbcDbException(ex);
         }

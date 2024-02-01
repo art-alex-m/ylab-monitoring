@@ -38,6 +38,7 @@
         <versions.assertj-core>3.25.1</versions.assertj-core>
         <versions.liquibase-core>4.24.0</versions.liquibase-core>
         <versions.postgresql-driver>42.6.0</versions.postgresql-driver>
+        <versions.testcontainers>1.19.3</versions.testcontainers>
     </properties>
 
 </project>

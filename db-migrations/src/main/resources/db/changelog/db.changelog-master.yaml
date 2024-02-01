@@ -2,3 +2,8 @@ databaseChangeLog:
   - includeAll:
       relativeToChangelogFile: true
       path: migrations/
+  - includeAll:
+      context: test
+      errorIfMissingOrEmpty: false
+      relativeToChangelogFile: true
+      path: fixtures/

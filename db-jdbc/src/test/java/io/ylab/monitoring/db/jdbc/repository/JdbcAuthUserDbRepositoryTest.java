@@ -28,6 +28,8 @@ class JdbcAuthUserDbRepositoryTest {
 
     private static final JdbcTestHelperFactory testFactory = new JdbcTestHelperFactory();
 
+    private final SqlQueryRepository queryRepository = new SqlQueryResourcesRepository();
+
     @TestConnection
     private Connection connection;
 
@@ -43,7 +45,7 @@ class JdbcAuthUserDbRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        sut = new JdbcAuthUserDbRepository(connection);
+        sut = new JdbcAuthUserDbRepository(queryRepository, connection);
     }
 
     @ParameterizedTest

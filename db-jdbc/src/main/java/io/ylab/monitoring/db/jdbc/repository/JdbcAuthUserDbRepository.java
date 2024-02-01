@@ -18,13 +18,18 @@ import java.util.UUID;
 @AllArgsConstructor
 public class JdbcAuthUserDbRepository implements UserLoginInputDbRepository, UserRegistrationInputDbRepository {
 
+    private static final String SQL_CREATE = "db/sql/auth-users-create.sql";
+    private static final String SQL_FIND_BY_USERNAME = "db/sql/auth-users-find-by-username.sql";
+    private static final String SQL_EXISTS_BY_USERNAME = "db/sql/auth-users-exists-by-username.sql";
+
+    private final SqlQueryRepository queryRepository;
+
     private Connection connection;
 
     @Override
     public Optional<AuthUser> findByUsername(String username) {
-        String sql = "select uuid, username, password, role from auth_users where username = ?";
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_FIND_BY_USERNAME));
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -44,9 +49,8 @@ public class JdbcAuthUserDbRepository implements UserLoginInputDbRepository, Use
 
     @Override
     public boolean create(AuthUser user) {
-        String sql = "insert into auth_users (uuid, username, password, role) values (?, ?, ?, ?)";
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_CREATE));
             statement.setString(1, user.getId().toString());
             statement.setString(2, user.getUsername());
             statement.setString(3, user.getPassword());
@@ -59,9 +63,8 @@ public class JdbcAuthUserDbRepository implements UserLoginInputDbRepository, Use
 
     @Override
     public boolean existsByUsername(String username) {
-        String sql = "select 1 from auth_users where username = ?";
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_EXISTS_BY_USERNAME));
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.isBeforeFirst();

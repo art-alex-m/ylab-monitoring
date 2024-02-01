@@ -7,14 +7,12 @@ import io.ylab.monitoring.app.console.model.AppConsoleApplication;
 import io.ylab.monitoring.db.migrations.service.LiquibaseMigrationService;
 import io.ylab.monitoring.domain.core.exception.MonitoringException;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
         Properties appProperties = loadAppProperties();
 
         String url = appProperties.getProperty("ylab.monitoring.db.jdbc.url");
@@ -23,9 +21,7 @@ public class Main {
 
         LiquibaseMigrationService.builder()
                 .url(appProperties.getProperty("ylab.monitoring.db.liquibase.url", url))
-                .username(username)
-                .password(password)
-                .build()
+                .username(username).password(password).build()
                 .migrate("!test");
 
         AppConsoleApplication application = AppConsoleApplication.builder()
@@ -62,11 +58,11 @@ public class Main {
      * @return Properties
      */
     private static Properties loadAppProperties() {
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String defaultConfigFile = rootPath + "application.properties";
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        String defaultConfigFile = "application.properties";
         Properties appProperties = new Properties();
         try {
-            appProperties.load(new FileInputStream(defaultConfigFile));
+            appProperties.load(loader.getResourceAsStream(defaultConfigFile));
             return appProperties;
         } catch (IOException ex) {
             throw new AppPropertiesFileException(ex);

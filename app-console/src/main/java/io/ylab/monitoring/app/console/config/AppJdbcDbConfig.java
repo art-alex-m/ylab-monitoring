@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.console.config;
 
 import io.ylab.monitoring.app.console.exception.AppConfigurationException;
 import io.ylab.monitoring.app.console.model.DatabaseConfig;
+import io.ylab.monitoring.db.jdbc.exeption.JdbcDbException;
 import io.ylab.monitoring.db.jdbc.repository.*;
 import io.ylab.monitoring.domain.audit.repository.CreateAuditLogInputDbRepository;
 import io.ylab.monitoring.domain.audit.repository.ViewAuditLogInputDbRepository;
@@ -57,25 +58,33 @@ public class AppJdbcDbConfig implements DatabaseConfig {
      * {@inheritDoc}
      */
     public DatabaseConfig setMeters(List<Meter> meterList) {
-        meterList.forEach(meter -> jdbcUserMetersDbRepository.store(meter));
+        for (Meter meter : meterList) {
+            try {
+                jdbcUserMetersDbRepository.store(meter);
+            } catch (JdbcDbException ignored) {
+
+            }
+        }
         return this;
     }
 
     private void init() {
-        Connection connection = null;
+        Connection connection;
+        SqlQueryRepository queryRepository;
         try {
             connection = DriverManager.getConnection(url, username, password);
+            queryRepository = new SqlQueryResourcesRepository();
         } catch (Exception ex) {
             throw new AppConfigurationException(ex);
         }
 
         JdbcAdminMeterReadingsDbRepository jdbcAdminMeterReadingsDbRepository =
-                new JdbcAdminMeterReadingsDbRepository(connection);
+                new JdbcAdminMeterReadingsDbRepository(queryRepository, connection);
         JdbcUserMeterReadingsDbRepository jdbcUserMeterReadingsDbRepository =
-                new JdbcUserMeterReadingsDbRepository(connection);
-        JdbcAuditLogDbRepository jdbcAuditLogDbRepository = new JdbcAuditLogDbRepository(connection);
-        JdbcAuthUserDbRepository jdbcAuthUserDbRepository = new JdbcAuthUserDbRepository(connection);
-        jdbcUserMetersDbRepository = new JdbcUserMetersDbRepository(connection);
+                new JdbcUserMeterReadingsDbRepository(queryRepository, connection);
+        JdbcAuditLogDbRepository jdbcAuditLogDbRepository = new JdbcAuditLogDbRepository(queryRepository, connection);
+        JdbcAuthUserDbRepository jdbcAuthUserDbRepository = new JdbcAuthUserDbRepository(queryRepository, connection);
+        jdbcUserMetersDbRepository = new JdbcUserMetersDbRepository(queryRepository, connection);
 
         userActualMeterReadingsInputDbRepository = jdbcUserMeterReadingsDbRepository;
         userMonthMeterReadingsInputDbRepository = jdbcUserMeterReadingsDbRepository;

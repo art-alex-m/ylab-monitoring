@@ -17,7 +17,8 @@ public class JdbcTestHelperFactory {
 
     public final UUID testUserIdB = UUID.fromString("38624aa3-943a-49b9-b010-494e9afc3bb0");
 
-    public final UUID testMeterId = UUID.fromString("12324aa3-943a-49b9-b010-494e9afc3bb0");
+    public final UUID testMeter1Id = UUID.fromString("55524aa3-943a-49b9-b010-494e9afc3bb0");
+    public final UUID testMeter2Id = UUID.fromString("55534aa3-943a-49b9-b010-494e9afc3bb0");
 
     public final String testMeterName1 = "meter1";
 
@@ -41,7 +42,7 @@ public class JdbcTestHelperFactory {
 
     public final DomainUser testUserB = new CoreDomainUser(testUserIdB);
 
-    public final Meter testMeter = new CoreMeter(testMeterId, testMeterName1);
+    public final Meter testMeter = new CoreMeter(testMeter1Id, testMeterName1);
 
     public final Instant testPeriod07 = Instant.parse("2023-07-01T00:00:00.00Z");
 
@@ -52,7 +53,7 @@ public class JdbcTestHelperFactory {
     public MeterReading create(DomainUser user, Instant period, String meterName) {
         return CoreMeterReading.builder()
                 .period(period)
-                .meter(new CoreMeter(testMeterId, meterName))
+                .meter(new CoreMeter(testMeter1Id, meterName))
                 .value(1L)
                 .user(user)
                 .build();

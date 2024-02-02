@@ -19,8 +19,7 @@ import java.util.Arrays;
  * <code><pre>
  * {@code @ExtendWith(TestDatabaseExtension.class)}
  * class JdbcAuthUserDbRepositoryTest {
- *
- *     {@code }@TestConnection}
+ *     {@code @TestConnection}
  *     private Connection connection;
  * }
  * </pre></code>

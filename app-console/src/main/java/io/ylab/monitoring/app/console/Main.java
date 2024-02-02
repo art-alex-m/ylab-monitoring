@@ -8,6 +8,9 @@ import io.ylab.monitoring.db.migrations.service.LiquibaseMigrationService;
 import io.ylab.monitoring.domain.core.exception.MonitoringException;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -58,11 +61,21 @@ public class Main {
      * @return Properties
      */
     private static Properties loadAppProperties() {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        String defaultConfigFile = "application.properties";
+        Path defaultConfigFile = Path.of("application.properties");
         Properties appProperties = new Properties();
         try {
-            appProperties.load(loader.getResourceAsStream(defaultConfigFile));
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream propertiesStream = loader.getResourceAsStream(defaultConfigFile.toString());
+            appProperties.load(propertiesStream);
+            propertiesStream.close();
+
+            if (Files.isReadable(defaultConfigFile)) {
+                System.out.println("Found custom properties file. Applying...");
+                propertiesStream = Files.newInputStream(defaultConfigFile);
+                appProperties.load(propertiesStream);
+                propertiesStream.close();
+            }
+
             return appProperties;
         } catch (IOException ex) {
             throw new AppPropertiesFileException(ex);

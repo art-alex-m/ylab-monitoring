@@ -8,11 +8,13 @@ import io.ylab.monitoring.domain.core.model.DomainRole;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import io.ylab.monitoring.domain.core.model.Meter;
 import io.ylab.monitoring.domain.core.model.MeterReading;
+import lombok.experimental.UtilityClass;
 
 import java.time.Instant;
 import java.util.UUID;
 
-public class JdbcTestHelperFactory {
+@UtilityClass
+public class JdbcTestHelper {
     public final UUID testUserIdA = UUID.fromString("38624aa3-943a-49b9-b010-494e9afc6ba0");
 
     public final UUID testUserIdB = UUID.fromString("38624aa3-943a-49b9-b010-494e9afc3bb0");

@@ -1,7 +1,7 @@
 package io.ylab.monitoring.db.jdbc.repository;
 
 import io.ylab.monitoring.db.jdbc.model.JdbcAuditItem;
-import io.ylab.monitoring.db.jdbc.service.JdbcTestHelperFactory;
+import io.ylab.monitoring.db.jdbc.service.JdbcTestHelper;
 import io.ylab.monitoring.db.jdbc.service.TestConnection;
 import io.ylab.monitoring.db.jdbc.service.TestDatabaseExtension;
 import io.ylab.monitoring.domain.audit.model.AuditItem;
@@ -24,8 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class JdbcAuditLogDbRepositoryTest {
 
-    private final static JdbcTestHelperFactory testFactory = new JdbcTestHelperFactory();
-
     private final SqlQueryRepository queryRepository = new SqlQueryResourcesRepository();
 
     @TestConnection
@@ -44,7 +42,7 @@ class JdbcAuditLogDbRepositoryTest {
         AuditItem auditItem = JdbcAuditItem.builder()
                 .name("test")
                 .occurredAt(Instant.now())
-                .user(testFactory.testUserA)
+                .user(JdbcTestHelper.testUserA)
                 .build();
 
         boolean result = sut.create(auditItem);

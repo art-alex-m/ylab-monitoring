@@ -72,8 +72,8 @@ public class AppJdbcDbConfig implements DatabaseConfig {
         for (Meter meter : meterList) {
             try {
                 jdbcUserMetersDbRepository.store(meter);
-            } catch (JdbcDbException ignored) {
-
+            } catch (JdbcDbException ex) {
+                System.out.println(ex.getMessage());
             }
         }
         return this;

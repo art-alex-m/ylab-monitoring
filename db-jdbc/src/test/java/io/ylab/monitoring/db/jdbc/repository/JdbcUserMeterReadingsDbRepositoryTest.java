@@ -2,7 +2,7 @@ package io.ylab.monitoring.db.jdbc.repository;
 
 import io.ylab.monitoring.core.model.CoreMeter;
 import io.ylab.monitoring.db.jdbc.exeption.JdbcDbException;
-import io.ylab.monitoring.db.jdbc.service.JdbcTestHelperFactory;
+import io.ylab.monitoring.db.jdbc.service.JdbcTestHelper;
 import io.ylab.monitoring.db.jdbc.service.TestConnection;
 import io.ylab.monitoring.db.jdbc.service.TestDatabaseExtension;
 import io.ylab.monitoring.domain.core.model.DomainUser;
@@ -30,8 +30,6 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class JdbcUserMeterReadingsDbRepositoryTest {
 
-    private static final JdbcTestHelperFactory testFactory = new JdbcTestHelperFactory();
-
     private final SqlQueryRepository queryRepository = new SqlQueryResourcesRepository();
 
     @TestConnection
@@ -40,33 +38,33 @@ class JdbcUserMeterReadingsDbRepositoryTest {
     private JdbcUserMeterReadingsDbRepository sut;
 
     public static Stream<Arguments> givenUserPeriodMeter_whenExistsByUserAndPeriodAndMeter_thenExpected() {
-        Meter testMeter1 = testFactory.testMeter;
-        Meter testMeter2 = new CoreMeter(testFactory.testMeter2Id, testFactory.testMeterName2);
+        Meter testMeter1 = JdbcTestHelper.testMeter;
+        Meter testMeter2 = new CoreMeter(JdbcTestHelper.testMeter2Id, JdbcTestHelper.testMeterName2);
 
         return Stream.of(
-                Arguments.of(testFactory.testUserA, testFactory.testPeriod07, testMeter1, true),
-                Arguments.of(testFactory.testUserA, testFactory.testPeriod07, testMeter2, true),
-                Arguments.of(testFactory.testUserB, testFactory.testPeriod07, testMeter1, true),
-                Arguments.of(testFactory.testUserB, testFactory.testPeriod06, testMeter2, false),
-                Arguments.of(testFactory.testUserA, testFactory.testPeriod06, testMeter1, false),
-                Arguments.of(testFactory.testUserB, testFactory.testPeriod06, testMeter1, false)
+                Arguments.of(JdbcTestHelper.testUserA, JdbcTestHelper.testPeriod07, testMeter1, true),
+                Arguments.of(JdbcTestHelper.testUserA, JdbcTestHelper.testPeriod07, testMeter2, true),
+                Arguments.of(JdbcTestHelper.testUserB, JdbcTestHelper.testPeriod07, testMeter1, true),
+                Arguments.of(JdbcTestHelper.testUserB, JdbcTestHelper.testPeriod06, testMeter2, false),
+                Arguments.of(JdbcTestHelper.testUserA, JdbcTestHelper.testPeriod06, testMeter1, false),
+                Arguments.of(JdbcTestHelper.testUserB, JdbcTestHelper.testPeriod06, testMeter1, false)
         );
     }
 
     public static Stream<Arguments> givenUserPeriod_whenFindByUserAndPeriod_thenExpected() {
         return Stream.of(
-                Arguments.of(testFactory.testUserA, testFactory.testPeriod07, 2),
-                Arguments.of(testFactory.testUserA, testFactory.testPeriod06, 0),
-                Arguments.of(testFactory.testUserB, testFactory.testPeriod06, 0),
-                Arguments.of(testFactory.testUserA, testFactory.testPeriod08, 1),
-                Arguments.of(testFactory.testUserB, testFactory.testPeriod07, 1)
+                Arguments.of(JdbcTestHelper.testUserA, JdbcTestHelper.testPeriod07, 2),
+                Arguments.of(JdbcTestHelper.testUserA, JdbcTestHelper.testPeriod06, 0),
+                Arguments.of(JdbcTestHelper.testUserB, JdbcTestHelper.testPeriod06, 0),
+                Arguments.of(JdbcTestHelper.testUserA, JdbcTestHelper.testPeriod08, 1),
+                Arguments.of(JdbcTestHelper.testUserB, JdbcTestHelper.testPeriod07, 1)
         );
     }
 
     public static Stream<Arguments> givenDuplicatedMeterReading_whenSave_thenException() {
         return Stream.of(
-                Arguments.of(testFactory.create()),
-                Arguments.of(testFactory.create(testFactory.testMeterName2))
+                Arguments.of(JdbcTestHelper.create()),
+                Arguments.of(JdbcTestHelper.create(JdbcTestHelper.testMeterName2))
         );
     }
 
@@ -78,16 +76,16 @@ class JdbcUserMeterReadingsDbRepositoryTest {
     @Order(100)
     @Test
     void givenUserA_whenFindActualByUser_thenExpected() {
-        List<MeterReading> result = sut.findActualByUser(testFactory.testUserA);
+        List<MeterReading> result = sut.findActualByUser(JdbcTestHelper.testUserA);
 
         assertThat(result).isNotEmpty().hasSize(1);
         MeterReading resultReading = result.get(0);
-        assertThat(resultReading.getMeter().getName()).isEqualTo(testFactory.testMeterName1);
-        assertThat(resultReading.getMeter().getId()).isEqualTo(testFactory.testMeter1Id);
-        assertThat(resultReading.getPeriod()).isEqualTo(testFactory.testPeriod08);
+        assertThat(resultReading.getMeter().getName()).isEqualTo(JdbcTestHelper.testMeterName1);
+        assertThat(resultReading.getMeter().getId()).isEqualTo(JdbcTestHelper.testMeter1Id);
+        assertThat(resultReading.getPeriod()).isEqualTo(JdbcTestHelper.testPeriod08);
         assertThat(resultReading.getId()).isNotNull();
         assertThat(resultReading.getUser()).isNotNull();
-        assertThat(resultReading.getUser().getId()).isEqualTo(testFactory.testUserIdA);
+        assertThat(resultReading.getUser().getId()).isEqualTo(JdbcTestHelper.testUserIdA);
         assertThat(resultReading.getValue()).isEqualTo(118);
         assertThat(resultReading.getCreatedAt()).isNotNull();
     }
@@ -114,7 +112,7 @@ class JdbcUserMeterReadingsDbRepositoryTest {
     @Order(1000)
     @Test
     void givenMeterReading_whenSave_thenSuccess() {
-        MeterReading reading = testFactory.create(testFactory.testPeriod06, testFactory.testMeterName1);
+        MeterReading reading = JdbcTestHelper.create(JdbcTestHelper.testPeriod06, JdbcTestHelper.testMeterName1);
 
         boolean result = sut.save(reading);
 
@@ -124,12 +122,13 @@ class JdbcUserMeterReadingsDbRepositoryTest {
     @Order(100)
     @Test
     void givenUserA_whenFindByUser_thenSuccess() {
-        List<MeterReading> result = sut.findByUser(testFactory.testUserA);
+        List<MeterReading> result = sut.findByUser(JdbcTestHelper.testUserA);
 
         assertThat(result)
                 .hasSize(3)
                 .map(MeterReading::getPeriod)
-                .isEqualTo(List.of(testFactory.testPeriod08, testFactory.testPeriod07, testFactory.testPeriod07));
+                .isEqualTo(
+                        List.of(JdbcTestHelper.testPeriod08, JdbcTestHelper.testPeriod07, JdbcTestHelper.testPeriod07));
     }
 
     @Order(100)

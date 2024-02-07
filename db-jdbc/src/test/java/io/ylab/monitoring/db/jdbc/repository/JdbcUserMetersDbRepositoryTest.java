@@ -2,7 +2,7 @@ package io.ylab.monitoring.db.jdbc.repository;
 
 import io.ylab.monitoring.core.model.CoreMeter;
 import io.ylab.monitoring.db.jdbc.exeption.JdbcDbException;
-import io.ylab.monitoring.db.jdbc.service.JdbcTestHelperFactory;
+import io.ylab.monitoring.db.jdbc.service.JdbcTestHelper;
 import io.ylab.monitoring.db.jdbc.service.TestConnection;
 import io.ylab.monitoring.db.jdbc.service.TestDatabaseExtension;
 import io.ylab.monitoring.domain.core.model.Meter;
@@ -30,8 +30,6 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class JdbcUserMetersDbRepositoryTest {
 
-    private final static JdbcTestHelperFactory testFactory = new JdbcTestHelperFactory();
-
     private final SqlQueryRepository queryRepository = new SqlQueryResourcesRepository();
 
     @TestConnection
@@ -41,7 +39,7 @@ class JdbcUserMetersDbRepositoryTest {
 
     public static Stream<Arguments> givenMeterName_whenFindByName_thenExpected() {
         return Stream.of(
-                Arguments.of(testFactory.testMeterName1, testFactory.testMeter),
+                Arguments.of(JdbcTestHelper.testMeterName1, JdbcTestHelper.testMeter),
                 Arguments.of("undefined", null)
         );
     }
@@ -97,7 +95,7 @@ class JdbcUserMetersDbRepositoryTest {
     @Test
     @Order(102)
     void givenExistMeterName_whenStore_thenException() {
-        Meter meter = new CoreMeter(UUID.randomUUID(), testFactory.testMeterName1);
+        Meter meter = new CoreMeter(UUID.randomUUID(), JdbcTestHelper.testMeterName1);
 
         Throwable result = catchThrowable(() -> sut.store(meter));
 
@@ -107,7 +105,7 @@ class JdbcUserMetersDbRepositoryTest {
     @Test
     @Order(103)
     void givenExistUuid_whenStore_thenException() {
-        Meter meter = new CoreMeter(testFactory.testMeter1Id, "some-test-name");
+        Meter meter = new CoreMeter(JdbcTestHelper.testMeter1Id, "some-test-name");
 
         Throwable result = catchThrowable(() -> sut.store(meter));
 

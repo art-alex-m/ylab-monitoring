@@ -1,7 +1,7 @@
 package io.ylab.monitoring.db.jdbc.repository;
 
 import io.ylab.monitoring.core.model.CoreDomainUser;
-import io.ylab.monitoring.db.jdbc.service.JdbcTestHelperFactory;
+import io.ylab.monitoring.db.jdbc.service.JdbcTestHelper;
 import io.ylab.monitoring.db.jdbc.service.TestConnection;
 import io.ylab.monitoring.db.jdbc.service.TestDatabaseExtension;
 import io.ylab.monitoring.domain.core.model.DomainUser;
@@ -29,8 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class JdbcAdminMeterReadingsDbRepositoryTest {
 
-    private final static JdbcTestHelperFactory testFactory = new JdbcTestHelperFactory();
-
     private final SqlQueryRepository queryRepository = new SqlQueryResourcesRepository();
 
     private final DomainUser dummyUser = new CoreDomainUser(UUID.randomUUID());
@@ -42,9 +40,9 @@ class JdbcAdminMeterReadingsDbRepositoryTest {
 
     public static Stream<Arguments> givenPeriodAnyUser_whenAdminFindByUserAndPeriod_thenExpected() {
         return Stream.of(
-                Arguments.of(testFactory.testPeriod08, 1),
-                Arguments.of(testFactory.testPeriod07, 3),
-                Arguments.of(testFactory.testPeriod06, 0)
+                Arguments.of(JdbcTestHelper.testPeriod08, 1),
+                Arguments.of(JdbcTestHelper.testPeriod07, 3),
+                Arguments.of(JdbcTestHelper.testPeriod06, 0)
         );
     }
 

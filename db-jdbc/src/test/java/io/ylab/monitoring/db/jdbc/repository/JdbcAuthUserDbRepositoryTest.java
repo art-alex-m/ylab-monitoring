@@ -2,7 +2,7 @@ package io.ylab.monitoring.db.jdbc.repository;
 
 import io.ylab.monitoring.db.jdbc.exeption.JdbcDbException;
 import io.ylab.monitoring.db.jdbc.model.JdbcAuthUser;
-import io.ylab.monitoring.db.jdbc.service.JdbcTestHelperFactory;
+import io.ylab.monitoring.db.jdbc.service.JdbcTestHelper;
 import io.ylab.monitoring.db.jdbc.service.TestConnection;
 import io.ylab.monitoring.db.jdbc.service.TestDatabaseExtension;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
@@ -26,8 +26,6 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 @ExtendWith(TestDatabaseExtension.class)
 class JdbcAuthUserDbRepositoryTest {
 
-    private static final JdbcTestHelperFactory testFactory = new JdbcTestHelperFactory();
-
     private final SqlQueryRepository queryRepository = new SqlQueryResourcesRepository();
 
     @TestConnection
@@ -37,8 +35,8 @@ class JdbcAuthUserDbRepositoryTest {
 
     public static Stream<Arguments> givenUsername_whenFindByUsername_thenExpected() {
         return Stream.of(
-                Arguments.of(testFactory.testAuthUserA.getUsername(), testFactory.testAuthUserA),
-                Arguments.of(testFactory.testAuthUserB.getUsername(), testFactory.testAuthUserB),
+                Arguments.of(JdbcTestHelper.testAuthUserA.getUsername(), JdbcTestHelper.testAuthUserA),
+                Arguments.of(JdbcTestHelper.testAuthUserB.getUsername(), JdbcTestHelper.testAuthUserB),
                 Arguments.of("undefined", null)
         );
     }
@@ -88,7 +86,7 @@ class JdbcAuthUserDbRepositoryTest {
     @Test
     void givenExistUuid_whenCreate_thenException() {
         AuthUser authUser = JdbcAuthUser.builder()
-                .id(testFactory.testUserIdA)
+                .id(JdbcTestHelper.testUserIdA)
                 .role(DomainRole.USER)
                 .username("test")
                 .password("some-test-password")
@@ -104,7 +102,7 @@ class JdbcAuthUserDbRepositoryTest {
         AuthUser authUser = JdbcAuthUser.builder()
                 .id(UUID.randomUUID())
                 .role(DomainRole.USER)
-                .username(testFactory.testAuthUserB.getUsername())
+                .username(JdbcTestHelper.testAuthUserB.getUsername())
                 .password("some-test-password")
                 .build();
 

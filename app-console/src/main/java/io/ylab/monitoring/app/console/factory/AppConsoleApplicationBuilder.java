@@ -200,7 +200,7 @@ public class AppConsoleApplicationBuilder {
 
             userRepository.create(encodedUser);
         } catch (Exception ex) {
-            System.out.println(ex.getLocalizedMessage());
+            System.out.println(ex.getMessage());
         }
     }
 

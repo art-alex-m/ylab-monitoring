@@ -25,7 +25,7 @@ public class Main {
         LiquibaseMigrationService.builder()
                 .url(appProperties.getProperty("ylab.monitoring.db.liquibase.url", url))
                 .username(username).password(password).build()
-                .migrate("!test");
+                .migrate("!test", "data");
 
         AppConsoleApplication application = AppConsoleApplication.builder()
                 .withAdmin(appProperties.getProperty("ylab.monitoring.admin.username"),

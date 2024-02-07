@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: artalexm
+      context: data
+      changes:
+        - insert:
+            tableName: auth_users
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: uuid
+                  value: 5f3ede03-7030-43f6-a98a-60acbad5860f
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  # 123456
+                  name: password
+                  value: LJTBMjRwtcLIkIKvtUqqYMQnDW9SDN7/lXxla39u2D3EApGKosbBnoS1cf4YAqzrTFo/m0OqgDJddtVpjs2zkA==
+              - column:
+                  name: role
+                  value: ADMIN
+  - changeSet:
+      id: 2
+      author: artalexm
+      context: data
+      changes:
+        - insert:
+            tableName: meters
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: uuid
+                  value: 1bd8a9c7-cb38-4411-b017-f7f1722a9da2
+              - column:
+                  name: name
+                  value: gaz
+        - insert:
+            tableName: meters
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: uuid
+                  value: a059c53f-56a9-498d-8a17-6dcaa00a1d20
+              - column:
+                  name: name
+                  value: teplo
+        - insert:
+            tableName: meters
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: uuid
+                  value: e0e4975a-f975-4e13-b7c7-3eba1d19a7ee
+              - column:
+                  name: name
+                  value: electro

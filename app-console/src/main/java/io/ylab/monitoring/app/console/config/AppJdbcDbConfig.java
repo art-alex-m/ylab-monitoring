@@ -70,6 +70,9 @@ public class AppJdbcDbConfig implements DatabaseConfig {
      */
     public DatabaseConfig setMeters(List<Meter> meterList) {
         for (Meter meter : meterList) {
+            if (jdbcUserMetersDbRepository.findByName(meter.getName()).isPresent()) {
+                continue;
+            }
             try {
                 jdbcUserMetersDbRepository.store(meter);
             } catch (JdbcDbException ex) {

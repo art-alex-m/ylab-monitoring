@@ -50,7 +50,7 @@ public class TestDatabaseExtension implements BeforeAllCallback, AfterAllCallbac
                 .url(postgreSQLContainer.getJdbcUrl())
                 .password(postgreSQLContainer.getPassword())
                 .username(postgreSQLContainer.getUsername())
-                .build().migrate();
+                .build().migrate("!data", "test");
 
         testConnection = DriverManager.getConnection(postgreSQLContainer.getJdbcUrl() + "&currentSchema=monitoring",
                 postgreSQLContainer.getUsername(), postgreSQLContainer.getPassword());

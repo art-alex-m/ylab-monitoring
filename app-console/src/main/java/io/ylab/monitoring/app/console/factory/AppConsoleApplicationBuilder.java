@@ -1,9 +1,18 @@
 package io.ylab.monitoring.app.console.factory;
 
-import io.ylab.monitoring.app.console.config.*;
+import io.ylab.monitoring.app.console.config.AppAdminInteractorConfig;
+import io.ylab.monitoring.app.console.config.AppAnonymousInteractorConfig;
+import io.ylab.monitoring.app.console.config.AppInputResponseFactoryConfig;
+import io.ylab.monitoring.app.console.config.AppMemoDbConfig;
+import io.ylab.monitoring.app.console.config.AppUserInteractorConfig;
 import io.ylab.monitoring.app.console.event.AppCreateAuditLogEventHandler;
 import io.ylab.monitoring.app.console.event.AppMonitoringEventPublisher;
-import io.ylab.monitoring.app.console.model.*;
+import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
+import io.ylab.monitoring.app.console.model.AppCommandName;
+import io.ylab.monitoring.app.console.model.AppConsoleApplication;
+import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.app.console.model.CommandExecutorChain;
+import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.app.console.service.AppCommandParser;
 import io.ylab.monitoring.audit.boundary.AuditCreateAuditLogInteractor;
 import io.ylab.monitoring.auth.model.AuthAuthUser;
@@ -21,7 +30,14 @@ import io.ylab.monitoring.domain.core.model.Meter;
 import io.ylab.monitoring.domain.core.service.PeriodService;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Конфигуратор контекста консольного приложения

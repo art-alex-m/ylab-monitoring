@@ -5,7 +5,11 @@ import io.ylab.monitoring.db.jdbc.service.JdbcTestHelperFactory;
 import io.ylab.monitoring.db.jdbc.service.TestConnection;
 import io.ylab.monitoring.db.jdbc.service.TestDatabaseExtension;
 import io.ylab.monitoring.domain.audit.model.AuditItem;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.sql.Connection;

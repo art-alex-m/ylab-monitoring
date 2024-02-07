@@ -1,5 +1,15 @@
 databaseChangeLog:
   - changeSet:
+      id: 1
+      author: artalexm
+      changes:
+        - createSequence:
+            sequenceName: audit_items_pk_seq
+            dataType: int
+            startValue: 1
+            incrementBy: 1
+            schemaName: monitoring
+  - changeSet:
       id: 4
       author: artalexm
       changes:
@@ -9,8 +19,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: serial
-                  autoIncrement: true
+                  type: int
+                  defaultValueComputed: nextval('monitoring.audit_items_pk_seq')
                   constraints:
                     primaryKey: true
                     nullable: false

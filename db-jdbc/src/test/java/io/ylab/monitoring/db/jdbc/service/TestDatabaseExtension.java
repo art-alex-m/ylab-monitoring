@@ -67,7 +67,7 @@ public class TestDatabaseExtension implements BeforeAllCallback, AfterAllCallbac
                         field.set(testInstance, testConnection);
                         field.setAccessible(accessible);
                     } catch (IllegalAccessException ex) {
-                        throw new RuntimeException(ex);
+                        throw new IllegalCallerException("Test db connection injection error", ex);
                     }
                 });
     }

@@ -1,5 +1,21 @@
 databaseChangeLog:
   - changeSet:
+      id: 1
+      author: artalexm
+      changes:
+        - createSequence:
+            sequenceName: meters_pk_seq
+            dataType: int
+            startValue: 1
+            incrementBy: 1
+            schemaName: monitoring
+        - createSequence:
+            sequenceName: meter_readings_pk_seq
+            dataType: int
+            startValue: 1
+            incrementBy: 1
+            schemaName: monitoring
+  - changeSet:
       id: 3
       author: artalexm
       changes:
@@ -9,8 +25,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: serial
-                  autoIncrement: true
+                  type: int
+                  defaultValueComputed: nextval('monitoring.meters_pk_seq')
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -32,8 +48,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: serial
-                  autoIncrement: true
+                  type: int
+                  defaultValueComputed: nextval('monitoring.meter_readings_pk_seq')
                   constraints:
                     primaryKey: true
                     nullable: false

@@ -15,7 +15,7 @@ databaseChangeLog:
                   name: username
                   value: admin
               - column:
-                  # 123456
+                  # 123456 & ylab.monitoring.auth.password.salt=gahhc5X5bYPIbsKSQw0
                   name: password
                   value: LJTBMjRwtcLIkIKvtUqqYMQnDW9SDN7/lXxla39u2D3EApGKosbBnoS1cf4YAqzrTFo/m0OqgDJddtVpjs2zkA==
               - column:

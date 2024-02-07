@@ -1,10 +1,10 @@
 package io.ylab.monitoring.app.console.controller;
 
-import io.ylab.monitoring.app.console.in.AppSubmissionMeterReadingsInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.core.in.CoreSubmissionMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 import io.ylab.monitoring.domain.core.boundary.SubmissionMeterReadingsInput;
 
@@ -39,7 +39,7 @@ public class ReadingSubmitCommandExecutor extends AbstractCommandExecutor {
             throw new IllegalArgumentException(ex);
         }
 
-        out.println(interactor.submit(AppSubmissionMeterReadingsInputRequest.builder()
+        out.println(interactor.submit(CoreSubmissionMeterReadingsInputRequest.builder()
                 .user(userContext.getUser())
                 .meterName(command.getOperandAt(1))
                 .value(readingValue)

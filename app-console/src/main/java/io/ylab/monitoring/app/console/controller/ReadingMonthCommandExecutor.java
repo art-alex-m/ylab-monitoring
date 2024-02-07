@@ -1,10 +1,10 @@
 package io.ylab.monitoring.app.console.controller;
 
-import io.ylab.monitoring.app.console.in.AppGetMonthMeterReadingsInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.core.in.CoreGetMonthMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 import io.ylab.monitoring.domain.core.boundary.GetMonthMeterReadingsInput;
 
@@ -49,7 +49,7 @@ public class ReadingMonthCommandExecutor extends AbstractCommandExecutor {
             throw new IllegalArgumentException(ex);
         }
 
-        out.println(interactor.find(new AppGetMonthMeterReadingsInputRequest(userContext.getUser(), period)));
+        out.println(interactor.find(new CoreGetMonthMeterReadingsInputRequest(userContext.getUser(), period)));
 
         return true;
     }

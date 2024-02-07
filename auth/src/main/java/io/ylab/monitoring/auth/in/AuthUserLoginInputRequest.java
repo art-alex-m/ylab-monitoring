@@ -1,4 +1,4 @@
-package io.ylab.monitoring.app.console.in;
+package io.ylab.monitoring.auth.in;
 
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class AppUserLoginInputRequest implements UserLoginInputRequest {
+public class AuthUserLoginInputRequest implements UserLoginInputRequest {
     private final String username;
     private final String password;
 }

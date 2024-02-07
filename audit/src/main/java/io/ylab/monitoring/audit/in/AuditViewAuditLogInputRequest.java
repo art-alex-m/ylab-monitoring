@@ -1,4 +1,4 @@
-package io.ylab.monitoring.app.console.in;
+package io.ylab.monitoring.audit.in;
 
 import io.ylab.monitoring.domain.audit.in.ViewAuditLogInputRequest;
 import io.ylab.monitoring.domain.core.model.DomainUser;
@@ -10,6 +10,6 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class AppViewAuditLogInputRequest implements ViewAuditLogInputRequest {
+public class AuditViewAuditLogInputRequest implements ViewAuditLogInputRequest {
     private final DomainUser user;
 }

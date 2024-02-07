@@ -1,10 +1,11 @@
 package io.ylab.monitoring.app.console.controller;
 
-import io.ylab.monitoring.app.console.in.AppGetActualMeterReadingsInputRequest;
+
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.core.in.CoreGetActualMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 import io.ylab.monitoring.domain.core.boundary.GetActualMeterReadingsInput;
 
@@ -27,7 +28,7 @@ public class ReadingActualCommandExecutor extends AbstractCommandExecutor {
 
     @Override
     protected boolean doWork(AppCommand command) {
-        out.println(interactor.find(new AppGetActualMeterReadingsInputRequest(userContext.getUser())));
+        out.println(interactor.find(new CoreGetActualMeterReadingsInputRequest(userContext.getUser())));
         return true;
     }
 }

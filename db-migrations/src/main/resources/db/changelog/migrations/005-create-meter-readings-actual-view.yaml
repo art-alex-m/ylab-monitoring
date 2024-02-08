@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: artalexm
+      changes:
+        - createView:
+            schemaName: monitoring
+            viewName: meter_readings_actual
+            replaceIfExists: true
+            selectQuery:
+              select m1.*, m2.name as meter_name
+              from monitoring.meter_readings m1
+              inner join monitoring.meters m2 on m2."uuid" = m1."meter_uuid"
+              inner join (
+              select user_uuid, max("period") mp
+              from monitoring.meter_readings group by user_uuid
+              ) mp3 on (m1.user_uuid = mp3.user_uuid and m1."period" = mp3.mp)

@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: artalexm
+      changes:
+        - createSequence:
+            sequenceName: auth_users_pk_seq
+            dataType: int
+            startValue: 1
+            incrementBy: 1
+            schemaName: monitoring
+  - changeSet:
+      id: 2
+      author: artalexm
+      changes:
+        - createTable:
+            tableName: auth_users
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  defaultValueComputed: nextval('monitoring.auth_users_pk_seq')
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: uuid
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+                    checkConstraint: LENGTH(password) > 0
+              - column:
+                  name: role
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    checkConstraint: LENGTH(role) > 0

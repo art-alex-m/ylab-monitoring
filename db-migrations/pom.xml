@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.ylab.monitoring</groupId>
+        <artifactId>ylab-monitoring</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>io.ylab.monitoring.db.migrations</groupId>
+    <artifactId>monitoring-db-migrations</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${versions.liquibase-core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${versions.postgresql-driver}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${versions.lombok}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

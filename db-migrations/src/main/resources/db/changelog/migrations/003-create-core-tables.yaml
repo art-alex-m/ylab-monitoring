@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: artalexm
+      changes:
+        - createSequence:
+            sequenceName: meters_pk_seq
+            dataType: int
+            startValue: 1
+            incrementBy: 1
+            schemaName: monitoring
+        - createSequence:
+            sequenceName: meter_readings_pk_seq
+            dataType: int
+            startValue: 1
+            incrementBy: 1
+            schemaName: monitoring
+  - changeSet:
+      id: 3
+      author: artalexm
+      changes:
+        - createTable:
+            tableName: meters
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  defaultValueComputed: nextval('monitoring.meters_pk_seq')
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: uuid
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: meter_readings
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  defaultValueComputed: nextval('monitoring.meter_readings_pk_seq')
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: uuid
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_uuid
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: meter_uuid
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: period
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: int
+                  constraints:
+                    nullable: false
+                    checkConstraint: value > 0
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: meters_readings_meter_uuid_to_meters_uuid_fk
+            validate: true
+            referencedColumnNames: uuid
+            referencedTableName: meters
+            referencedTableSchemaName: monitoring
+            baseColumnNames: meter_uuid
+            baseTableName: meter_readings
+            baseTableSchemaName: monitoring
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - createIndex:
+            schemaName: monitoring
+            tableName: meter_readings
+            indexName: meter_readings_user_period_meter_idx
+            unique: true
+            columns:
+              - column:
+                  name: user_uuid
+              - column:
+                  name: period
+              - column:
+                  name: meter_uuid

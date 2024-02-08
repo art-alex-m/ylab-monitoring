@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: artalexm
+      context: test
+      changes:
+        - insert:
+            tableName: auth_users
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: username
+                  value: testUserA
+              - column:
+                  # 123
+                  name: password
+                  value: HWHN05CVRwfTjSCdA3YnJ47b9IQz/hRvUf4Dw+hqEAoHhOJu+kB9XpfnHGnOtzx5sZtvceKGBHWVhtqnvHyFNw==
+              - column:
+                  name: role
+                  value: USER
+        - insert:
+            tableName: auth_users
+            schemaName: monitoring
+            columns:
+              - column:
+                  name: uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc3bb0
+              - column:
+                  name: username
+                  value: testUserB
+              - column:
+                  # 123
+                  name: password
+                  value: HWHN05CVRwfTjSCdA3YnJ47b9IQz/hRvUf4Dw+hqEAoHhOJu+kB9XpfnHGnOtzx5sZtvceKGBHWVhtqnvHyFNw==
+              - column:
+                  name: role
+                  value: USER

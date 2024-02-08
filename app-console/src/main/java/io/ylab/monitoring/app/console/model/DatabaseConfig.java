@@ -5,7 +5,12 @@ import io.ylab.monitoring.domain.audit.repository.ViewAuditLogInputDbRepository;
 import io.ylab.monitoring.domain.auth.repository.UserLoginInputDbRepository;
 import io.ylab.monitoring.domain.auth.repository.UserRegistrationInputDbRepository;
 import io.ylab.monitoring.domain.core.model.Meter;
-import io.ylab.monitoring.domain.core.repository.*;
+import io.ylab.monitoring.domain.core.repository.GetActualMeterReadingsInputDbRepository;
+import io.ylab.monitoring.domain.core.repository.GetMonthMeterReadingsInputDbRepository;
+import io.ylab.monitoring.domain.core.repository.SubmissionMeterReadingsInputDbRepository;
+import io.ylab.monitoring.domain.core.repository.SubmissionMeterReadingsInputMeterDbRepository;
+import io.ylab.monitoring.domain.core.repository.ViewMeterReadingsHistoryInputDbRepository;
+import io.ylab.monitoring.domain.core.repository.ViewMetersInputDbRepository;
 
 import java.util.List;
 

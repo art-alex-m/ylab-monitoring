@@ -1,9 +1,18 @@
 package io.ylab.monitoring.app.console.factory;
 
-import io.ylab.monitoring.app.console.config.*;
+import io.ylab.monitoring.app.console.config.AppAdminInteractorConfig;
+import io.ylab.monitoring.app.console.config.AppAnonymousInteractorConfig;
+import io.ylab.monitoring.app.console.config.AppInputResponseFactoryConfig;
+import io.ylab.monitoring.app.console.config.AppMemoDbConfig;
+import io.ylab.monitoring.app.console.config.AppUserInteractorConfig;
 import io.ylab.monitoring.app.console.event.AppCreateAuditLogEventHandler;
 import io.ylab.monitoring.app.console.event.AppMonitoringEventPublisher;
-import io.ylab.monitoring.app.console.model.*;
+import io.ylab.monitoring.app.console.model.AbstractInteractorConfig;
+import io.ylab.monitoring.app.console.model.AppCommandName;
+import io.ylab.monitoring.app.console.model.AppConsoleApplication;
+import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.app.console.model.CommandExecutorChain;
+import io.ylab.monitoring.app.console.model.DatabaseConfig;
 import io.ylab.monitoring.app.console.service.AppCommandParser;
 import io.ylab.monitoring.audit.boundary.AuditCreateAuditLogInteractor;
 import io.ylab.monitoring.auth.model.AuthAuthUser;
@@ -13,6 +22,7 @@ import io.ylab.monitoring.core.service.CorePeriodService;
 import io.ylab.monitoring.domain.auth.event.UserLogined;
 import io.ylab.monitoring.domain.auth.event.UserLogouted;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
+import io.ylab.monitoring.domain.auth.repository.UserRegistrationInputDbRepository;
 import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEvent;
 import io.ylab.monitoring.domain.core.model.DomainRole;
@@ -20,7 +30,14 @@ import io.ylab.monitoring.domain.core.model.Meter;
 import io.ylab.monitoring.domain.core.service.PeriodService;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Конфигуратор контекста консольного приложения
@@ -42,17 +59,19 @@ public class AppConsoleApplicationBuilder {
 
     private DatabaseConfig databaseConfig;
 
-    private AppMonitoringEventPublisher eventPublisher = new AppMonitoringEventPublisher();
+    private final AppMonitoringEventPublisher eventPublisher = new AppMonitoringEventPublisher();
 
-    private PeriodService periodService = new CorePeriodService();
+    private final PeriodService periodService = new CorePeriodService();
 
-    private AppInputResponseFactoryConfig responseFactoryConfig = new AppInputResponseFactoryConfig();
+    private final AppInputResponseFactoryConfig responseFactoryConfig = new AppInputResponseFactoryConfig();
 
-    private Map<DomainRole, AbstractInteractorConfig> interactorConfigMap = new HashMap<>();
+    private final Map<DomainRole, AbstractInteractorConfig> interactorConfigMap = new HashMap<>();
 
-    private AppCommandExecutorBuilderFactory executorBuilderFactory = new AppCommandExecutorBuilderFactory();
+    private final AppCommandExecutorBuilderFactory executorBuilderFactory = new AppCommandExecutorBuilderFactory();
 
-    private PasswordEncoder passwordEncoder = new AuthPasswordEncoder().setSalt(DEFAULT_PASSWORD_SALT);
+    private PasswordEncoder passwordEncoder;
+
+    private String passwordEncoderSalt;
 
     private List<Meter> meterList = new LinkedList<>();
 
@@ -70,6 +89,24 @@ public class AppConsoleApplicationBuilder {
     }
 
     /**
+     * Добавляет тип показания счетчика по списку с разделителем запятой
+     *
+     * Например: gaz,teplo,electro
+     *
+     * @param metersSeparatedList строка с разделителем запятой
+     * @return AppConsoleApplicationBuilder
+     */
+    public AppConsoleApplicationBuilder withMeters(String metersSeparatedList) {
+        Objects.requireNonNull(metersSeparatedList);
+        Arrays.stream(metersSeparatedList.split(","))
+                .map(String::trim)
+                .filter(name -> !name.isBlank())
+                .forEach(this::withMeter);
+
+        return this;
+    }
+
+    /**
      * Устанавливает логи и пароль пользователя с ролю администратора
      *
      * @param username имя пользователя
@@ -80,7 +117,7 @@ public class AppConsoleApplicationBuilder {
         adminUser = AuthAuthUser.builder()
                 .role(DomainRole.ADMIN)
                 .username(username)
-                .password(passwordEncoder.encode(password))
+                .password(password)
                 .build();
         return this;
     }
@@ -105,19 +142,34 @@ public class AppConsoleApplicationBuilder {
         return withAdmin(ADMIN_DEFAULT_LOGIN, ADMIN_DEFAULT_PASSWORD);
     }
 
+    /**
+     * Устанавливает соль шифрования паролей
+     * <p>
+     * При использовании пустой строки или строки из пробелов, приложение выбирает {@code DEFAULT_PASSWORD_SALT}.
+     * При установке null метод генерирует NullPointerException
+     * </p>
+     *
+     * @param salt строка
+     * @return AppConsoleApplicationBuilder
+     */
+    public AppConsoleApplicationBuilder withPasswordSalt(String salt) {
+        ;
+        passwordEncoderSalt = Objects.requireNonNull(salt);
+        return this;
+    }
+
     public AppConsoleApplication build() {
+        userContext.setAnonymous();
+
+        initPasswordEncoder();
+
         if (databaseConfig == null) {
             databaseConfig = new AppMemoDbConfig();
         }
 
         databaseConfig.setMeters(meterList);
 
-        if (adminUser != null) {
-            databaseConfig.getUserRegistrationInputDbRepository().create(adminUser);
-        }
-
-        userContext.setAnonymous();
-
+        initAdminUser();
         initAdminInteractors();
         initUserInteractors();
         initAnonymousInteractors();
@@ -127,6 +179,43 @@ public class AppConsoleApplicationBuilder {
         return new AppConsoleApplication(commandParser, userContext, roleExecutors);
     }
 
+    /**
+     * Инициирует пользователя с правами администратора
+     */
+    private void initAdminUser() {
+        if (adminUser == null) {
+            return;
+        }
+
+        UserRegistrationInputDbRepository userRepository = databaseConfig.getUserRegistrationInputDbRepository();
+
+        try {
+            if (userRepository.existsByUsername(adminUser.getUsername())) {
+                return;
+            }
+
+            AuthUser encodedUser = ((AuthAuthUser) adminUser).toBuilder()
+                    .password(passwordEncoder.encode(adminUser.getPassword()))
+                    .build();
+
+            userRepository.create(encodedUser);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    /**
+     * Инициирует кодировщик пароля
+     */
+    private void initPasswordEncoder() {
+        passwordEncoder = new AuthPasswordEncoder(Optional.ofNullable(passwordEncoderSalt)
+                .filter(salt -> !salt.isBlank())
+                .orElse(DEFAULT_PASSWORD_SALT).getBytes());
+    }
+
+    /**
+     * Инициирует подписчиков на события
+     */
     private void initEventListeners() {
         eventPublisher
                 .subscribe(event -> userContext.setUser((AuthUser) event.getUser()), UserLogined.class)

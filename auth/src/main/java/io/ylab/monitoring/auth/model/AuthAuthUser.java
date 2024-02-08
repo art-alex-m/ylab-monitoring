@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
-@Builder
+@Builder(toBuilder = true)
 public class AuthAuthUser implements AuthUser {
     @NonNull
     private final String username;

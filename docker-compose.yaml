@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  postgres:
+    image: 'postgres:14.2-alpine'
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      PGPASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - "ylab-monitoring-db:/var/lib/postgresql/data"
+    ports:
+      - "${DB_HOST_PORT}:5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
+      retries: 3
+      timeout: 5s
+
+volumes:
+  ylab-monitoring-db:
+    driver: local

@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: artalexm
+      context: test
+      changes:
+        - insert:
+            schemaName: monitoring
+            tableName: audit_items
+            columns:
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: name
+                  value: "1"
+              - column:
+                  name: occurred_at
+                  value: 2024-02-01T00:01:00.00Z
+        - insert:
+            schemaName: monitoring
+            tableName: audit_items
+            columns:
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: name
+                  value: "2"
+              - column:
+                  name: occurred_at
+                  value: 2024-02-01T00:02:00.00Z
+        - insert:
+            schemaName: monitoring
+            tableName: audit_items
+            columns:
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: name
+                  value: "3"
+              - column:
+                  name: occurred_at
+                  value: 2024-02-01T00:03:00.00Z
+        - insert:
+            schemaName: monitoring
+            tableName: audit_items
+            columns:
+              - column:
+                  name: user_uuid
+                  value: 38624aa3-943a-49b9-b010-494e9afc6ba0
+              - column:
+                  name: name
+                  value: "4"
+              - column:
+                  name: occurred_at
+                  value: 2024-02-01T00:04:00.00Z

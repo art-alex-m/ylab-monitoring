@@ -1,10 +1,10 @@
 package io.ylab.monitoring.app.console.controller;
 
-import io.ylab.monitoring.app.console.in.AppViewAuditLogInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.audit.in.AuditViewAuditLogInputRequest;
 import io.ylab.monitoring.domain.audit.boundary.ViewAuditLogInput;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 
@@ -27,7 +27,7 @@ public class AuditLogCommandExecutor extends AbstractCommandExecutor {
 
     @Override
     protected boolean doWork(AppCommand command) {
-        out.println(interactor.view(new AppViewAuditLogInputRequest(userContext.getUser())));
+        out.println(interactor.view(new AuditViewAuditLogInputRequest(userContext.getUser())));
         return true;
     }
 }

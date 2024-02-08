@@ -1,4 +1,4 @@
-package io.ylab.monitoring.app.console.in;
+package io.ylab.monitoring.auth.in;
 
 import io.ylab.monitoring.domain.auth.in.UserLogoutInputRequest;
 import io.ylab.monitoring.domain.core.model.DomainUser;
@@ -10,6 +10,6 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class AppUserLogoutInputRequest implements UserLogoutInputRequest {
+public class AuthUserLogoutInputRequest implements UserLogoutInputRequest {
     private final DomainUser user;
 }

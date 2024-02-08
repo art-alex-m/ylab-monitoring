@@ -1,4 +1,4 @@
-package io.ylab.monitoring.app.console.in;
+package io.ylab.monitoring.core.in;
 
 import io.ylab.monitoring.domain.core.in.GetMonthMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.model.DomainUser;
@@ -12,7 +12,7 @@ import java.time.Instant;
  */
 @RequiredArgsConstructor
 @Getter
-public class AppGetMonthMeterReadingsInputRequest implements GetMonthMeterReadingsInputRequest {
+public class CoreGetMonthMeterReadingsInputRequest implements GetMonthMeterReadingsInputRequest {
     private final DomainUser user;
     private final Instant period;
 }

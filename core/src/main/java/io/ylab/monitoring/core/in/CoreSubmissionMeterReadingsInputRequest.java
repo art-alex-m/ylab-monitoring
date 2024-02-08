@@ -1,4 +1,4 @@
-package io.ylab.monitoring.app.console.in;
+package io.ylab.monitoring.core.in;
 
 import io.ylab.monitoring.domain.core.in.SubmissionMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.model.DomainUser;
@@ -14,7 +14,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Getter
 @Builder
-public class AppSubmissionMeterReadingsInputRequest implements SubmissionMeterReadingsInputRequest {
+public class CoreSubmissionMeterReadingsInputRequest implements SubmissionMeterReadingsInputRequest {
     private final DomainUser user;
     private final String meterName;
     private final Instant period;

@@ -1,10 +1,10 @@
 package io.ylab.monitoring.app.console.controller;
 
-import io.ylab.monitoring.app.console.in.AppViewMeterReadingsHistoryInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.core.in.CoreViewMeterReadingsHistoryInputRequest;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 import io.ylab.monitoring.domain.core.boundary.ViewMeterReadingsHistoryInput;
 
@@ -27,7 +27,7 @@ public class ReadingHistoryCommandExecutor extends AbstractCommandExecutor {
 
     @Override
     protected boolean doWork(AppCommand command) {
-        out.println(interactor.find(new AppViewMeterReadingsHistoryInputRequest(userContext.getUser())));
+        out.println(interactor.find(new CoreViewMeterReadingsHistoryInputRequest(userContext.getUser())));
         return true;
     }
 }

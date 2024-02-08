@@ -1,10 +1,10 @@
 package io.ylab.monitoring.app.console.controller;
 
-import io.ylab.monitoring.app.console.in.AppUserLoginInputRequest;
 import io.ylab.monitoring.app.console.model.AbstractCommandExecutor;
 import io.ylab.monitoring.app.console.model.AppCommand;
 import io.ylab.monitoring.app.console.model.AppCommandName;
 import io.ylab.monitoring.app.console.model.AppUserContext;
+import io.ylab.monitoring.auth.in.AuthUserLoginInputRequest;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
@@ -36,7 +36,7 @@ public class LoginCommandExecutor extends AbstractCommandExecutor {
 
         operandSizeValidator(command);
 
-        UserLoginInputRequest request = new AppUserLoginInputRequest(command.getOperands().get(1),
+        UserLoginInputRequest request = new AuthUserLoginInputRequest(command.getOperands().get(1),
                 command.getOperands().get(2));
 
         interactor.login(request);

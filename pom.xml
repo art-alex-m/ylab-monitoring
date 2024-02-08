@@ -18,6 +18,7 @@
         <module>domain-core-repo</module>
         <module>core-model</module>
         <module>app-console</module>
+        <module>app-servlets</module>
         <module>auth</module>
         <module>core</module>
         <module>audit</module>

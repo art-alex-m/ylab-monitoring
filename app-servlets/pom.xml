@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.ylab.monitoring</groupId>
+        <artifactId>ylab-monitoring</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>io.ylab.monitoring.app.servlets</groupId>
+    <artifactId>monitoring-app-servlets</artifactId>
+    <packaging>war</packaging>
+
+    <properties>
+        <versions.jakarta.validation>3.0.2</versions.jakarta.validation>
+        <versions.jakarta.enterprise.cdi>4.0.1</versions.jakarta.enterprise.cdi>
+        <versions.jakarta.json.bind>3.0.0</versions.jakarta.json.bind>
+        <versions.jakarta.json>2.1.1</versions.jakarta.json>
+        <versions.jakarta.ws.rs>3.1.0</versions.jakarta.ws.rs>
+        <versions.jakarta.security.enterprise>3.0.0</versions.jakarta.security.enterprise>
+        <versions.jakarta.servlet>6.0.0</versions.jakarta.servlet>
+        <versions.maven-war-plugin>3.3.2</versions.maven-war-plugin>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${versions.jakarta.validation}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${versions.jakarta.enterprise.cdi}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.json.bind</groupId>
+            <artifactId>jakarta.json.bind-api</artifactId>
+            <version>${versions.jakarta.json.bind}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.json</groupId>
+            <artifactId>jakarta.json-api</artifactId>
+            <version>${versions.jakarta.json}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>${versions.jakarta.ws.rs}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.security.enterprise</groupId>
+            <artifactId>jakarta.security.enterprise-api</artifactId>
+            <version>${versions.jakarta.security.enterprise}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${versions.junit-jupiter}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${versions.junit-jupiter}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${versions.maven-war-plugin}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

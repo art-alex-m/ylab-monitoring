@@ -9,11 +9,13 @@ import io.ylab.monitoring.domain.core.model.MeterReading;
 import io.ylab.monitoring.domain.core.out.GetActualMeterReadingsInputResponse;
 import io.ylab.monitoring.domain.core.out.GetActualMeterReadingsInputResponseFactory;
 import io.ylab.monitoring.domain.core.repository.GetActualMeterReadingsInputDbRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Builder
 public class CoreGetActualMeterReadingsInteractor implements GetActualMeterReadingsInput {
 
     private final GetActualMeterReadingsInputResponseFactory responseFactory;

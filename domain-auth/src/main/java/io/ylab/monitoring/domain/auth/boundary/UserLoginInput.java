@@ -2,6 +2,7 @@ package io.ylab.monitoring.domain.auth.boundary;
 
 import io.ylab.monitoring.domain.auth.exception.UserNotFoundException;
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
+import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
 import io.ylab.monitoring.domain.core.bounbary.MonitoringInput;
 
 /**
@@ -12,8 +13,9 @@ public interface UserLoginInput extends MonitoringInput {
      * Вход пользователя
      *
      * @param request объект запроса
-     * @return истина
+     * @return UserLoginInputResponse информация о зарегистрированном пользователе
+     *
      * @throws UserNotFoundException когда пользователь не найден или неверные учетные данные
      */
-    boolean login(UserLoginInputRequest request) throws UserNotFoundException;
+    UserLoginInputResponse login(UserLoginInputRequest request) throws UserNotFoundException;
 }

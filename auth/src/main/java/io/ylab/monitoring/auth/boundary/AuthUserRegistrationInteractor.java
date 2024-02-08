@@ -11,9 +11,11 @@ import io.ylab.monitoring.domain.auth.repository.UserRegistrationInputDbReposito
 import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import io.ylab.monitoring.domain.core.model.DomainRole;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Builder
 public class AuthUserRegistrationInteractor implements UserRegistrationInput {
 
     private final UserRegistrationInputDbRepository inputDbRepository;

@@ -9,11 +9,13 @@ import io.ylab.monitoring.domain.core.model.MeterReading;
 import io.ylab.monitoring.domain.core.out.ViewMeterReadingsHistoryInputResponse;
 import io.ylab.monitoring.domain.core.out.ViewMeterReadingsHistoryInputResponseFactory;
 import io.ylab.monitoring.domain.core.repository.ViewMeterReadingsHistoryInputDbRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Builder
 public class CoreViewMeterReadingsHistoryInteractor implements ViewMeterReadingsHistoryInput {
 
     private final ViewMeterReadingsHistoryInputResponseFactory responseFactory;

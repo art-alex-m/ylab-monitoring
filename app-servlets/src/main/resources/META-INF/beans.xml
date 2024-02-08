@@ -4,4 +4,11 @@
        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd"
        bean-discovery-mode="annotated">
 
+    <scan>
+        <exclude name="io.ylab.monitoring.audit.**"/>
+        <exclude name="io.ylab.monitoring.auth.**"/>
+        <exclude name="io.ylab.monitoring.core.**"/>
+        <exclude name="io.ylab.monitoring.domain.**"/>
+        <exclude name="io.ylab.monitoring.db.**"/>
+    </scan>
 </beans>

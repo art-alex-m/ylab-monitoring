@@ -2,16 +2,20 @@ package io.ylab.monitoring.auth.boundary;
 
 import io.ylab.monitoring.auth.event.AuthUserLoginEntered;
 import io.ylab.monitoring.auth.event.AuthUserLogined;
+import io.ylab.monitoring.auth.out.AuthUserLoginInputResponse;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.exception.UserNotFoundException;
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
+import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
 import io.ylab.monitoring.domain.auth.repository.UserLoginInputDbRepository;
 import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Builder
 public class AuthUserLoginInteractor implements UserLoginInput {
 
     private final MonitoringEventPublisher eventPublisher;
@@ -21,7 +25,7 @@ public class AuthUserLoginInteractor implements UserLoginInput {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public boolean login(UserLoginInputRequest request) throws UserNotFoundException {
+    public UserLoginInputResponse login(UserLoginInputRequest request) throws UserNotFoundException {
         eventPublisher.publish(AuthUserLoginEntered.builder()
                 .request(request).build());
 
@@ -34,6 +38,6 @@ public class AuthUserLoginInteractor implements UserLoginInput {
 
         eventPublisher.publish(AuthUserLogined.builder().user(user).build());
 
-        return true;
+        return new AuthUserLoginInputResponse(user.getId(), user.getRole());
     }
 }

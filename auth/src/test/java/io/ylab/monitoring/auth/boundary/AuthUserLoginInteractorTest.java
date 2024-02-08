@@ -5,9 +5,11 @@ import io.ylab.monitoring.domain.auth.event.UserLogined;
 import io.ylab.monitoring.domain.auth.exception.UserNotFoundException;
 import io.ylab.monitoring.domain.auth.in.UserLoginInputRequest;
 import io.ylab.monitoring.domain.auth.model.AuthUser;
+import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
 import io.ylab.monitoring.domain.auth.repository.UserLoginInputDbRepository;
 import io.ylab.monitoring.domain.auth.service.PasswordEncoder;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
+import io.ylab.monitoring.domain.core.model.DomainRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -60,14 +63,18 @@ class AuthUserLoginInteractorTest {
     void givenGoodRequest_whenLogin_thenSuccess() {
         given(request.getPassword()).willReturn(testPassword);
         given(authUser.getPassword()).willReturn(testHash);
+        given(authUser.getRole()).willReturn(DomainRole.USER);
+        given(authUser.getId()).willReturn(UUID.randomUUID());
         given(inputDbRepository.findByUsername(testUsername)).willReturn(Optional.of(authUser));
         given(passwordEncoder.matches(testPassword, authUser.getPassword())).willReturn(true);
         ArgumentCaptor<UserLoginEntered> enteredCaptor = ArgumentCaptor.forClass(UserLoginEntered.class);
         ArgumentCaptor<UserLogined> loginedCaptor = ArgumentCaptor.forClass(UserLogined.class);
 
-        boolean result = sut.login(request);
+        UserLoginInputResponse result = sut.login(request);
 
-        assertThat(result).isTrue();
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(authUser.getId());
+        assertThat(result.getRole()).isEqualTo(authUser.getRole());
         verify(eventPublisher, times(1)).publish(enteredCaptor.capture());
         verify(eventPublisher, times(1)).publish(loginedCaptor.capture());
         verify(passwordEncoder, times(1)).matches(testPassword, authUser.getPassword());

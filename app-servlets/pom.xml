@@ -27,6 +27,50 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.ylab.monitoring.core.model</groupId>
+            <artifactId>monitoring-core-model</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.ylab.monitoring.core</groupId>
+            <artifactId>monitoring-core</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.ylab.monitoring.auth</groupId>
+            <artifactId>monitoring-auth</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.ylab.monitoring.audit</groupId>
+            <artifactId>monitoring-audit</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.ylab.monitoring.db.jdbc</groupId>
+            <artifactId>monitoring-db-jdbc</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${versions.lombok}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${versions.postgresql-driver}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>${versions.jakarta.validation}</version>

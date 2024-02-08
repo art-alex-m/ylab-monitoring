@@ -9,11 +9,13 @@ import io.ylab.monitoring.domain.core.model.Meter;
 import io.ylab.monitoring.domain.core.out.ViewMetersInputResponse;
 import io.ylab.monitoring.domain.core.out.ViewMetersInputResponseFactory;
 import io.ylab.monitoring.domain.core.repository.ViewMetersInputDbRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Builder
 public class CoreViewMetersInteractor implements ViewMetersInput {
 
     private final ViewMetersInputResponseFactory responseFactory;

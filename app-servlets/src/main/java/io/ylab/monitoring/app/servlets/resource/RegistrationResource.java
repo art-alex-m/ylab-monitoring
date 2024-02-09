@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.servlets.resource;
 
 import io.ylab.monitoring.app.servlets.in.AppRegistrationRequest;
 import io.ylab.monitoring.domain.auth.boundary.UserRegistrationInput;
+import jakarta.annotation.security.PermitAll;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -16,6 +17,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/register")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@PermitAll
 public class RegistrationResource {
 
     @Inject

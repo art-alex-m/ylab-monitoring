@@ -17,6 +17,11 @@ import java.util.Properties;
 
 /**
  * Базовая конфигурация приложения
+ *
+ * <p>
+ * <a href="https://www.baeldung.com/java-ee-cdi">An Introduction to CDI (Contexts and Dependency Injection) in Java</a><br>
+ * <a href="https://javarush.com/groups/posts/2112-kratkiy-ehkskurs-v-vnedrenie-zavisimostey-ili-chto-ejshje-za-cdi">Краткий экскурс в внедрение зависимостей или "Что ещё за CDI?"</a><br>
+ * </p>
  */
 @ApplicationScoped
 public class MonitoringConfiguration {

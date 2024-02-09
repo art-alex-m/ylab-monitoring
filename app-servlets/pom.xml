@@ -15,13 +15,8 @@
     <packaging>war</packaging>
 
     <properties>
-        <versions.jakarta.validation>3.0.2</versions.jakarta.validation>
-        <versions.jakarta.enterprise.cdi>4.0.1</versions.jakarta.enterprise.cdi>
-        <versions.jakarta.json.bind>3.0.0</versions.jakarta.json.bind>
-        <versions.jakarta.json>2.1.1</versions.jakarta.json>
-        <versions.jakarta.ws.rs>3.1.0</versions.jakarta.ws.rs>
-        <versions.jakarta.security.enterprise>3.0.0</versions.jakarta.security.enterprise>
-        <versions.jakarta.servlet>6.0.0</versions.jakarta.servlet>
+        <versions.jackson-annotations>2.15.3</versions.jackson-annotations>
+        <versions.jakarta.jakartaee-web-api>9.1.0</versions.jakarta.jakartaee-web-api>
         <versions.maven-war-plugin>3.3.2</versions.maven-war-plugin>
     </properties>
 
@@ -63,49 +58,26 @@
             <version>${versions.lombok}</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${versions.postgresql-driver}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>${versions.jakarta.validation}</version>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>${versions.jakarta.jakartaee-web-api}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>jakarta.enterprise</groupId>
-            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${versions.jakarta.enterprise.cdi}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.json.bind</groupId>
-            <artifactId>jakarta.json.bind-api</artifactId>
-            <version>${versions.jakarta.json.bind}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.json</groupId>
-            <artifactId>jakarta.json-api</artifactId>
-            <version>${versions.jakarta.json}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
-            <version>${versions.jakarta.ws.rs}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.security.enterprise</groupId>
-            <artifactId>jakarta.security.enterprise-api</artifactId>
-            <version>${versions.jakarta.security.enterprise}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--            <artifactId>jackson-annotations</artifactId>-->
+        <!--            <version>${versions.jackson-annotations}</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -116,6 +88,24 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <version>${versions.junit-jupiter}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${versions.mockito-junit-jupiter}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${versions.assertj-core}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
             <version>${versions.junit-jupiter}</version>
             <scope>test</scope>
         </dependency>

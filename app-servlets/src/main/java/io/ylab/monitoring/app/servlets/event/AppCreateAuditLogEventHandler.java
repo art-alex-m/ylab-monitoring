@@ -5,7 +5,7 @@ import io.ylab.monitoring.domain.audit.boundary.CreateAuditLogInput;
 import io.ylab.monitoring.domain.core.event.MonitoringEvent;
 import io.ylab.monitoring.domain.core.event.MonitoringEventHandler;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.event.ObservesAsync;
 import jakarta.inject.Inject;
 
 @ApplicationScoped
@@ -15,7 +15,7 @@ public class AppCreateAuditLogEventHandler implements MonitoringEventHandler {
     private CreateAuditLogInput interactor;
 
     @Override
-    public boolean handle(@Observes MonitoringEvent event) {
+    public boolean handle(@ObservesAsync MonitoringEvent event) {
 
         interactor.create(AuditCreateAuditLogInputRequest.builder()
                 .name(event.getEventName())

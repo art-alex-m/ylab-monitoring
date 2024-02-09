@@ -21,7 +21,7 @@ public class AppMonitoringEventPublisher implements MonitoringEventPublisher {
 
     @Override
     public boolean publish(MonitoringEvent event) {
-        enterpriseEvent.fire(event);
+        enterpriseEvent.fireAsync(event);
         return true;
     }
 }

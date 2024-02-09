@@ -21,10 +21,10 @@ import java.util.UUID;
  * </p>
  */
 @Provider
-public class JSONBConfiguration implements ContextResolver<Jsonb> {
+public class JSONBConfigurationProvider implements ContextResolver<Jsonb> {
     private Jsonb jsonb;
 
-    public JSONBConfiguration() {
+    public JSONBConfigurationProvider() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true)
                 .withSerializers(new UuidSerializer());

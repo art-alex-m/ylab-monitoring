@@ -55,6 +55,7 @@ public class UserConfiguration {
 
     @Produces
     @Singleton
+    @Named("actualMeterReadingsInteracror")
     public GetActualMeterReadingsInput actualMeterReadingsInteracror(
             @Named("userMeterReadingsDbRepository") GetActualMeterReadingsInputDbRepository inputDbRepository,
             @Named("appEventPublisher") MonitoringEventPublisher eventPublisher,
@@ -69,6 +70,7 @@ public class UserConfiguration {
 
     @Produces
     @Singleton
+    @Named("monthMeterReadingsInteractor")
     public GetMonthMeterReadingsInput monthMeterReadingsInteractor(
             @Named("userMeterReadingsDbRepository") GetMonthMeterReadingsInputDbRepository inputDbRepository,
             @Named("appEventPublisher") MonitoringEventPublisher eventPublisher,
@@ -83,6 +85,7 @@ public class UserConfiguration {
 
     @Produces
     @Singleton
+    @Named("meterReadingsHistoryInteractor")
     public ViewMeterReadingsHistoryInput meterReadingsHistoryInteractor(
             @Named("userMeterReadingsDbRepository") ViewMeterReadingsHistoryInputDbRepository inputDbRepository,
             @Named("appEventPublisher") MonitoringEventPublisher eventPublisher,
@@ -97,6 +100,7 @@ public class UserConfiguration {
 
     @Produces
     @Singleton
+    @Named("submissionMeterReadingsInteractor")
     public SubmissionMeterReadingsInput submissionMeterReadingsInteractor(
             @Named("userMeterReadingsDbRepository") SubmissionMeterReadingsInputDbRepository inputDbRepository,
             @Named("appEventPublisher") MonitoringEventPublisher eventPublisher, PeriodService periodService,

@@ -15,7 +15,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <versions.jackson-annotations>2.15.3</versions.jackson-annotations>
+        <versions.jakarta.validation>3.0.2</versions.jakarta.validation>
         <versions.jakarta.jakartaee-web-api>9.1.0</versions.jakarta.jakartaee-web-api>
         <versions.maven-war-plugin>3.3.2</versions.maven-war-plugin>
     </properties>
@@ -71,12 +71,6 @@
             <version>${versions.jakarta.jakartaee-web-api}</version>
             <scope>provided</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--            <artifactId>jackson-annotations</artifactId>-->
-        <!--            <version>${versions.jackson-annotations}</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
 
 
         <dependency>

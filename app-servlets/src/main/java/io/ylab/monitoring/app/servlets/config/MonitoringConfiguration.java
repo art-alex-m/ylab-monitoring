@@ -1,10 +1,8 @@
 package io.ylab.monitoring.app.servlets.config;
 
-import io.ylab.monitoring.app.servlets.event.DummyMonitoringEventPublisher;
 import io.ylab.monitoring.app.servlets.service.AppPropertiesLoader;
 import io.ylab.monitoring.db.jdbc.repository.SqlQueryRepository;
 import io.ylab.monitoring.db.jdbc.repository.SqlQueryResourcesRepository;
-import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
@@ -41,13 +39,6 @@ public class MonitoringConfiguration {
         String username = applicationProperties.getProperty("ylab.monitoring.db.username");
         String password = applicationProperties.getProperty("ylab.monitoring.db.password");
         return DriverManager.getConnection(url, username, password);
-    }
-
-    @Produces
-    @Singleton
-    @Named("appEventPublisher")
-    public MonitoringEventPublisher monitoringEventPublisher() {
-        return new DummyMonitoringEventPublisher();
     }
 
     @Produces

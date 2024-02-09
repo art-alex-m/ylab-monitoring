@@ -17,7 +17,7 @@ public class AuditAuditItem implements AuditItem {
     private final Instant occurredAt;
 
     @NonNull
-    private final DomainUser user;
+    private DomainUser user;
 
     @NonNull
     private final String name;

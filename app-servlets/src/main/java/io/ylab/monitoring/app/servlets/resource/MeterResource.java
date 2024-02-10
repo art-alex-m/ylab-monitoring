@@ -18,6 +18,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Просмотр доступных типов показаний счетчиков
+ */
 @Path("/meter/list")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

@@ -8,6 +8,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.ObservesAsync;
 import jakarta.inject.Inject;
 
+/**
+ * Запись лога аудита через механизм событий CDI
+ */
 @ApplicationScoped
 public class AppCreateAuditLogEventHandler implements MonitoringEventHandler {
 

@@ -15,6 +15,9 @@ import jakarta.ws.rs.core.Response;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * Регистрация пользователя
+ */
 @Dependent
 @Path("/register")
 @Produces(MediaType.APPLICATION_JSON)

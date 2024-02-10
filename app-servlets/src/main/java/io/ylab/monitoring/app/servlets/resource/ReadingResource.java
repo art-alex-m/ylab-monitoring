@@ -32,6 +32,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Обработчик запросов пользователя к сценариям работы с показаниями счетчиков
+ */
 @Path("/reading")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

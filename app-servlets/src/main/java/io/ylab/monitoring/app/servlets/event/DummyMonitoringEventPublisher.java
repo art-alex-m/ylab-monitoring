@@ -6,6 +6,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Alternative;
 import jakarta.inject.Named;
 
+/**
+ * Заглушка для механизма событий ядра
+ */
 @ApplicationScoped
 @Named("appEventPublisher")
 @Alternative

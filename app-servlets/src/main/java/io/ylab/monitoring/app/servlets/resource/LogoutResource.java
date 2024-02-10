@@ -13,6 +13,9 @@ import jakarta.ws.rs.core.Response;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * Выход пользователя из системы
+ */
 @Path("/logout")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

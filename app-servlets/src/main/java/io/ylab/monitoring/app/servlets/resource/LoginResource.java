@@ -16,6 +16,9 @@ import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/**
+ * Вход пользователя в систему
+ */
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

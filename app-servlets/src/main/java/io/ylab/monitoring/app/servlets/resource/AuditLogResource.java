@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Просмотр лога аудита
+ */
 @Path("/admin/audit-log")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

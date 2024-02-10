@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.out;
 
+import io.ylab.monitoring.app.servlets.interceptor.TimeProfileLog;
 import io.ylab.monitoring.app.servlets.mapper.MeterReadingAppMeterReadingMapper;
 import io.ylab.monitoring.domain.core.model.MeterReading;
 import io.ylab.monitoring.domain.core.out.GetActualMeterReadingsInputResponseFactory;
@@ -17,6 +18,7 @@ public class AppMeterReadingsInputResponseFactory implements GetActualMeterReadi
     @Inject
     private MeterReadingAppMeterReadingMapper mapper;
 
+    @TimeProfileLog
     @Override
     public AppMeterReadingsInputResponse create(List<MeterReading> meterReadings) {
         return new AppMeterReadingsInputResponse(mapper.from(meterReadings));

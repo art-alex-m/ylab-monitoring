@@ -1,5 +1,7 @@
 package io.ylab.monitoring.app.servlets.service;
 
+import io.ylab.monitoring.app.servlets.interceptor.TimeProfileLog;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -15,6 +17,7 @@ public class AppPropertiesLoader {
      *
      * @return Properties
      */
+    @TimeProfileLog
     public static Properties loadDefault() {
         return load(DEFAULT_FILE_NAME);
     }

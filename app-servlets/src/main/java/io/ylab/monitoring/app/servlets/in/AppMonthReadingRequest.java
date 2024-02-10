@@ -2,7 +2,6 @@ package io.ylab.monitoring.app.servlets.in;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
 import jakarta.ws.rs.QueryParam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +29,7 @@ public class AppMonthReadingRequest {
     private int month;
 
     @QueryParam("year")
-    @Positive
+    @Min(0)
     private int year;
 
     public Instant getPeriod() {

@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.resource;
 
+import io.ylab.monitoring.app.servlets.interceptor.TimeProfileLog;
 import io.ylab.monitoring.app.servlets.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreViewMetersInputRequest;
 import io.ylab.monitoring.domain.core.boundary.ViewMetersInput;
@@ -36,6 +37,10 @@ public class MeterResource {
     @Inject
     private AppUserContext userContext;
 
+    /**
+     * FIXME: При аннотировании @TimeProfileLog метода ресурса интерсептор не срабатывает
+     */
+    @TimeProfileLog
     @GET
     public List<? extends Meter> listMeters() {
         ViewMetersInputRequest request = new CoreViewMetersInputRequest(userContext.getCurrentUser());

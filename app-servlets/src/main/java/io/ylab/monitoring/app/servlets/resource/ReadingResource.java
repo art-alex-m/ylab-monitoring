@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.servlets.resource;
 
 import io.ylab.monitoring.app.servlets.in.AppMonthReadingRequest;
 import io.ylab.monitoring.app.servlets.in.AppSubmitReadingRequest;
+import io.ylab.monitoring.app.servlets.interceptor.TimeProfileLog;
 import io.ylab.monitoring.app.servlets.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreGetActualMeterReadingsInputRequest;
 import io.ylab.monitoring.core.in.CoreGetMonthMeterReadingsInputRequest;
@@ -35,6 +36,7 @@ import java.util.List;
 /**
  * Обработчик запросов пользователя к сценариям работы с показаниями счетчиков
  */
+@TimeProfileLog
 @Path("/reading")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

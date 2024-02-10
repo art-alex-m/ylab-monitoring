@@ -11,4 +11,8 @@
         <exclude name="io.ylab.monitoring.domain.**"/>
         <exclude name="io.ylab.monitoring.db.**"/>
     </scan>
+
+    <interceptors>
+        <class>io.ylab.monitoring.app.servlets.interceptor.TimeProfileLogInterceptor</class>
+    </interceptors>
 </beans>

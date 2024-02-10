@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.service;
 
+import io.ylab.monitoring.audit.model.AuditDomainUser;
 import io.ylab.monitoring.core.model.CoreDomainUser;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import jakarta.enterprise.context.RequestScoped;
@@ -8,6 +9,8 @@ import jakarta.security.enterprise.SecurityContext;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.security.Principal;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -22,8 +25,12 @@ public class AppUserContext {
     private SecurityContext securityContext;
 
     public DomainUser getCurrentUser() {
-        UUID id = UUID.fromString(securityContext.getCallerPrincipal().getName());
-        return new CoreDomainUser(id);
+        return Optional.ofNullable(securityContext)
+                .map(SecurityContext::getCallerPrincipal)
+                .map(Principal::getName)
+                .map(UUID::fromString)
+                .map(uuid -> (DomainUser) new CoreDomainUser(uuid))
+                .orElse(AuditDomainUser.NULL_USER);
     }
 
     public SecurityContext getSecurityContext() {

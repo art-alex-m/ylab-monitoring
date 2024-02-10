@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.resource;
 
+import io.ylab.monitoring.app.servlets.interceptor.AuditLogger;
 import io.ylab.monitoring.app.servlets.service.AuthTokenManager;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 /**
  * Выход пользователя из системы
  */
+@AuditLogger
 @Path("/logout")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

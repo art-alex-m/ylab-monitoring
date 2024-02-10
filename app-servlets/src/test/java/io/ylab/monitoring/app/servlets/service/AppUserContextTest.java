@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.service;
 
+import io.ylab.monitoring.audit.model.AuditDomainUser;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import jakarta.security.enterprise.SecurityContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,5 +49,14 @@ class AppUserContextTest {
         SecurityContext result = sut.getSecurityContext();
 
         assertThat(result).isNotNull().isEqualTo(securityContext);
+    }
+
+    @Test
+    void givenNullSecurityCtx_whenGetSecurityContext_thenReturnNullUser() {
+        sut = new AppUserContext(null);
+
+        DomainUser result = sut.getCurrentUser();
+
+        assertThat(result).isEqualTo(AuditDomainUser.NULL_USER);
     }
 }

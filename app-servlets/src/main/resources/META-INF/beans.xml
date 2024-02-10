@@ -14,5 +14,6 @@
 
     <interceptors>
         <class>io.ylab.monitoring.app.servlets.interceptor.TimeProfileLogInterceptor</class>
+        <class>io.ylab.monitoring.app.servlets.interceptor.AuditLoggerInterceptor</class>
     </interceptors>
 </beans>

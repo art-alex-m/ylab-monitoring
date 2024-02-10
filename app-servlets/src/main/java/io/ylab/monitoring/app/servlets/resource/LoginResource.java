@@ -1,6 +1,7 @@
 package io.ylab.monitoring.app.servlets.resource;
 
 import io.ylab.monitoring.app.servlets.in.AppLoginRequest;
+import io.ylab.monitoring.app.servlets.interceptor.AuditLogger;
 import io.ylab.monitoring.app.servlets.interceptor.TimeProfileLog;
 import io.ylab.monitoring.app.servlets.out.AppAuthToken;
 import io.ylab.monitoring.app.servlets.service.AuthTokenManager;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 /**
  * Вход пользователя в систему
  */
+@AuditLogger
 @TimeProfileLog
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)

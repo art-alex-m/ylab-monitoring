@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.servlets.event;
 
 import io.ylab.monitoring.audit.in.AuditCreateAuditLogInputRequest;
 import io.ylab.monitoring.domain.audit.boundary.CreateAuditLogInput;
+import io.ylab.monitoring.domain.audit.in.CreateAuditLogInputRequest;
 import io.ylab.monitoring.domain.core.event.MonitoringEvent;
 import io.ylab.monitoring.domain.core.event.MonitoringEventHandler;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -19,12 +20,19 @@ public class AppCreateAuditLogEventHandler implements MonitoringEventHandler {
 
     @Override
     public boolean handle(@ObservesAsync MonitoringEvent event) {
-
-        interactor.create(AuditCreateAuditLogInputRequest.builder()
+        return handle(AuditCreateAuditLogInputRequest.builder()
                 .name(event.getEventName())
                 .user(event.getUser())
                 .occurredAt(event.getCreatedAt()).build());
+    }
 
-        return true;
+    /**
+     * Ведение лога аудита через аспекты @AuditLogger
+     *
+     * @param request AuditCreateAuditLogInputRequest
+     * @return boolean
+     */
+    public boolean handle(@ObservesAsync CreateAuditLogInputRequest request) {
+        return interactor.create(request);
     }
 }

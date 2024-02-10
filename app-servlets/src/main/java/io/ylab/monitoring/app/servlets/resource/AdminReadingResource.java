@@ -1,6 +1,7 @@
 package io.ylab.monitoring.app.servlets.resource;
 
 import io.ylab.monitoring.app.servlets.in.AppMonthReadingRequest;
+import io.ylab.monitoring.app.servlets.interceptor.AuditLogger;
 import io.ylab.monitoring.app.servlets.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreGetActualMeterReadingsInputRequest;
 import io.ylab.monitoring.core.in.CoreGetMonthMeterReadingsInputRequest;
@@ -30,6 +31,7 @@ import java.util.List;
 /**
  * Обработчик запросов администратора к сценариям работы с показаниями счетчиков
  */
+@AuditLogger
 @Path("/admin/reading")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

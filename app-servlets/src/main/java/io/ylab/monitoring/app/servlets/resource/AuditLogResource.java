@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.resource;
 
+import io.ylab.monitoring.app.servlets.interceptor.AuditLogger;
 import io.ylab.monitoring.app.servlets.service.AppUserContext;
 import io.ylab.monitoring.audit.in.AuditViewAuditLogInputRequest;
 import io.ylab.monitoring.domain.audit.boundary.ViewAuditLogInput;
@@ -20,6 +21,7 @@ import java.util.List;
 /**
  * Просмотр лога аудита
  */
+@AuditLogger
 @Path("/admin/audit-log")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.resource;
 
+import io.ylab.monitoring.app.servlets.interceptor.AuditLogger;
 import io.ylab.monitoring.app.servlets.interceptor.TimeProfileLog;
 import io.ylab.monitoring.app.servlets.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreViewMetersInputRequest;
@@ -22,6 +23,7 @@ import java.util.List;
 /**
  * Просмотр доступных типов показаний счетчиков
  */
+@AuditLogger
 @Path("/meter/list")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

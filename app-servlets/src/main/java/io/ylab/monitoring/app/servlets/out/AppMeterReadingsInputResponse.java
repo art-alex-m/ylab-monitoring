@@ -1,6 +1,5 @@
 package io.ylab.monitoring.app.servlets.out;
 
-import io.ylab.monitoring.domain.core.model.MeterReading;
 import io.ylab.monitoring.domain.core.out.GetActualMeterReadingsInputResponse;
 import io.ylab.monitoring.domain.core.out.GetMonthMeterReadingsResponse;
 import io.ylab.monitoring.domain.core.out.ViewMeterReadingsHistoryInputResponse;
@@ -14,5 +13,5 @@ import java.util.List;
 public class AppMeterReadingsInputResponse implements GetActualMeterReadingsInputResponse,
         GetMonthMeterReadingsResponse, ViewMeterReadingsHistoryInputResponse {
 
-    private final List<MeterReading> meterReadings;
+    private final List<AppMeterReading> meterReadings;
 }

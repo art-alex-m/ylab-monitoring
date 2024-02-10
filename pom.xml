@@ -33,6 +33,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <versions.maven-jar-plugin>3.3.0</versions.maven-jar-plugin>
         <versions.maven-dependency-plugin>3.6.0</versions.maven-dependency-plugin>
+        <versions.maven-compiler-plugin>3.11.0</versions.maven-compiler-plugin>
         <versions.lombok>1.18.30</versions.lombok>
         <versions.junit-jupiter>5.10.1</versions.junit-jupiter>
         <versions.mockito-junit-jupiter>5.7.0</versions.mockito-junit-jupiter>

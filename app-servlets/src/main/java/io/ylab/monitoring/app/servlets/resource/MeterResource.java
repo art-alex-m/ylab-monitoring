@@ -34,7 +34,7 @@ public class MeterResource {
     private AppUserContext userContext;
 
     @GET
-    public List<Meter> listMeters() {
+    public List<? extends Meter> listMeters() {
         ViewMetersInputRequest request = new CoreViewMetersInputRequest(userContext.getCurrentUser());
         return metersInteractor.find(request).getMeters();
     }

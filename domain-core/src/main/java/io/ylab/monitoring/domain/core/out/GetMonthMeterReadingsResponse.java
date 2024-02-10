@@ -13,5 +13,5 @@ public interface GetMonthMeterReadingsResponse {
      *
      * @return список объектов или пустой список
      */
-    List<MeterReading> getMeterReadings();
+    List<? extends MeterReading> getMeterReadings();
 }

@@ -32,7 +32,7 @@ public class AuditLogResource {
     private AppUserContext userContext;
 
     @GET
-    public List<AuditItem> auditLog() {
+    public List<? extends AuditItem> auditLog() {
         ViewAuditLogInputRequest request = new AuditViewAuditLogInputRequest(userContext.getCurrentUser());
         return auditLogInteractor.view(request).getAuditLog();
     }

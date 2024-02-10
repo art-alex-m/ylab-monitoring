@@ -61,7 +61,7 @@ public class ReadingResource {
 
     @GET
     @Path("/actual")
-    public List<MeterReading> actual() {
+    public List<? extends MeterReading> actual() {
         GetActualMeterReadingsInputRequest request = new CoreGetActualMeterReadingsInputRequest(
                 userContext.getCurrentUser());
 
@@ -70,7 +70,7 @@ public class ReadingResource {
 
     @GET
     @Path("/history")
-    public List<MeterReading> history() {
+    public List<? extends MeterReading> history() {
         ViewMeterReadingsHistoryInputRequest request = new CoreViewMeterReadingsHistoryInputRequest(
                 userContext.getCurrentUser());
 
@@ -79,7 +79,7 @@ public class ReadingResource {
 
     @GET
     @Path("/month")
-    public List<MeterReading> month(@Valid @BeanParam AppMonthReadingRequest request) {
+    public List<? extends MeterReading> month(@Valid @BeanParam AppMonthReadingRequest request) {
         GetMonthMeterReadingsInputRequest coreRequest = new CoreGetMonthMeterReadingsInputRequest(
                 userContext.getCurrentUser(), request.getPeriod());
 

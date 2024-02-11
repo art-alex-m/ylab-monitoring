@@ -22,7 +22,7 @@ import java.util.List;
  * Просмотр лога аудита
  */
 @AuditLogger
-@Path("/admin/audit-log")
+@Path("/admin/audit-logs")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RolesAllowed({"ADMIN"})

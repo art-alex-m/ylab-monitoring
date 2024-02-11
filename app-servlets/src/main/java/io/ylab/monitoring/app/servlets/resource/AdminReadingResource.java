@@ -32,7 +32,7 @@ import java.util.List;
  * Обработчик запросов администратора к сценариям работы с показаниями счетчиков
  */
 @AuditLogger
-@Path("/admin/reading")
+@Path("/admin/readings")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RolesAllowed({"ADMIN"})
@@ -65,7 +65,6 @@ public class AdminReadingResource {
     }
 
     @GET
-    @Path("/history")
     public List<? extends MeterReading> history() {
         ViewMeterReadingsHistoryInputRequest request = new CoreViewMeterReadingsHistoryInputRequest(
                 userContext.getCurrentUser());

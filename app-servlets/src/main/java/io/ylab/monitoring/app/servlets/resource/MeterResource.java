@@ -24,7 +24,7 @@ import java.util.List;
  * Просмотр доступных типов показаний счетчиков
  */
 @AuditLogger
-@Path("/meter/list")
+@Path("/meters")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RolesAllowed({"USER"})

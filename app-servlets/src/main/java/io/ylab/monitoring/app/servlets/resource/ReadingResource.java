@@ -39,7 +39,7 @@ import java.util.List;
  */
 @AuditLogger
 @TimeProfileLog
-@Path("/reading")
+@Path("/readings")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RolesAllowed({"USER"})
@@ -76,7 +76,6 @@ public class ReadingResource {
     }
 
     @GET
-    @Path("/history")
     public List<? extends MeterReading> history() {
         ViewMeterReadingsHistoryInputRequest request = new CoreViewMeterReadingsHistoryInputRequest(
                 userContext.getCurrentUser());
@@ -94,7 +93,6 @@ public class ReadingResource {
     }
 
     @POST
-    @Path("/submit")
     public MeterReading submit(@Valid AppSubmitReadingRequest request) {
         SubmissionMeterReadingsInputRequest coreRequest = CoreSubmissionMeterReadingsInputRequest.builder()
                 .value(request.getValue())

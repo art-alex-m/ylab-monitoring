@@ -13,6 +13,10 @@ import java.time.Instant;
 
 /**
  * Аспект ведения лога аудита
+ *
+ * <p>
+ *     <a href="https://javarush.com/groups/posts/2112-kratkiy-ehkskurs-v-vnedrenie-zavisimostey-ili-chto-ejshje-za-cdi">Краткий экскурс в внедрение зависимостей или "Что ещё за CDI?"</a><br>
+ * </p>
  */
 @Interceptor
 @AuditLogger

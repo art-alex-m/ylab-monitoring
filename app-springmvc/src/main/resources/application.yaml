@@ -1,0 +1,9 @@
+ylab:
+  monitoring:
+    auth:
+      password:
+        salt: gahhc5X5bYPIbsKSQw0
+    db:
+      username: ymonitor
+      password: pwd123456!
+      jdbc.url: jdbc:postgresql://localhost:15432/ymonitor?currentSchema=monitoring

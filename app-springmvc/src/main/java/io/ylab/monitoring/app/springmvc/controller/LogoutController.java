@@ -1,6 +1,7 @@
 package io.ylab.monitoring.app.springmvc.controller;
 
 import io.ylab.monitoring.app.springmvc.service.AuthTokenManager;
+import jakarta.annotation.security.PermitAll;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@PermitAll
 public class LogoutController {
 
     private final AuthTokenManager tokenManager;

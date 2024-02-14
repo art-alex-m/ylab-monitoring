@@ -16,12 +16,14 @@
     <properties>
         <versions.jakarta.validation>3.0.2</versions.jakarta.validation>
         <versions.jakarta.servlet-api>6.0.0</versions.jakarta.servlet-api>
+        <versions.jakarta.annotation-api>2.1.1</versions.jakarta.annotation-api>
         <versions.maven-war-plugin>3.3.2</versions.maven-war-plugin>
         <versions.mapstruct>1.5.5.Final</versions.mapstruct>
         <versions.spring-framework>6.1.2</versions.spring-framework>
         <versions.spring-security>6.2.1</versions.spring-security>
         <versions.jackson>2.16.1</versions.jackson>
         <versions.hibernate-validator>8.0.1.Final</versions.hibernate-validator>
+        <versions.snakeyaml>2.2</versions.snakeyaml>
     </properties>
 
     <dependencies>
@@ -32,6 +34,16 @@
             <artifactId>jakarta.servlet-api</artifactId>
             <version>${versions.jakarta.servlet-api}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${versions.jakarta.validation}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>${versions.jakarta.annotation-api}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -61,7 +73,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>2.2</version>
+            <version>${versions.snakeyaml}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -79,6 +91,7 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${versions.hibernate-validator}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

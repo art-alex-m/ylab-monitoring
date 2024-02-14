@@ -1,6 +1,7 @@
 package io.ylab.monitoring.app.springmvc.model;
 
 import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
+import io.ylab.monitoring.domain.core.model.DomainRole;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,8 @@ public class AppUserDetails implements UserDetails, DomainUser {
 
     private final String password = "[SECURED]";
 
+    private final String rolePrefix = "ROLE_";
+
     public AppUserDetails(UUID id, Collection<? extends GrantedAuthority> authorities, String username) {
         this.id = id;
         this.authorities = authorities;
@@ -33,7 +36,7 @@ public class AppUserDetails implements UserDetails, DomainUser {
 
     public AppUserDetails(UserLoginInputResponse response) {
         this.id = response.getId();
-        this.authorities = Set.of(new AppGrantedAuthority(response.getRole().name()));
+        this.authorities = Set.of(new AppGrantedAuthority(prepareRole(response.getRole())));
         this.username = response.getId().toString();
     }
 
@@ -61,5 +64,9 @@ public class AppUserDetails implements UserDetails, DomainUser {
     @Getter
     public static class AppGrantedAuthority implements GrantedAuthority {
         private final String authority;
+    }
+
+    private String prepareRole(DomainRole domainRole) {
+        return rolePrefix + domainRole.name();
     }
 }

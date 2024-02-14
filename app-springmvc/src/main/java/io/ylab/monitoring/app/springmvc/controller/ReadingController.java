@@ -17,12 +17,13 @@ import io.ylab.monitoring.domain.core.in.GetMonthMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.in.SubmissionMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.in.ViewMeterReadingsHistoryInputRequest;
 import io.ylab.monitoring.domain.core.model.MeterReading;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +36,7 @@ import java.util.List;
 @RequestMapping(
         value = "/readings",
         produces = MediaType.APPLICATION_JSON_VALUE)
-@Secured("USER")
+@RolesAllowed("USER")
 public class ReadingController {
 
     private final AppUserContext userContext;
@@ -86,7 +87,7 @@ public class ReadingController {
     }
 
     @PostMapping
-    public MeterReading submit(@Valid AppSubmitReadingRequest request) {
+    public MeterReading submit(@Valid @RequestBody AppSubmitReadingRequest request) {
         SubmissionMeterReadingsInputRequest coreRequest = CoreSubmissionMeterReadingsInputRequest.builder()
                 .value(request.getValue())
                 .user(userContext.getCurrentUser())

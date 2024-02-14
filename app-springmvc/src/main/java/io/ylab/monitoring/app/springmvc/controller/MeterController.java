@@ -5,9 +5,9 @@ import io.ylab.monitoring.core.in.CoreViewMetersInputRequest;
 import io.ylab.monitoring.domain.core.boundary.ViewMetersInput;
 import io.ylab.monitoring.domain.core.in.ViewMetersInputRequest;
 import io.ylab.monitoring.domain.core.model.Meter;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-@Secured("USER")
+@RolesAllowed("USER")
 public class MeterController {
 
     private final ViewMetersInput metersInteractor;

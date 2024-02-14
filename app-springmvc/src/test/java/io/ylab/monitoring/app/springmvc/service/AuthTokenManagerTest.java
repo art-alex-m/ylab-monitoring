@@ -56,7 +56,7 @@ class AuthTokenManagerTest {
         assertThat(result.getAuthorities())
                 .hasSize(1)
                 .map(GrantedAuthority::getAuthority)
-                .isEqualTo(List.of(DomainRole.USER.name()));
+                .isEqualTo(List.of("ROLE_" + DomainRole.USER.name()));
     }
 
     @Test

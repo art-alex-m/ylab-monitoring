@@ -13,10 +13,10 @@ import io.ylab.monitoring.domain.core.in.GetActualMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.in.GetMonthMeterReadingsInputRequest;
 import io.ylab.monitoring.domain.core.in.ViewMeterReadingsHistoryInputRequest;
 import io.ylab.monitoring.domain.core.model.MeterReading;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +30,7 @@ import java.util.List;
 @RequestMapping(
         value = "/admin/readings",
         produces = MediaType.APPLICATION_JSON_VALUE)
-@Secured("ADMIN")
+@RolesAllowed("ADMIN")
 public class AdminReadingController {
 
     private final AppUserContext userContext;

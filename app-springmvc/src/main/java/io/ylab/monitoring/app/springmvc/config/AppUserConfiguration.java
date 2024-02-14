@@ -35,7 +35,7 @@ import java.sql.Connection;
  * Конфигурация сценариев для пользователя
  */
 @Configuration
-public class UserConfiguration {
+public class AppUserConfiguration {
 
     @Bean("appUserViewMetersInput")
     public ViewMetersInput viewMetersInteractor(

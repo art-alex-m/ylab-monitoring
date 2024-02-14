@@ -33,7 +33,7 @@ import java.sql.Connection;
  * Конфигурация сценариев работы с показаниями счетчиков для администратора
  */
 @Configuration
-public class AdminConfiguration {
+public class AppAdminConfiguration {
     @Bean("adminActualMeterReadingsInteractor")
     public GetActualMeterReadingsInput actualMeterReadingsInteractor(
             @Qualifier("adminMeterReadingsDbRepository") GetActualMeterReadingsInputDbRepository inputDbRepository,

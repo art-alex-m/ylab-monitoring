@@ -1,8 +1,6 @@
 package io.ylab.monitoring.app.springmvc.service;
 
-import io.ylab.monitoring.app.springmvc.model.AppUserDetails;
 import io.ylab.monitoring.audit.model.AuditDomainUser;
-import io.ylab.monitoring.core.model.CoreDomainUser;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -25,9 +23,7 @@ public class AppUserContext {
         return Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .map(Authentication::getPrincipal)
-                .map(principal -> (AppUserDetails) principal)
-                .map(AppUserDetails::getId)
-                .map(uuid -> (DomainUser) new CoreDomainUser(uuid))
+                .map(principal -> (DomainUser) principal)
                 .orElse(AuditDomainUser.NULL_USER);
     }
 }

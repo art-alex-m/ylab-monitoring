@@ -28,7 +28,7 @@ public class MonitoringWebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic dispatcherServlet = servletContext
                 .addServlet(SERVLET_NAME, new DispatcherServlet(applicationContext));
         dispatcherServlet.setLoadOnStartup(1);
-        dispatcherServlet.addMapping("/");
+        dispatcherServlet.addMapping("/api/*");
 
         try {
             Class.forName(POSTGRESQL_DRIVER_CLASS);

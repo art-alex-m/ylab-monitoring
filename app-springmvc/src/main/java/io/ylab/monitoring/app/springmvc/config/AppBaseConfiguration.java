@@ -3,6 +3,8 @@ package io.ylab.monitoring.app.springmvc.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ylab.monitoring.app.springmvc.factory.YamlPropertySourceFactory;
 import io.ylab.monitoring.app.springmvc.model.AppDbProperties;
+import io.ylab.monitoring.db.jdbc.repository.SqlQueryRepository;
+import io.ylab.monitoring.db.jdbc.repository.SqlQueryResourcesRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -33,5 +35,10 @@ public class AppBaseConfiguration implements WebMvcConfigurer {
     public Connection connection(AppDbProperties dbProperties) throws SQLException {
         return DriverManager.getConnection(dbProperties.getUrl(), dbProperties.getUsername(),
                 dbProperties.getPassword());
+    }
+
+    @Bean("appSqlQueryRepository")
+    public SqlQueryRepository sqlQueryRepository() {
+        return new SqlQueryResourcesRepository();
     }
 }

@@ -13,6 +13,12 @@ import java.util.Properties;
 
 /**
  * Парсер Yaml конфигурации
+ *
+ * <p>
+ *     <a href="https://www.baeldung.com/spring-reloading-properties">Reloading Properties Files in Spring</a><br>
+ *     <a href="https://www.baeldung.com/properties-with-spring">Properties with Spring and Spring Boot</a><br>
+ *     <a href="https://www.baeldung.com/spring-yaml-propertysource">PropertySource with YAML Files in Spring Boot</a><br>
+ * </p>
  */
 @Component
 public class YamlPropertySourceFactory implements PropertySourceFactory {

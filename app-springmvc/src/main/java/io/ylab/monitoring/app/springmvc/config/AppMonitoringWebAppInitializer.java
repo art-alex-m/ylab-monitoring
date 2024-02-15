@@ -23,6 +23,8 @@ public class AppMonitoringWebAppInitializer extends AbstractAnnotationConfigDisp
 
     public static final String POSTGRESQL_DRIVER_CLASS = "org.postgresql.Driver";
 
+    public static final String SERVLET_MAPPING = "/api/*";
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
@@ -49,7 +51,7 @@ public class AppMonitoringWebAppInitializer extends AbstractAnnotationConfigDisp
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/api/*"};
+        return new String[]{SERVLET_MAPPING};
     }
 
     @Override

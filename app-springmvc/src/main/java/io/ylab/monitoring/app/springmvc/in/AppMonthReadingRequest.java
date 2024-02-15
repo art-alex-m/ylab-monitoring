@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import java.time.ZoneOffset;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class AppMonthReadingRequest {
     @Min(1)
     @Max(12)

@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Представление ошибки бизнес-логики
+ * Представление ошибки сервиса
  */
 @AllArgsConstructor
 @Getter
-public class AppViolationError {
+public class AppError {
     private final String className;
 
     private final String field;

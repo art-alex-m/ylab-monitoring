@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.springmvc.service;
 
+import io.ylab.monitoring.app.springmvc.aspect.TimeProfileLog;
 import io.ylab.monitoring.app.springmvc.model.AppUserDetails;
 import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Менеджер токенов авторизации
  */
+@TimeProfileLog
 @Component
 public class AuthTokenManager {
     private final static int LENGTH = 48;

@@ -7,6 +7,7 @@ import io.ylab.monitoring.db.jdbc.repository.SqlQueryRepository;
 import io.ylab.monitoring.db.jdbc.repository.SqlQueryResourcesRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -20,6 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @EnableWebMvc
+@EnableAspectJAutoProxy
 @Configuration
 @PropertySource(value = "classpath:application.yaml", factory = YamlPropertySourceFactory.class)
 public class AppBaseConfiguration implements WebMvcConfigurer {

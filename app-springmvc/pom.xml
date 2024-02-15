@@ -24,6 +24,7 @@
         <versions.jackson>2.16.1</versions.jackson>
         <versions.hibernate-validator>8.0.1.Final</versions.hibernate-validator>
         <versions.snakeyaml>2.2</versions.snakeyaml>
+        <versions.aspectjweaver>1.9.21.1</versions.aspectjweaver>
     </properties>
 
     <dependencies>
@@ -99,6 +100,11 @@
             <version>${versions.postgresql-driver}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${versions.aspectjweaver}</version>
+        </dependency>
 
 
         <!-- DOMAIN LIBRARIES SECTION -->
@@ -153,12 +159,12 @@
             <version>${versions.assertj-core}</version>
             <scope>test</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework</groupId>-->
-        <!--            <artifactId>spring-test</artifactId>-->
-        <!--            <version>${versions.spring-framework}</version>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${versions.spring-framework}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -23,6 +23,7 @@ public class AppUserContext {
         return Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .map(Authentication::getPrincipal)
+                .filter(principal -> principal instanceof DomainUser)
                 .map(principal -> (DomainUser) principal)
                 .orElse(AuditDomainUser.NULL_USER);
     }

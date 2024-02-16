@@ -9,9 +9,6 @@ import io.ylab.monitoring.core.boundary.CoreGetActualMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreGetMonthMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreViewMeterReadingsHistoryInteractor;
 import io.ylab.monitoring.core.service.CorePeriodService;
-import io.ylab.monitoring.db.jdbc.repository.JdbcAdminMeterReadingsDbRepository;
-import io.ylab.monitoring.db.jdbc.repository.JdbcAuditLogDbRepository;
-import io.ylab.monitoring.db.jdbc.repository.SqlQueryRepository;
 import io.ylab.monitoring.domain.audit.boundary.CreateAuditLogInput;
 import io.ylab.monitoring.domain.audit.boundary.ViewAuditLogInput;
 import io.ylab.monitoring.domain.audit.repository.CreateAuditLogInputDbRepository;
@@ -26,8 +23,6 @@ import io.ylab.monitoring.domain.core.repository.ViewMeterReadingsHistoryInputDb
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.sql.Connection;
 
 /**
  * Конфигурация сценариев работы с показаниями счетчиков для администратора
@@ -72,18 +67,6 @@ public class AppAdminConfiguration {
                 .readingsDbRepository(inputDbRepository)
                 .responseFactory(responseFactory)
                 .build();
-    }
-
-    @Bean("adminMeterReadingsDbRepository")
-    public JdbcAdminMeterReadingsDbRepository adminMeterReadingsDbRepository(Connection connection,
-            SqlQueryRepository queryRepository) {
-        return new JdbcAdminMeterReadingsDbRepository(queryRepository, connection);
-    }
-
-    @Bean("auditLogInputDbRepository")
-    public JdbcAuditLogDbRepository auditLogInputDbRepository(Connection connection,
-            SqlQueryRepository queryRepository) {
-        return new JdbcAuditLogDbRepository(queryRepository, connection);
     }
 
     @Bean

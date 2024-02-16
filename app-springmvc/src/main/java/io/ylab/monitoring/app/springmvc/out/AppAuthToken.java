@@ -1,15 +1,17 @@
 package io.ylab.monitoring.app.springmvc.out;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * Токен авторизации запроса
  */
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class AppAuthToken {
     @JsonProperty("authorization_token")
-    private final String authorizationToken;
+    private String authorizationToken;
 }

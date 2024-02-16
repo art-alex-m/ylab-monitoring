@@ -9,9 +9,6 @@ import io.ylab.monitoring.core.boundary.CoreSubmissionMeterReadingsInteractor;
 import io.ylab.monitoring.core.boundary.CoreViewMeterReadingsHistoryInteractor;
 import io.ylab.monitoring.core.boundary.CoreViewMetersInteractor;
 import io.ylab.monitoring.core.service.CorePeriodService;
-import io.ylab.monitoring.db.jdbc.repository.JdbcUserMeterReadingsDbRepository;
-import io.ylab.monitoring.db.jdbc.repository.JdbcUserMetersDbRepository;
-import io.ylab.monitoring.db.jdbc.repository.SqlQueryRepository;
 import io.ylab.monitoring.domain.core.boundary.GetActualMeterReadingsInput;
 import io.ylab.monitoring.domain.core.boundary.GetMonthMeterReadingsInput;
 import io.ylab.monitoring.domain.core.boundary.SubmissionMeterReadingsInput;
@@ -28,8 +25,6 @@ import io.ylab.monitoring.domain.core.service.PeriodService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.sql.Connection;
 
 /**
  * Конфигурация сценариев для пользователя
@@ -103,18 +98,6 @@ public class AppUserConfiguration {
                 .periodService(periodService)
                 .eventPublisher(eventPublisher)
                 .build();
-    }
-
-    @Bean("userMeterReadingsDbRepository")
-    public JdbcUserMeterReadingsDbRepository userMeterReadingsDbRepository(Connection connection,
-            SqlQueryRepository queryRepository) {
-        return new JdbcUserMeterReadingsDbRepository(queryRepository, connection);
-    }
-
-    @Bean("appMetersDbRepository")
-    public JdbcUserMetersDbRepository viewMetersInputDbRepository(Connection connection,
-            SqlQueryRepository queryRepository) {
-        return new JdbcUserMetersDbRepository(queryRepository, connection);
     }
 
     @Bean

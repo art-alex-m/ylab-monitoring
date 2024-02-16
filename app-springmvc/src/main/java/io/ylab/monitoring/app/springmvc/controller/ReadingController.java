@@ -20,11 +20,13 @@ import io.ylab.monitoring.domain.core.model.MeterReading;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -87,6 +89,7 @@ public class ReadingController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public MeterReading submit(@Valid @RequestBody AppSubmitReadingRequest request) {
         SubmissionMeterReadingsInputRequest coreRequest = CoreSubmissionMeterReadingsInputRequest.builder()
                 .value(request.getValue())

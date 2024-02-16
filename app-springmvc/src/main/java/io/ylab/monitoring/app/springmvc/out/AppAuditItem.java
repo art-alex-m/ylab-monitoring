@@ -5,17 +5,19 @@ import io.ylab.monitoring.domain.audit.model.AuditItem;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class AppAuditItem implements AuditItem {
 
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
-    private final Instant occurredAt;
+    private Instant occurredAt;
 
-    private final DomainUser user;
+    private DomainUser user;
 
-    private final String name;
+    private String name;
 }

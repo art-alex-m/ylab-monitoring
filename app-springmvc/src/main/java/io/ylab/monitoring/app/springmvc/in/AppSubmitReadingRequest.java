@@ -1,6 +1,7 @@
 package io.ylab.monitoring.app.springmvc.in;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -29,10 +30,11 @@ public class AppSubmitReadingRequest {
     @Positive
     private long value;
 
-    @JsonAlias("meter_name")
+    @JsonProperty("meter_name")
     @NotEmpty
     private String meterName;
 
+    @JsonIgnore
     public Instant getPeriod() {
         int currentYear = year;
         int currentMonth = month;

@@ -17,4 +17,6 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AuditItemAppAuditItemMapper {
     List<AppAuditItem> from(List<AuditItem> auditItemList);
+
+    AppAuditItem from(AuditItem auditItem);
 }

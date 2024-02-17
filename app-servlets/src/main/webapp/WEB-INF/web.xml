@@ -14,8 +14,8 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Users resources</web-resource-name>
-            <url-pattern>/api/meter/list</url-pattern>
-            <url-pattern>/api/reading/*</url-pattern>
+            <url-pattern>/api/meters</url-pattern>
+            <url-pattern>/api/readings/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>USER</role-name>

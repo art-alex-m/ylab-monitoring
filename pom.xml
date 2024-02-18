@@ -19,6 +19,7 @@
         <module>core-model</module>
         <module>app-console</module>
         <module>app-jakartaee</module>
+        <module>app-servlets</module>
         <module>auth</module>
         <module>core</module>
         <module>audit</module>

@@ -17,7 +17,7 @@ public class ConfigurationCacheAdvice {
 
     private final Map<Signature, Object> cacheRepository = new ConcurrentHashMap<>();
 
-    @Pointcut("execution(public * io.ylab.monitoring.app.servlets.config.*Configuration.*())")
+    @Pointcut("execution(public * io.ylab.monitoring.app.servlets.config.*Configuration.*(..))")
     public void isConfig() {
     }
 

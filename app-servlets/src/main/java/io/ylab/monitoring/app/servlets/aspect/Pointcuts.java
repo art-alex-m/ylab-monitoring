@@ -10,7 +10,7 @@ public class Pointcuts {
     public void classConstructor() {
     }
 
-    @Pointcut("within(io.ylab.monitoring.app.servlets.servlet.*Servlet)")
+    @Pointcut("execution(* io.ylab.monitoring.app.servlets.servlet.*Servlet.*(..))")
     public void anyServlet() {
     }
 

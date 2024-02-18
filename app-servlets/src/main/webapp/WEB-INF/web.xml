@@ -3,4 +3,6 @@
          xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+    <response-character-encoding>UTF-8</response-character-encoding>
 </web-app>

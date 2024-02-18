@@ -1,15 +1,18 @@
 package io.ylab.monitoring.app.servlets.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ylab.monitoring.app.servlets.event.DummyMonitoringEventPublisher;
 import io.ylab.monitoring.app.servlets.mapper.AuditItemAppAuditItemMapperImpl;
 import io.ylab.monitoring.app.servlets.mapper.MeterAppMeterMapperImpl;
 import io.ylab.monitoring.app.servlets.mapper.MeterReadingAppMeterReadingMapperImpl;
 import io.ylab.monitoring.app.servlets.model.AppDbProperties;
 import io.ylab.monitoring.app.servlets.out.AppAuditLogInputResponseFactory;
+import io.ylab.monitoring.app.servlets.out.AppMeterReadingsInputResponseFactory;
 import io.ylab.monitoring.app.servlets.out.AppSubmissionMeterReadingsInputResponseFactory;
 import io.ylab.monitoring.app.servlets.out.AppViewMetersInputResponseFactory;
 import io.ylab.monitoring.app.servlets.service.AppPropertiesLoader;
-import io.ylab.monitoring.app.springmvc.out.AppMeterReadingsInputResponseFactory;
+import io.ylab.monitoring.app.servlets.service.AppUserContext;
+import io.ylab.monitoring.app.servlets.service.AuthTokenManager;
 import io.ylab.monitoring.audit.boundary.AuditCreateAuditLogInteractor;
 import io.ylab.monitoring.audit.boundary.AuditViewAuditLogInteractor;
 import io.ylab.monitoring.auth.boundary.AuthUserLoginInteractor;
@@ -51,6 +54,24 @@ import java.util.Properties;
  * Конфигурация приложения
  */
 public class AppConfiguration {
+
+    public final static AppConfiguration REGISTRY = new AppConfiguration();
+
+    private AppConfiguration() {
+    }
+
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
+    public AppUserContext appUserContext() {
+        return new AppUserContext();
+    }
+
+    public AuthTokenManager authTokenManager() {
+        return new AuthTokenManager();
+    }
+
     public Properties applicationProperties() {
         return AppPropertiesLoader.loadDefault();
     }
@@ -122,7 +143,7 @@ public class AppConfiguration {
     }
 
     public AppMeterReadingsInputResponseFactory appMeterReadingsInputResponseFactory() {
-        return new AppMeterReadingsInputResponseFactory();
+        return new AppMeterReadingsInputResponseFactory(new MeterReadingAppMeterReadingMapperImpl());
     }
 
     public AppAuditLogInputResponseFactory appAuditLogInputResponseFactory() {

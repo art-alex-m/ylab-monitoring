@@ -6,11 +6,15 @@ import org.aspectj.lang.annotation.Pointcut;
  * Срезы аспектов
  */
 public class Pointcuts {
-    @Pointcut("within(io.ylab.monitoring.app.servlets.servlet.*)")
+    @Pointcut("preinitialization(*.new()) || preinitialization(*.new(..)) || initialization(*.new()) || initialization(*.new(..))")
+    public void classConstructor() {
+    }
+
+    @Pointcut("within(io.ylab.monitoring.app.servlets.servlet.*Servlet)")
     public void anyServlet() {
     }
 
-    @Pointcut("within(@io.ylab.monitoring.app.springmvc.aspect.TimeProfileLog *)")
+    @Pointcut("within(@io.ylab.monitoring.app.servlets.aspect.TimeProfileLog *)")
     public void timeProfileAnnotatedType() {
     }
 

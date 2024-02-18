@@ -18,10 +18,10 @@ public class TimeProfileLogAdvice {
     /**
      * Тайм профилирование любого публичного метода класса, аннотированного @TimeProfileLog
      */
-    @Around("Pointcuts.anyPublicMethod() && Pointcuts.timeProfileAnnotatedType()")
-    public Object profileAnnotated(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("Pointcuts.timeProfileAnnotatedType() && !Pointcuts.classConstructor()")
+    public Object profile(ProceedingJoinPoint joinPoint) throws Throwable {
         LocalDateTime startTime = LocalDateTime.now();
-        String currentClass = joinPoint.getTarget().getClass().getName();
+        String currentClass = joinPoint.getSignature().getDeclaringTypeName();
         String currentMethod = joinPoint.getSignature().getName();
         log.info(String.format("Start invoke method %s::%s", currentClass, currentMethod));
         try {
@@ -33,13 +33,5 @@ public class TimeProfileLogAdvice {
             log.severe(String.format("Invoke of %s::%s throws %s", currentClass, currentMethod, ex.getMessage()));
             throw ex;
         }
-    }
-
-    /**
-     * Тайм профилирование любого публичного метода класса, аннотированного @RestController
-     */
-    @Around("Pointcuts.anyPublicMethod() && Pointcuts.anyServlet()")
-    public Object profileRestController(ProceedingJoinPoint joinPoint) throws Throwable {
-        return profileAnnotated(joinPoint);
     }
 }

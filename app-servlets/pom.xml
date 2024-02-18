@@ -21,7 +21,9 @@
         <versions.mapstruct>1.5.5.Final</versions.mapstruct>
         <versions.hibernate-validator>8.0.1.Final</versions.hibernate-validator>
         <versions.jackson>2.16.1</versions.jackson>
-        <versions.aspectjweaver>1.9.21.1</versions.aspectjweaver>
+        <versions.aspectj>1.9.21.1</versions.aspectj>
+        <versions.aspectj-plugin>1.14.0</versions.aspectj-plugin>
+        <versions.slf4j-simple>2.0.12</versions.slf4j-simple>
     </properties>
 
     <dependencies>
@@ -70,8 +72,14 @@
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${versions.aspectjweaver}</version>
+            <artifactId>aspectjrt</artifactId>
+            <version>${versions.aspectj}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${versions.slf4j-simple}</version>
+            <scope>runtime</scope>
         </dependency>
 
 
@@ -152,6 +160,40 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>${versions.aspectj-plugin}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${versions.aspectj}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <complianceLevel>16</complianceLevel>
+                    <source>16</source>
+                    <target>16</target>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <verbose>true</verbose>
+                    <Xlint>ignore</Xlint>
+                    <encoding>UTF-8</encoding>
+                    <weaveDirectories>
+                        <weaveDirectory>${project.build.directory}/classes</weaveDirectory>
+                        <weaveDirectory>${project.build.directory}/generated-sources</weaveDirectory>
+                    </weaveDirectories>
+                    <forceAjcCompile>true</forceAjcCompile>
+                    <sources/>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

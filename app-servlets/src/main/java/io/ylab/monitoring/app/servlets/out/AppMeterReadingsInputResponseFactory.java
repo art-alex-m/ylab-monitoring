@@ -1,8 +1,7 @@
-package io.ylab.monitoring.app.springmvc.out;
+package io.ylab.monitoring.app.servlets.out;
 
 
 import io.ylab.monitoring.app.servlets.mapper.MeterReadingAppMeterReadingMapper;
-import io.ylab.monitoring.app.servlets.out.AppMeterReadingsInputResponse;
 import io.ylab.monitoring.domain.core.model.MeterReading;
 import io.ylab.monitoring.domain.core.out.GetActualMeterReadingsInputResponseFactory;
 import io.ylab.monitoring.domain.core.out.GetMonthMeterReadingsResponseFactory;

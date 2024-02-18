@@ -4,15 +4,15 @@ import io.ylab.monitoring.db.jdbc.exeption.JdbcDbException;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Осуществляет доступ и кеширование SQL запросов из текстовых файлов в classpath
  */
 public class SqlQueryResourcesRepository implements SqlQueryRepository {
-    private final Map<String, String> sqlTemplates = new HashMap<>();
+    private final Map<String, String> sqlTemplates = new ConcurrentHashMap<>();
 
     @Override
     public String getSql(String fileName) {
@@ -21,11 +21,11 @@ public class SqlQueryResourcesRepository implements SqlQueryRepository {
         }
 
         try {
-            URL resourceUrl = Thread.currentThread().getContextClassLoader().getResource(fileName);
+            URL resourceUrl = getClass().getClassLoader().getResource(fileName);
             Objects.requireNonNull(resourceUrl);
             try (InputStream is = resourceUrl.openStream()) {
                 String sql = new String(is.readAllBytes());
-                sqlTemplates.replace(fileName, sql);
+                sqlTemplates.put(fileName, sql);
                 return sql;
             }
         } catch (Exception ex) {

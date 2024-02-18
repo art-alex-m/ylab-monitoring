@@ -13,5 +13,5 @@ public interface ViewAuditLogInputResponse {
      *
      * @return список записей или пустой список
      */
-    List<AuditItem> getAuditLog();
+    List<? extends AuditItem> getAuditLog();
 }

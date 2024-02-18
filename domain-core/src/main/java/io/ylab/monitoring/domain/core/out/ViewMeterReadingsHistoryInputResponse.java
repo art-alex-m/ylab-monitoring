@@ -13,5 +13,5 @@ public interface ViewMeterReadingsHistoryInputResponse {
      *
      * @return список объектов или пустой список
      */
-    List<MeterReading> getMeterReadings();
+    List<? extends MeterReading> getMeterReadings();
 }

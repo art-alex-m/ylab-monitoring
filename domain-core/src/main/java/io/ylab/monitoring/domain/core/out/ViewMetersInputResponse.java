@@ -14,5 +14,5 @@ public interface ViewMetersInputResponse {
      *
      * @return Список
      */
-    List<Meter> getMeters();
+    List<? extends Meter> getMeters();
 }

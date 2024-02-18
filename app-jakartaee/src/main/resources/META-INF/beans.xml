@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://jakarta.ee/xml/ns/jakartaee"
+       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd"
+       bean-discovery-mode="annotated">
+
+    <scan>
+        <exclude name="io.ylab.monitoring.audit.**"/>
+        <exclude name="io.ylab.monitoring.auth.**"/>
+        <exclude name="io.ylab.monitoring.core.**"/>
+        <exclude name="io.ylab.monitoring.domain.**"/>
+        <exclude name="io.ylab.monitoring.db.**"/>
+    </scan>
+
+    <interceptors>
+        <class>io.ylab.monitoring.app.jakartaee.interceptor.TimeProfileLogInterceptor</class>
+        <class>io.ylab.monitoring.app.jakartaee.interceptor.AuditLoggerInterceptor</class>
+    </interceptors>
+</beans>

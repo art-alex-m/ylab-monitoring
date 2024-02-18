@@ -23,11 +23,13 @@
         <versions.mapstruct>1.5.5.Final</versions.mapstruct>
         <versions.spring-framework>6.1.2</versions.spring-framework>
         <versions.spring-security>6.2.1</versions.spring-security>
+        <versions.springdoc-openapi-ui>1.7.0</versions.springdoc-openapi-ui>
         <versions.jackson>2.16.1</versions.jackson>
         <versions.hibernate-validator>8.0.1.Final</versions.hibernate-validator>
         <versions.snakeyaml>2.2</versions.snakeyaml>
         <versions.aspectjweaver>1.9.21.1</versions.aspectjweaver>
         <versions.model-assert>1.0.2</versions.model-assert>
+        <versions.slf4j-simple>2.0.12</versions.slf4j-simple>
     </properties>
 
     <dependencies>
@@ -75,6 +77,11 @@
             <version>${versions.jackson}</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>${versions.jackson}</version>
+        </dependency>
+        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>${versions.snakeyaml}</version>
@@ -108,7 +115,47 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${versions.aspectjweaver}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${versions.slf4j-simple}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${versions.springdoc-openapi-ui}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.datatype</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jakarta.validation</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!-- DOMAIN LIBRARIES SECTION -->
         <dependency>

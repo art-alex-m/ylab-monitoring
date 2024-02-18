@@ -7,6 +7,7 @@ import io.ylab.monitoring.app.servlets.out.AppAuthToken;
 import io.ylab.monitoring.app.servlets.service.AuthTokenManager;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
+import jakarta.annotation.security.PermitAll;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @WebServlet("/api/login")
+@PermitAll
 public class LoginServlet extends HttpServlet {
 
     private final ObjectMapper objectMapper;

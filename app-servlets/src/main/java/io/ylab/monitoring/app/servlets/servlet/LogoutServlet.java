@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.servlets.servlet;
 
 import io.ylab.monitoring.app.servlets.config.AppConfiguration;
 import io.ylab.monitoring.app.servlets.service.AuthTokenManager;
+import jakarta.annotation.security.PermitAll;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/api/logout")
+@PermitAll
 public class LogoutServlet extends HttpServlet {
 
     private final AuthTokenManager tokenManager;

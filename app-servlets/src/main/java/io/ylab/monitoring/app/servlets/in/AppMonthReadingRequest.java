@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.in;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.ZoneOffset;
+import java.util.Optional;
 
 /**
  * Запрос получения показаний счетчиков за период
@@ -30,6 +32,14 @@ public class AppMonthReadingRequest {
 
     @Min(0)
     private int year;
+
+    public AppMonthReadingRequest(HttpServletRequest request) {
+        this.month = Integer.parseInt(request.getParameter("month"));
+        this.year = Optional.ofNullable(request.getParameter("year"))
+                .filter(year -> !year.isEmpty())
+                .map(Integer::parseInt)
+                .orElse(0);
+    }
 
     public Instant getPeriod() {
         int currentYear = year;

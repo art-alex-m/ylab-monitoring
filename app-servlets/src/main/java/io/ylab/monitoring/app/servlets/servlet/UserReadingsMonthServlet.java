@@ -2,11 +2,12 @@ package io.ylab.monitoring.app.servlets.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ylab.monitoring.app.servlets.config.AppConfiguration;
+import io.ylab.monitoring.app.servlets.in.AppMonthReadingRequest;
 import io.ylab.monitoring.app.servlets.service.AppUserContext;
-import io.ylab.monitoring.core.in.CoreViewMetersInputRequest;
-import io.ylab.monitoring.domain.core.boundary.ViewMetersInput;
-import io.ylab.monitoring.domain.core.in.ViewMetersInputRequest;
-import io.ylab.monitoring.domain.core.out.ViewMetersInputResponse;
+import io.ylab.monitoring.core.in.CoreGetMonthMeterReadingsInputRequest;
+import io.ylab.monitoring.domain.core.boundary.GetMonthMeterReadingsInput;
+import io.ylab.monitoring.domain.core.in.GetMonthMeterReadingsInputRequest;
+import io.ylab.monitoring.domain.core.out.GetMonthMeterReadingsResponse;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,30 +18,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@WebServlet("/api/meters")
+@WebServlet("/api/readings/month")
 @RolesAllowed("USER")
-public class MeterServlet extends HttpServlet {
-
-    private final ViewMetersInput metersInput;
-
+public class UserReadingsMonthServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
 
     private final AppUserContext userContext;
 
-    public MeterServlet() {
-        this.metersInput = AppConfiguration.REGISTRY.viewMetersInteractor();
+    private final GetMonthMeterReadingsInput monthInput;
+
+    public UserReadingsMonthServlet() {
         this.objectMapper = AppConfiguration.REGISTRY.objectMapper();
         this.userContext = AppConfiguration.REGISTRY.appUserContext();
+        this.monthInput = AppConfiguration.REGISTRY.monthMeterReadingsInteractor();
     }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        ViewMetersInputRequest request = new CoreViewMetersInputRequest(userContext.getCurrentUser());
-        ViewMetersInputResponse response = metersInput.find(request);
+        AppMonthReadingRequest appRequest = new AppMonthReadingRequest(req);
+        GetMonthMeterReadingsInputRequest request = new CoreGetMonthMeterReadingsInputRequest(
+                userContext.getCurrentUser(), appRequest.getPeriod());
+        GetMonthMeterReadingsResponse response = monthInput.find(request);
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-        resp.getWriter().print(objectMapper.writeValueAsString(response.getMeters()));
+        resp.getWriter().print(objectMapper.writeValueAsString(response.getMeterReadings()));
     }
 }

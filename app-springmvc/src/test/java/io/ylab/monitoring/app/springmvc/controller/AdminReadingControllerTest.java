@@ -41,6 +41,14 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 
+/**
+ * AdminReadingControllerTest
+ *
+ * <p>
+ * <a href="https://www.baeldung.com/json-modelassert">Guide to the ModelAssert Library for JSON</a><br>
+ * <a href="https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-framework/server-performing-requests.html">Spring MockMvc Performing Requests</a><br>
+ * </p>
+ */
 @MockMvcTest(AdminReadingController.class)
 class AdminReadingControllerTest {
     private static final DomainUser testUser = new CoreDomainUser(UUID.randomUUID());

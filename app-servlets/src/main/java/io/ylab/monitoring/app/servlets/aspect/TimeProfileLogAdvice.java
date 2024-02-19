@@ -18,7 +18,7 @@ public class TimeProfileLogAdvice {
     /**
      * Тайм профилирование любого публичного метода класса, аннотированного @TimeProfileLog
      */
-    @Around("Pointcuts.timeProfileAnnotatedType() && !Pointcuts.classConstructor()")
+    @Around("Pointcuts.timeProfileAnnotatedType() && Pointcuts.anyPublicMethod() && !Pointcuts.classConstructor()")
     public Object profile(ProceedingJoinPoint joinPoint) throws Throwable {
         LocalDateTime startTime = LocalDateTime.now();
         String currentClass = joinPoint.getSignature().getDeclaringTypeName();

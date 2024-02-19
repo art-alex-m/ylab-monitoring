@@ -1,26 +1,19 @@
 package io.ylab.monitoring.domain.audit.in;
 
-import io.ylab.monitoring.domain.core.model.DomainUser;
+import io.ylab.monitoring.domain.core.model.DomainUserable;
 
 import java.time.Instant;
 
 /**
  * Запрос в сценарии "Запись лога действий пользователей"
  */
-public interface CreateAuditLogInputRequest {
+public interface CreateAuditLogInputRequest extends DomainUserable {
     /**
      * Время возникновения события аудита
      *
      * @return Instant
      */
     Instant getOccurredAt();
-
-    /**
-     * Доменная информация о пользователе
-     *
-     * @return DomainUser
-     */
-    DomainUser getUser();
 
     /**
      * Имя события аудита

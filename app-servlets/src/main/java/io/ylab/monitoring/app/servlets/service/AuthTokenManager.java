@@ -1,5 +1,6 @@
 package io.ylab.monitoring.app.servlets.service;
 
+import io.ylab.monitoring.app.servlets.aspect.TimeProfileLog;
 import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
 
 import java.security.SecureRandom;
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Менеджер токенов авторизации
  */
+@TimeProfileLog
 public class AuthTokenManager {
     private final static int LENGTH = 48;
 

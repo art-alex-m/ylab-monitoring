@@ -1,26 +1,19 @@
 package io.ylab.monitoring.domain.core.event;
 
-import io.ylab.monitoring.domain.core.model.DomainUser;
+import io.ylab.monitoring.domain.core.model.DomainUserable;
 
 import java.time.Instant;
 
 /**
  * Базовый интерфейс событий предметной области
  */
-public interface MonitoringEvent {
+public interface MonitoringEvent extends DomainUserable {
     /**
      * Дата время создания события
      *
      * @return Дата время
      */
     Instant getCreatedAt();
-
-    /**
-     * Информация о пользователе который инициировал вызов сценария
-     *
-     * @return Объект
-     */
-    DomainUser getUser();
 
     /**
      * Краткое описание события

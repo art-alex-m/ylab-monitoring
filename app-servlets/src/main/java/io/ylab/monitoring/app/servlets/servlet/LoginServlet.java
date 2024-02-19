@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ylab.monitoring.app.servlets.config.AppConfiguration;
 import io.ylab.monitoring.app.servlets.in.AppLoginRequest;
 import io.ylab.monitoring.app.servlets.out.AppAuthToken;
+import io.ylab.monitoring.app.servlets.service.AppValidationService;
 import io.ylab.monitoring.app.servlets.service.AuthTokenManager;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
@@ -13,12 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @WebServlet("/api/login")
 @PermitAll
+@AllArgsConstructor
 public class LoginServlet extends HttpServlet {
 
     private final ObjectMapper objectMapper;
@@ -27,17 +30,21 @@ public class LoginServlet extends HttpServlet {
 
     private final AuthTokenManager tokenManager;
 
+    private final AppValidationService validationService;
+
     public LoginServlet() {
         this.objectMapper = AppConfiguration.REGISTRY.objectMapper();
         this.loginInput = AppConfiguration.REGISTRY.userLoginInteractor();
         this.tokenManager = AppConfiguration.REGISTRY.authTokenManager();
+        this.validationService = AppConfiguration.REGISTRY.appValidationService();
     }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AppLoginRequest loginRequest = objectMapper.readValue(req.getInputStream(), AppLoginRequest.class);
-        UserLoginInputResponse response = loginInput.login(loginRequest);
+        validationService.validate(loginRequest);
 
+        UserLoginInputResponse response = loginInput.login(loginRequest);
         AppAuthToken token = new AppAuthToken(tokenManager.createToken(response));
 
         resp.setContentType("application/json");

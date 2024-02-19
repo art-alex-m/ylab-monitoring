@@ -13,12 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @WebServlet("/api/meters")
 @RolesAllowed("USER")
+@AllArgsConstructor
 public class MeterServlet extends HttpServlet {
 
     private final ViewMetersInput metersInput;

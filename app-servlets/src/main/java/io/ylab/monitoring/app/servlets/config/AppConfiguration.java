@@ -12,6 +12,7 @@ import io.ylab.monitoring.app.servlets.out.AppSubmissionMeterReadingsInputRespon
 import io.ylab.monitoring.app.servlets.out.AppViewMetersInputResponseFactory;
 import io.ylab.monitoring.app.servlets.service.AppPropertiesLoader;
 import io.ylab.monitoring.app.servlets.service.AppUserContext;
+import io.ylab.monitoring.app.servlets.service.AppValidationService;
 import io.ylab.monitoring.app.servlets.service.AuthTokenManager;
 import io.ylab.monitoring.audit.boundary.AuditCreateAuditLogInteractor;
 import io.ylab.monitoring.audit.boundary.AuditViewAuditLogInteractor;
@@ -44,6 +45,9 @@ import io.ylab.monitoring.domain.core.boundary.ViewMeterReadingsHistoryInput;
 import io.ylab.monitoring.domain.core.boundary.ViewMetersInput;
 import io.ylab.monitoring.domain.core.event.MonitoringEventPublisher;
 import io.ylab.monitoring.domain.core.service.PeriodService;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import org.hibernate.validator.HibernateValidator;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -58,6 +62,17 @@ public class AppConfiguration {
     public final static AppConfiguration REGISTRY = new AppConfiguration();
 
     private AppConfiguration() {
+    }
+
+    public Validator hibernateValidator() {
+        return Validation.byProvider(HibernateValidator.class).configure()
+                .failFast(true)
+                .buildValidatorFactory()
+                .getValidator();
+    }
+
+    public AppValidationService appValidationService() {
+        return new AppValidationService(hibernateValidator());
     }
 
     public ObjectMapper objectMapper() {

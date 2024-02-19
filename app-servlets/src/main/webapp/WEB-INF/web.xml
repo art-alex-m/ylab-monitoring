@@ -5,4 +5,33 @@
          version="6.0">
 
     <response-character-encoding>UTF-8</response-character-encoding>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/json-exception-handler</location>
+    </error-page>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/json-exception-handler</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/json-exception-handler</location>
+    </error-page>
+    <error-page>
+        <exception-type>jakarta.servlet.ServletException</exception-type>
+        <location>/json-exception-handler</location>
+    </error-page>
+    <error-page>
+        <exception-type>jakarta.validation.ConstraintViolationException</exception-type>
+        <location>/json-exception-handler</location>
+    </error-page>
+    <error-page>
+        <exception-type>io.ylab.monitoring.domain.core.exception.BusinessLogicMonitoringException</exception-type>
+        <location>/json-exception-handler</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.io.IOException</exception-type>
+        <location>/json-exception-handler</location>
+    </error-page>
 </web-app>

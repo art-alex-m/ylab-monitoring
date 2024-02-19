@@ -34,11 +34,8 @@ public class AppMonthReadingRequest {
     private int year;
 
     public AppMonthReadingRequest(HttpServletRequest request) {
-        this.month = Integer.parseInt(request.getParameter("month"));
-        this.year = Optional.ofNullable(request.getParameter("year"))
-                .filter(year -> !year.isEmpty())
-                .map(Integer::parseInt)
-                .orElse(0);
+        this.month = intParser(request.getParameter("month"));
+        this.year = intParser(request.getParameter("year"));
     }
 
     public Instant getPeriod() {
@@ -51,5 +48,12 @@ public class AppMonthReadingRequest {
         return LocalDate.of(currentYear, month, 1)
                 .atStartOfDay()
                 .toInstant(ZoneOffset.UTC);
+    }
+
+    private int intParser(String rawInt) {
+        return Optional.ofNullable(rawInt)
+                .filter(raw -> !raw.isEmpty())
+                .map(Integer::parseInt)
+                .orElse(0);
     }
 }

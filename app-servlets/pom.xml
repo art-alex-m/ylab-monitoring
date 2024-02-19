@@ -18,12 +18,11 @@
         <versions.jakarta.validation>3.0.2</versions.jakarta.validation>
         <versions.jakarta.servlet-api>6.0.0</versions.jakarta.servlet-api>
         <versions.maven-war-plugin>3.3.2</versions.maven-war-plugin>
-        <versions.mapstruct>1.5.5.Final</versions.mapstruct>
-        <versions.hibernate-validator>8.0.1.Final</versions.hibernate-validator>
-        <versions.jackson>2.16.1</versions.jackson>
-        <versions.aspectj>1.9.21.1</versions.aspectj>
         <versions.aspectj-plugin>1.14.0</versions.aspectj-plugin>
         <versions.slf4j-simple>2.0.12</versions.slf4j-simple>
+        <versions.jakarta.el-api>5.0.1</versions.jakarta.el-api>
+        <versions.tomcat-jasper-el>10.1.18</versions.tomcat-jasper-el>
+        <versions.model-assert>1.0.2</versions.model-assert>
     </properties>
 
     <dependencies>
@@ -141,6 +140,24 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${versions.assertj-core}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>${versions.jakarta.el-api}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jasper-el</artifactId>
+            <version>${versions.tomcat-jasper-el}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>uk.org.webcompere</groupId>
+            <artifactId>model-assert</artifactId>
+            <version>${versions.model-assert}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

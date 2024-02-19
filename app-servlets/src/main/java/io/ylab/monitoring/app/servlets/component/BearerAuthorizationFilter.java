@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  * Авторизация запросов по токену
  */
 @WebFilter("/api/*")
+@AllArgsConstructor
 public class BearerAuthorizationFilter extends HttpFilter {
 
     public static final String PARAM_AUTHORIZATION = "Authorization";

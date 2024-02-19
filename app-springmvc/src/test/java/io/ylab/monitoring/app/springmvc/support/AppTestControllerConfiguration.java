@@ -24,7 +24,7 @@ public class AppTestControllerConfiguration {
 
     @Bean
     public ObjectMapper jsonObjectMapper() {
-        return new ObjectMapper();
+        return new ObjectMapper().findAndRegisterModules();
     }
 
     @Bean

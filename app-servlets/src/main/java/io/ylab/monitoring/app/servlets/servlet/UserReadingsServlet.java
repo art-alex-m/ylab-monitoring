@@ -45,7 +45,7 @@ public class UserReadingsServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ViewMeterReadingsHistoryInputRequest request = new CoreViewMeterReadingsHistoryInputRequest(
-                userContext.getCurrentUser());
+                userContext.getCurrentUser(req));
         ViewMeterReadingsHistoryInputResponse response = historyInput.find(request);
 
         resp.setContentType("application/json");
@@ -60,7 +60,7 @@ public class UserReadingsServlet extends HttpServlet {
 
         SubmissionMeterReadingsInputRequest request = CoreSubmissionMeterReadingsInputRequest.builder()
                 .meterName(appRequest.getMeterName())
-                .user(userContext.getCurrentUser())
+                .user(userContext.getCurrentUser(req))
                 .value(appRequest.getValue())
                 .period(appRequest.getPeriod())
                 .build();

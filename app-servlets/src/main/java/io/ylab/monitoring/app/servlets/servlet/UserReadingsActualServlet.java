@@ -36,7 +36,7 @@ public class UserReadingsActualServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         GetActualMeterReadingsInputRequest request = new CoreGetActualMeterReadingsInputRequest(
-                userContext.getCurrentUser());
+                userContext.getCurrentUser(req));
         GetActualMeterReadingsInputResponse response = actualInput.find(request);
 
         resp.setContentType("application/json");

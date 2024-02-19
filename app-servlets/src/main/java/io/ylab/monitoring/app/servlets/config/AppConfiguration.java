@@ -61,7 +61,7 @@ public class AppConfiguration {
     }
 
     public ObjectMapper objectMapper() {
-        return new ObjectMapper();
+        return new ObjectMapper().findAndRegisterModules();
     }
 
     public AppUserContext appUserContext() {

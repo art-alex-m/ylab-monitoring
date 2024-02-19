@@ -35,8 +35,7 @@ public class MeterServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        ViewMetersInputRequest request = new CoreViewMetersInputRequest(userContext.getCurrentUser());
+        ViewMetersInputRequest request = new CoreViewMetersInputRequest(userContext.getCurrentUser(req));
         ViewMetersInputResponse response = metersInput.find(request);
 
         resp.setContentType("application/json");

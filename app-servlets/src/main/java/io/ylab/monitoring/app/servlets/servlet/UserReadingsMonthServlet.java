@@ -37,7 +37,7 @@ public class UserReadingsMonthServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AppMonthReadingRequest appRequest = new AppMonthReadingRequest(req);
         GetMonthMeterReadingsInputRequest request = new CoreGetMonthMeterReadingsInputRequest(
-                userContext.getCurrentUser(), appRequest.getPeriod());
+                userContext.getCurrentUser(req), appRequest.getPeriod());
         GetMonthMeterReadingsResponse response = monthInput.find(request);
 
         resp.setContentType("application/json");

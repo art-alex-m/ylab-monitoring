@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @TimeProfileLog
 public class AuthTokenManager {
-    private final static int LENGTH = 48;
+    private final static int TOKEN_BYTES_LENGTH = 48;
 
     private final Map<UUID, UserLoginInputResponse> userDetails = new ConcurrentHashMap<>();
     private final Map<UUID, String> uuidToToken = new ConcurrentHashMap<>();
@@ -26,7 +26,7 @@ public class AuthTokenManager {
 
 
     public String createToken(UserLoginInputResponse loginInputResponse) {
-        String key = createToken(LENGTH);
+        String key = createToken(TOKEN_BYTES_LENGTH);
         UUID userId = loginInputResponse.getId();
 
         String currentKey = Optional.ofNullable(uuidToToken.putIfAbsent(userId, key)).orElse(key);

@@ -16,10 +16,6 @@ import java.util.Optional;
 
 /**
  * Запрос получения показаний счетчиков за период
- *
- * <p>
- * <a href="https://stackoverflow.com/questions/33503374/merge-two-query-params-in-one-single-object-with-jax-rs">Merge two query params in one single object with JAX-RS</a>
- * </p>
  */
 @NoArgsConstructor
 @AllArgsConstructor

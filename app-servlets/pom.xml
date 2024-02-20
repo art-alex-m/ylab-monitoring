@@ -17,6 +17,7 @@
     <properties>
         <versions.jakarta.validation>3.0.2</versions.jakarta.validation>
         <versions.jakarta.servlet-api>6.0.0</versions.jakarta.servlet-api>
+        <versions.jakarta.annotation-api>2.1.1</versions.jakarta.annotation-api>
         <versions.maven-war-plugin>3.3.2</versions.maven-war-plugin>
         <versions.aspectj-plugin>1.14.0</versions.aspectj-plugin>
         <versions.slf4j-simple>2.0.12</versions.slf4j-simple>
@@ -40,7 +41,7 @@
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
-            <version>2.1.1</version>
+            <version>${versions.jakarta.annotation-api}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>

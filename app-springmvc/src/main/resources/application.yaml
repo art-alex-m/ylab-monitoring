@@ -10,3 +10,5 @@ ylab:
       username: ymonitor
       password: pwd123456!
       jdbc.url: jdbc:postgresql://localhost:15432/ymonitor?currentSchema=monitoring
+    swagger-ui:
+      version: 5.10.3

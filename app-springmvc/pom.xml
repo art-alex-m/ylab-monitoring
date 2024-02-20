@@ -17,19 +17,22 @@
         <versions.jakarta.validation>3.0.2</versions.jakarta.validation>
         <versions.jakarta.servlet-api>6.0.0</versions.jakarta.servlet-api>
         <versions.jakarta.annotation-api>2.1.1</versions.jakarta.annotation-api>
+        <versions.jakarta.ws.rs-api>3.1.0</versions.jakarta.ws.rs-api>
         <versions.jakarta.el-api>5.0.1</versions.jakarta.el-api>
         <versions.tomcat-jasper-el>10.1.18</versions.tomcat-jasper-el>
         <versions.maven-war-plugin>3.3.2</versions.maven-war-plugin>
         <versions.mapstruct>1.5.5.Final</versions.mapstruct>
         <versions.spring-framework>6.1.2</versions.spring-framework>
         <versions.spring-security>6.2.1</versions.spring-security>
-        <versions.springdoc-openapi-ui>1.7.0</versions.springdoc-openapi-ui>
         <versions.jackson>2.16.1</versions.jackson>
         <versions.hibernate-validator>8.0.1.Final</versions.hibernate-validator>
         <versions.snakeyaml>2.2</versions.snakeyaml>
         <versions.aspectjweaver>1.9.21.1</versions.aspectjweaver>
         <versions.model-assert>1.0.2</versions.model-assert>
         <versions.slf4j-simple>2.0.12</versions.slf4j-simple>
+        <versions.swagger-core>2.2.0</versions.swagger-core>
+        <versions.swagger-ui>5.10.3</versions.swagger-ui>
+        <versions.swagger-maven-plugin>2.2.0</versions.swagger-maven-plugin>
     </properties>
 
     <dependencies>
@@ -121,40 +124,17 @@
             <version>${versions.slf4j-simple}</version>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${versions.springdoc-openapi-ui}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.dataformat</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jakarta.validation</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.yaml</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-core</artifactId>
+            <version>${versions.swagger-core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>swagger-ui</artifactId>
+            <version>${versions.swagger-ui}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- DOMAIN LIBRARIES SECTION -->
@@ -260,6 +240,38 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-maven-plugin-jakarta</artifactId>
+                <version>${versions.swagger-maven-plugin}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>jakarta.ws.rs</groupId>
+                        <artifactId>jakarta.ws.rs-api</artifactId>
+                        <version>${versions.jakarta.ws.rs-api}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>jakarta.servlet</groupId>
+                        <artifactId>jakarta.servlet-api</artifactId>
+                        <version>${versions.jakarta.servlet-api}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <outputFileName>openapi</outputFileName>
+                    <outputFormat>YAML</outputFormat>
+                    <outputPath>${project.basedir}/src/main/webapp/v3/api-docs</outputPath>
+                    <configurationFilePath>${project.basedir}/src/main/resources/application.yaml
+                    </configurationFilePath>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>resolve</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

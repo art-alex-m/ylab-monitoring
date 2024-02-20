@@ -25,17 +25,19 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @OpenAPI31
 @OpenAPIDefinition(
         info = @Info(title = "Ylab Monitoring API", version = "1.0.0"),
-        security = @SecurityRequirement(name = "Bearer"),
+        security = @SecurityRequirement(name = "Bearer-Token"),
         servers = @Server(url = "http://localhost:9090/monitoring-app-springmvc-1.0.0/api", description = "Local"),
         tags = {
-                @Tag(name = "readings"),
-                @Tag(name = "auth"),
-                @Tag(name = "audit")
+                @Tag(name = OpenapiTag.READINGS),
+                @Tag(name = OpenapiTag.AUDIT),
+                @Tag(name = OpenapiTag.AUTH),
+                @Tag(name = OpenapiTag.USER),
+                @Tag(name = OpenapiTag.ADMIN),
         }
 )
 @SecuritySchemes(value = {
         @SecurityScheme(
-                name = "Bearer",
+                name = "Bearer-Token",
                 paramName = "Authorization",
                 type = SecuritySchemeType.APIKEY,
                 in = SecuritySchemeIn.HEADER,

@@ -1,7 +1,17 @@
 package io.ylab.monitoring.app.springmvc.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.ylab.monitoring.app.springmvc.config.OpenapiTag;
 import io.ylab.monitoring.app.springmvc.service.AuthTokenManager;
 import jakarta.annotation.security.PermitAll;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Выход пользователя из системы
  */
+@Path("/logout")
+@Tag(name = OpenapiTag.ADMIN)
+@Tag(name = OpenapiTag.USER)
+@Tag(name = OpenapiTag.AUTH)
 @AllArgsConstructor
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,6 +36,20 @@ public class LogoutController {
 
     private final AuthTokenManager tokenManager;
 
+    @POST
+    @Operation(summary = "Logout", parameters = {
+            @Parameter(
+                    in = ParameterIn.HEADER,
+                    required = false,
+                    name = "Authorization",
+                    schema = @Schema(implementation = String.class)
+            )},
+            responses = {
+                    @ApiResponse(responseCode = "204",
+                            description = "User logout",
+                            content = @Content(schema = @Schema()))
+            }
+    )
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout(@RequestHeader(value = "Authorization", required = false) String authToken) {

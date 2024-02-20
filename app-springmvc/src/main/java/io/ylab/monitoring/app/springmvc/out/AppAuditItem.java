@@ -14,7 +14,7 @@ import java.time.Instant;
 @Getter
 public class AppAuditItem implements AuditItem {
 
-    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Instant occurredAt;
 
     private DomainUser user;

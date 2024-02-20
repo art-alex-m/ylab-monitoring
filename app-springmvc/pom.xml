@@ -125,6 +125,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Swagger Annotations -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>${versions.jakarta.ws.rs-api}</version>
+        </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-core</artifactId>
@@ -246,11 +252,6 @@
                 <artifactId>swagger-maven-plugin-jakarta</artifactId>
                 <version>${versions.swagger-maven-plugin}</version>
                 <dependencies>
-                    <dependency>
-                        <groupId>jakarta.ws.rs</groupId>
-                        <artifactId>jakarta.ws.rs-api</artifactId>
-                        <version>${versions.jakarta.ws.rs-api}</version>
-                    </dependency>
                     <dependency>
                         <groupId>jakarta.servlet</groupId>
                         <artifactId>jakarta.servlet-api</artifactId>

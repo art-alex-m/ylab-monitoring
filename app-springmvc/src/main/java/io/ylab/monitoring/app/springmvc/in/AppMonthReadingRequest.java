@@ -1,5 +1,7 @@
 package io.ylab.monitoring.app.springmvc.in;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ import java.time.ZoneOffset;
 @AllArgsConstructor
 @Getter
 @Setter
+@Hidden
 public class AppMonthReadingRequest {
     @Min(1)
     @Max(12)
@@ -31,6 +34,7 @@ public class AppMonthReadingRequest {
     @Min(0)
     private int year;
 
+    @JsonIgnore
     public Instant getPeriod() {
         int currentYear = year;
 

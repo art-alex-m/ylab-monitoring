@@ -1,6 +1,12 @@
 package io.ylab.monitoring.app.springmvc.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.ylab.monitoring.app.springmvc.config.OpenapiTag;
 import io.ylab.monitoring.app.springmvc.in.AppMonthReadingRequest;
 import io.ylab.monitoring.app.springmvc.in.AppSubmitReadingRequest;
 import io.ylab.monitoring.app.springmvc.service.AppUserContext;
@@ -19,6 +25,11 @@ import io.ylab.monitoring.domain.core.in.ViewMeterReadingsHistoryInputRequest;
 import io.ylab.monitoring.domain.core.model.MeterReading;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +45,10 @@ import java.util.List;
 /**
  * Обработчик запросов пользователя к сценариям работы с показаниями счетчиков
  */
+@Path("/readings")
+@Produces(MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = OpenapiTag.USER)
+@Tag(name = OpenapiTag.READINGS)
 @RestController
 @RequestMapping(
         value = "/readings",
@@ -64,6 +79,9 @@ public class ReadingController {
         this.submissionInteractor = submissionInteractor;
     }
 
+    @Path("/actual")
+    @GET
+    @Operation(summary = "Get user actual meter readings", operationId = "getUserActualMeterReadings")
     @GetMapping("/actual")
     public List<? extends MeterReading> actual() {
         GetActualMeterReadingsInputRequest request = new CoreGetActualMeterReadingsInputRequest(
@@ -72,6 +90,8 @@ public class ReadingController {
         return actualReadingInteractor.find(request).getMeterReadings();
     }
 
+    @GET
+    @Operation(summary = "View history for user", operationId = "getUserHistoryMeterReadings")
     @GetMapping
     public List<? extends MeterReading> history() {
         ViewMeterReadingsHistoryInputRequest request = new CoreViewMeterReadingsHistoryInputRequest(
@@ -80,6 +100,15 @@ public class ReadingController {
         return historyInteractor.find(request).getMeterReadings();
     }
 
+    @Path("/month")
+    @GET
+    @Operation(summary = "View month history for user", operationId = "getUserMonthMeterReadings",
+            parameters = {
+                    @Parameter(name = "month", required = true, in = ParameterIn.QUERY),
+                    @Parameter(name = "year", in = ParameterIn.QUERY, description = "If omitted use current year")
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = false, ref = "", content = @Content()))
     @GetMapping("/month")
     public List<? extends MeterReading> month(@Valid AppMonthReadingRequest request) {
         GetMonthMeterReadingsInputRequest coreRequest = new CoreGetMonthMeterReadingsInputRequest(
@@ -88,6 +117,9 @@ public class ReadingController {
         return monthInteractor.find(coreRequest).getMeterReadings();
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Submit new reading")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MeterReading submit(@Valid @RequestBody AppSubmitReadingRequest request) {

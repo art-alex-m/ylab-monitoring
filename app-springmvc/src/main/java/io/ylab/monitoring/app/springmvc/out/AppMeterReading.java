@@ -16,7 +16,7 @@ public class AppMeterReading implements MeterReading {
 
     private final DomainUser user;
 
-    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private final Instant period;
 
     private final Meter meter;
@@ -25,6 +25,6 @@ public class AppMeterReading implements MeterReading {
 
     private final UUID id;
 
-    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private final Instant createdAt;
 }

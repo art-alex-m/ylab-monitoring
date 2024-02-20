@@ -1,8 +1,13 @@
 package io.ylab.monitoring.app.springmvc.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springmvc.config.OpenapiTag;
+import io.ylab.monitoring.app.springmvc.out.AppMeter;
 import io.ylab.monitoring.app.springmvc.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreViewMetersInputRequest;
 import io.ylab.monitoring.domain.core.boundary.ViewMetersInput;
@@ -40,7 +45,10 @@ public class MeterController {
     private final AppUserContext userContext;
 
     @GET
-    @Operation(summary = "Show meters", operationId = "getUserMeters")
+    @Operation(summary = "Show meters", operationId = "getUserMeters", responses = {
+            @ApiResponse(responseCode = "200", description = "Meters list",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeter.class))))
+    })
     @GetMapping("/meters")
     public List<? extends Meter> listMeters() {
         ViewMetersInputRequest request = new CoreViewMetersInputRequest(userContext.getCurrentUser());

@@ -7,12 +7,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springmvc.config.OpenapiTag;
 import io.ylab.monitoring.app.springmvc.in.AppRegistrationRequest;
+import io.ylab.monitoring.app.springmvc.out.AppError;
 import io.ylab.monitoring.domain.auth.boundary.UserRegistrationInput;
 import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Path("/register")
 @Consumes(MediaType.APPLICATION_JSON_VALUE)
+@Produces(MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = OpenapiTag.USER)
 @Tag(name = OpenapiTag.AUTH)
 @AllArgsConstructor
@@ -40,9 +43,9 @@ public class RegistrationController {
 
     @POST
     @Operation(summary = "Register new user with USER role", responses = {
-            @ApiResponse(responseCode = "204",
-                    description = "User registered",
-                    content = @Content(schema = @Schema()))
+            @ApiResponse(responseCode = "204", description = "User registered"),
+            @ApiResponse(responseCode = "400", description = "Validation errors",
+                    content = @Content(schema = @Schema(implementation = AppError.class)))
     })
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.NO_CONTENT)

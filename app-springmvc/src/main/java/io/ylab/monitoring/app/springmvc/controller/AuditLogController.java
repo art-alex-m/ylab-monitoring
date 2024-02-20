@@ -1,8 +1,13 @@
 package io.ylab.monitoring.app.springmvc.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springmvc.config.OpenapiTag;
+import io.ylab.monitoring.app.springmvc.out.AppAuditItem;
 import io.ylab.monitoring.app.springmvc.service.AppUserContext;
 import io.ylab.monitoring.audit.in.AuditViewAuditLogInputRequest;
 import io.ylab.monitoring.domain.audit.boundary.ViewAuditLogInput;
@@ -41,7 +46,10 @@ public class AuditLogController {
 
     @Path(("/audit-logs"))
     @GET
-    @Operation(summary = "View audit logs")
+    @Operation(summary = "View audit logs", responses = {
+            @ApiResponse(responseCode = "200", description = "Audit log",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppAuditItem.class))))
+    })
     @GetMapping("/audit-logs")
     public List<? extends AuditItem> auditLog() {
         ViewAuditLogInputRequest request = new AuditViewAuditLogInputRequest(userContext.getCurrentUser());

@@ -1,10 +1,14 @@
 package io.ylab.monitoring.app.springmvc.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springmvc.config.OpenapiTag;
 import io.ylab.monitoring.app.springmvc.in.AppLoginRequest;
 import io.ylab.monitoring.app.springmvc.out.AppAuthToken;
+import io.ylab.monitoring.app.springmvc.out.AppError;
 import io.ylab.monitoring.app.springmvc.service.AuthTokenManager;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
@@ -42,7 +46,12 @@ public class LoginController {
     private final AuthTokenManager tokenManager;
 
     @POST
-    @Operation(summary = "Login users")
+    @Operation(summary = "Login users", responses = {
+            @ApiResponse(responseCode = "200", description = "User login",
+                    content = @Content(schema = @Schema(implementation = AppAuthToken.class))),
+            @ApiResponse(responseCode = "400", description = "Validation errors",
+                    content = @Content(schema = @Schema(implementation = AppError.class)))
+    })
     @PostMapping("/login")
     public AppAuthToken login(@Valid @RequestBody AppLoginRequest appLoginRequest) {
         UserLoginInputResponse response = loginInteractor.login(appLoginRequest);

@@ -9,8 +9,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 @Configuration
 @EnableWebMvc
 public class AppTestControllerConfiguration {
@@ -18,7 +16,6 @@ public class AppTestControllerConfiguration {
     @Bean
     public MockMvc createMockMvc(WebApplicationContext applicationContext) {
         return MockMvcBuilders.webAppContextSetup(applicationContext)
-                .alwaysDo(print())
                 .build();
     }
 

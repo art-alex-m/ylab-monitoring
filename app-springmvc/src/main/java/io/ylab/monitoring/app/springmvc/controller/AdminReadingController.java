@@ -4,11 +4,15 @@ package io.ylab.monitoring.app.springmvc.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springmvc.config.OpenapiTag;
 import io.ylab.monitoring.app.springmvc.in.AppMonthReadingRequest;
+import io.ylab.monitoring.app.springmvc.out.AppError;
+import io.ylab.monitoring.app.springmvc.out.AppMeterReading;
 import io.ylab.monitoring.app.springmvc.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreGetActualMeterReadingsInputRequest;
 import io.ylab.monitoring.core.in.CoreGetMonthMeterReadingsInputRequest;
@@ -22,6 +26,7 @@ import io.ylab.monitoring.domain.core.in.ViewMeterReadingsHistoryInputRequest;
 import io.ylab.monitoring.domain.core.model.MeterReading;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -68,7 +73,10 @@ public class AdminReadingController {
 
     @Path("/actual")
     @GET
-    @Operation(summary = "Get actual meter readings", operationId = "getAdminActualMeterReadings")
+    @Operation(summary = "Get actual meter readings", operationId = "getAdminActualMeterReadings", responses = {
+            @ApiResponse(responseCode = "200", description = "Readings",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class))))
+    })
     @GetMapping("/actual")
     public List<? extends MeterReading> actual() {
         GetActualMeterReadingsInputRequest request = new CoreGetActualMeterReadingsInputRequest(
@@ -78,7 +86,10 @@ public class AdminReadingController {
     }
 
     @GET
-    @Operation(summary = "View history of all users", operationId = "getAdminHistoryMeterReadings")
+    @Operation(summary = "View history of all users", operationId = "getAdminHistoryMeterReadings", responses = {
+            @ApiResponse(responseCode = "200", description = "Readings",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class))))
+    })
     @GetMapping
     public List<? extends MeterReading> history() {
         ViewMeterReadingsHistoryInputRequest request = new CoreViewMeterReadingsHistoryInputRequest(
@@ -93,9 +104,15 @@ public class AdminReadingController {
             parameters = {
                     @Parameter(name = "month", required = true, in = ParameterIn.QUERY),
                     @Parameter(name = "year", in = ParameterIn.QUERY, description = "If omitted use current year")
-            }, requestBody = @RequestBody(required = false, ref = "", content = @Content()))
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Readings",
+                            content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class)))),
+                    @ApiResponse(responseCode = "400", description = "Validation errors",
+                            content = @Content(schema = @Schema(implementation = AppError.class)))
+            })
     @GetMapping("/month")
-    public List<? extends MeterReading> month(@Valid AppMonthReadingRequest request) {
+    public List<? extends MeterReading> month(@Valid @BeanParam AppMonthReadingRequest request) {
         GetMonthMeterReadingsInputRequest coreRequest = new CoreGetMonthMeterReadingsInputRequest(
                 userContext.getCurrentUser(), request.getPeriod());
 

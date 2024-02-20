@@ -3,7 +3,6 @@ package io.ylab.monitoring.app.springmvc.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,9 +44,7 @@ public class LogoutController {
                     schema = @Schema(implementation = String.class)
             )},
             responses = {
-                    @ApiResponse(responseCode = "204",
-                            description = "User logout",
-                            content = @Content(schema = @Schema()))
+                    @ApiResponse(responseCode = "204", description = "User logout")
             }
     )
     @PostMapping("/logout")

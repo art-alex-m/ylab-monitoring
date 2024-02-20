@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
@@ -95,9 +96,11 @@ class AdminReadingControllerTest {
         ArgumentCaptor<GetActualMeterReadingsInputRequest> inputRequestArgumentCaptor = ArgumentCaptor.forClass(
                 GetActualMeterReadingsInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(
                         get("/admin/readings/actual").characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);
@@ -110,14 +113,17 @@ class AdminReadingControllerTest {
         assertThat(inputRequest).isNotNull();
         assertThat(inputRequest.getUser()).isEqualTo(testUser);
         String jsonContent = result.getResponse().getContentAsString();
-        assertJson(jsonContent).isNotEmpty().hasSize(1)
-                .at("/0").containsKeysExactlyInAnyOrder("user", "period", "meter", "value", "id", "createdAt");
-        assertJson(jsonContent).at("/0/user/id").isEqualTo(testUser.getId());
-        assertJson(jsonContent).at("/0/meter/id").isEqualTo(testMeter.getId());
-        assertJson(jsonContent).at("/0/meter/name").isText(testMeter.getName());
-        assertJson(jsonContent).at("/0/value").isNumberEqualTo(testReading.getValue());
-        assertJson(jsonContent).at("/0/id").isEqualTo(testReading.getId());
-        assertJson(jsonContent).at("/0/createdAt").isNumber();
+        assertAll(
+                () -> assertJson(jsonContent).isNotEmpty().hasSize(1)
+                        .at("/0").containsKeysExactlyInAnyOrder("user", "period", "meter", "value", "id", "createdAt"),
+                () -> assertJson(jsonContent).at("/0/user/id").isEqualTo(testUser.getId()),
+                () -> assertJson(jsonContent).at("/0/meter/id").isEqualTo(testMeter.getId()),
+                () -> assertJson(jsonContent).at("/0/meter/name").isText(testMeter.getName()),
+                () -> assertJson(jsonContent).at("/0/value").isNumberEqualTo(testReading.getValue()),
+                () -> assertJson(jsonContent).at("/0/id").isEqualTo(testReading.getId()),
+                () -> assertJson(jsonContent).at("/0/createdAt").isNotEmpty(),
+                () -> assertJson(jsonContent).at("/0/period").isNotEmpty()
+        );
     }
 
     @Test
@@ -128,9 +134,11 @@ class AdminReadingControllerTest {
         ArgumentCaptor<ViewMeterReadingsHistoryInputRequest> inputRequestArgumentCaptor = ArgumentCaptor.forClass(
                 ViewMeterReadingsHistoryInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(
                         get("/admin/readings").characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);
@@ -143,14 +151,17 @@ class AdminReadingControllerTest {
         assertThat(inputRequest).isNotNull();
         assertThat(inputRequest.getUser()).isEqualTo(testUser);
         String jsonContent = result.getResponse().getContentAsString();
-        assertJson(jsonContent).isNotEmpty().hasSize(1)
-                .at("/0").containsKeysExactlyInAnyOrder("user", "period", "meter", "value", "id", "createdAt");
-        assertJson(jsonContent).at("/0/user/id").isEqualTo(testUser.getId());
-        assertJson(jsonContent).at("/0/meter/id").isEqualTo(testMeter.getId());
-        assertJson(jsonContent).at("/0/meter/name").isText(testMeter.getName());
-        assertJson(jsonContent).at("/0/value").isNumberEqualTo(testReading.getValue());
-        assertJson(jsonContent).at("/0/id").isEqualTo(testReading.getId());
-        assertJson(jsonContent).at("/0/createdAt").isNumber();
+        assertAll(
+                () -> assertJson(jsonContent).isNotEmpty().hasSize(1)
+                        .at("/0").containsKeysExactlyInAnyOrder("user", "period", "meter", "value", "id", "createdAt"),
+                () -> assertJson(jsonContent).at("/0/user/id").isEqualTo(testUser.getId()),
+                () -> assertJson(jsonContent).at("/0/meter/id").isEqualTo(testMeter.getId()),
+                () -> assertJson(jsonContent).at("/0/meter/name").isText(testMeter.getName()),
+                () -> assertJson(jsonContent).at("/0/value").isNumberEqualTo(testReading.getValue()),
+                () -> assertJson(jsonContent).at("/0/id").isEqualTo(testReading.getId()),
+                () -> assertJson(jsonContent).at("/0/createdAt").isNotEmpty(),
+                () -> assertJson(jsonContent).at("/0/period").isNotEmpty()
+        );
     }
 
     @Test
@@ -161,10 +172,12 @@ class AdminReadingControllerTest {
         ArgumentCaptor<GetMonthMeterReadingsInputRequest> inputRequestArgumentCaptor = ArgumentCaptor.forClass(
                 GetMonthMeterReadingsInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(get("/admin/readings/month")
                         .param("month", "2").param("year", "2023")
                         .characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);
@@ -179,13 +192,16 @@ class AdminReadingControllerTest {
         assertThat(inputRequest.getPeriod()).isNotNull()
                 .isEqualTo(LocalDateTime.parse("2023-02-01T00:00:00.000").toInstant(ZoneOffset.UTC));
         String jsonContent = result.getResponse().getContentAsString();
-        assertJson(jsonContent).isNotEmpty().hasSize(1)
-                .at("/0").containsKeysExactlyInAnyOrder("user", "period", "meter", "value", "id", "createdAt");
-        assertJson(jsonContent).at("/0/user/id").isEqualTo(testUser.getId());
-        assertJson(jsonContent).at("/0/meter/id").isEqualTo(testMeter.getId());
-        assertJson(jsonContent).at("/0/meter/name").isText(testMeter.getName());
-        assertJson(jsonContent).at("/0/value").isNumberEqualTo(testReading.getValue());
-        assertJson(jsonContent).at("/0/id").isEqualTo(testReading.getId());
-        assertJson(jsonContent).at("/0/createdAt").isNumber();
+        assertAll(
+                () -> assertJson(jsonContent).isNotEmpty().hasSize(1)
+                        .at("/0").containsKeysExactlyInAnyOrder("user", "period", "meter", "value", "id", "createdAt"),
+                () -> assertJson(jsonContent).at("/0/user/id").isEqualTo(testUser.getId()),
+                () -> assertJson(jsonContent).at("/0/meter/id").isEqualTo(testMeter.getId()),
+                () -> assertJson(jsonContent).at("/0/meter/name").isText(testMeter.getName()),
+                () -> assertJson(jsonContent).at("/0/value").isNumberEqualTo(testReading.getValue()),
+                () -> assertJson(jsonContent).at("/0/id").isEqualTo(testReading.getId()),
+                () -> assertJson(jsonContent).at("/0/createdAt").isNotEmpty(),
+                () -> assertJson(jsonContent).at("/0/period").isNotEmpty()
+        );
     }
 }

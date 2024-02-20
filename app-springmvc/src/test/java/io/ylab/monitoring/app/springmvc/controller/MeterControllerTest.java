@@ -55,9 +55,11 @@ class MeterControllerTest {
         ArgumentCaptor<ViewMetersInputRequest> inputRequestArgumentCaptor = ArgumentCaptor.forClass(
                 ViewMetersInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(
                         get("/meters").characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);
@@ -82,9 +84,11 @@ class MeterControllerTest {
         ArgumentCaptor<ViewMetersInputRequest> inputRequestArgumentCaptor = ArgumentCaptor.forClass(
                 ViewMetersInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(
                         get("/meters").characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);

@@ -35,11 +35,13 @@ class LogoutControllerTest {
     void givenTokenHeader_whenLogout_thenSuccess() throws Exception {
         String tokenHeader = "test-token-value";
 
+
         MvcResult result = mockMvc.perform(post("/logout")
                         .header("Authorization", tokenHeader)
                         .characterEncoding(StandardCharsets.UTF_8)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
+
 
         assertThat(result.getResponse().getStatus()).isEqualTo(204);
         verify(tokenManager, times(1)).revokeToken(tokenHeader);
@@ -52,6 +54,7 @@ class LogoutControllerTest {
                         .characterEncoding(StandardCharsets.UTF_8)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
+
 
         assertThat(result.getResponse().getStatus()).isEqualTo(204);
         verifyNoInteractions(tokenManager);

@@ -61,12 +61,14 @@ class LoginControllerTest {
         AppLoginRequest loginRequest = new AppLoginRequest(username, password);
         ArgumentCaptor<UserLoginInputRequest> loginInputCaptor = ArgumentCaptor.forClass(UserLoginInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(
                         post("/login")
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .content(jsonMapper.writeValueAsString(loginRequest)))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);

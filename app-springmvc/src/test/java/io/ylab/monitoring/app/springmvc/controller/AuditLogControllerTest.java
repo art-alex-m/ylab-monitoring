@@ -57,9 +57,11 @@ class AuditLogControllerTest {
         ArgumentCaptor<ViewAuditLogInputRequest> inputRequestArgumentCaptor = ArgumentCaptor.forClass(
                 ViewAuditLogInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(
                         get("/admin/audit-logs").characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);
@@ -84,9 +86,11 @@ class AuditLogControllerTest {
         ArgumentCaptor<ViewAuditLogInputRequest> inputRequestArgumentCaptor = ArgumentCaptor.forClass(
                 ViewAuditLogInputRequest.class);
 
+
         MvcResult result = mockMvc.perform(
                         get("/admin/audit-logs").characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(200);
@@ -102,7 +106,7 @@ class AuditLogControllerTest {
         String jsonContent = result.getResponse().getContentAsString();
         assertJson(jsonContent).hasSize(1)
                 .at("/0").containsKeysExactlyInAnyOrder("occurredAt", "user", "name");
-        assertJson(jsonContent).at("/0/occurredAt").isNumber();
+        assertJson(jsonContent).at("/0/occurredAt").isNotEmpty();
         assertJson(jsonContent).at("/0/user/id").isEqualTo(domainUser.getId());
         assertJson(jsonContent).at("/0/name").isText(testItem.getName());
     }

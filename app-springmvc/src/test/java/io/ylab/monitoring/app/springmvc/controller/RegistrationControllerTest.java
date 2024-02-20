@@ -45,11 +45,13 @@ class RegistrationControllerTest {
                 UserRegistrationInputRequest.class);
         AppRegistrationRequest request = new AppRegistrationRequest(username, password);
 
+
         MvcResult result = mockMvc.perform(post("/register")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(jsonMapper.writeValueAsString(request))
                         .characterEncoding(StandardCharsets.UTF_8))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(204);
@@ -69,12 +71,14 @@ class RegistrationControllerTest {
         UserExistsException exception = new UserExistsException(username);
         given(interactor.register(any(UserRegistrationInputRequest.class))).willThrow(exception);
 
+
         MvcResult result = mockMvc.perform(
                         post("/register")
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .content(jsonMapper.writeValueAsString(request)))
                 .andReturn();
+
 
         assertThat(result).isNotNull();
         assertThat(result.getResponse().getStatus()).isEqualTo(400);

@@ -261,7 +261,8 @@
                 <configuration>
                     <outputFileName>openapi</outputFileName>
                     <outputFormat>YAML</outputFormat>
-                    <outputPath>${project.basedir}/src/main/webapp/v3/api-docs</outputPath>
+                    <outputPath>${project.build.directory}/${project.artifactId}-${project.version}/v3/api-docs
+                    </outputPath>
                     <configurationFilePath>${project.basedir}/src/main/resources/application.yaml
                     </configurationFilePath>
                 </configuration>

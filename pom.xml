@@ -19,6 +19,7 @@
         <module>core-model</module>
         <module>app-console</module>
         <module>app-jakartaee</module>
+        <module>app-servlets</module>
         <module>auth</module>
         <module>core</module>
         <module>audit</module>
@@ -41,6 +42,10 @@
         <versions.liquibase-core>4.24.0</versions.liquibase-core>
         <versions.postgresql-driver>42.6.0</versions.postgresql-driver>
         <versions.testcontainers>1.19.3</versions.testcontainers>
+        <versions.mapstruct>1.5.5.Final</versions.mapstruct>
+        <versions.hibernate-validator>8.0.1.Final</versions.hibernate-validator>
+        <versions.jackson>2.16.1</versions.jackson>
+        <versions.aspectj>1.9.21.1</versions.aspectj>
     </properties>
 
 </project>

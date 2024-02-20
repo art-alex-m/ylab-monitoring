@@ -1,6 +1,6 @@
 package io.ylab.monitoring.domain.core.in;
 
-import io.ylab.monitoring.domain.core.model.DomainUser;
+import io.ylab.monitoring.domain.core.model.DomainUserable;
 import io.ylab.monitoring.domain.core.model.Meter;
 
 import java.time.Instant;
@@ -8,13 +8,7 @@ import java.time.Instant;
 /**
  * Запрос в сценарии "Подача показаний"
  */
-public interface SubmissionMeterReadingsInputRequest {
-    /**
-     * Доменная информация о пользователе
-     *
-     * @return DomainUser
-     */
-    DomainUser getUser();
+public interface SubmissionMeterReadingsInputRequest extends DomainUserable {
 
     /**
      * Имя типа показания счетчика.

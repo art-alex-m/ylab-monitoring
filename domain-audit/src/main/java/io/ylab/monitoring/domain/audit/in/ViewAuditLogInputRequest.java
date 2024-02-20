@@ -1,15 +1,9 @@
 package io.ylab.monitoring.domain.audit.in;
 
-import io.ylab.monitoring.domain.core.model.DomainUser;
+import io.ylab.monitoring.domain.core.model.DomainUserable;
 
 /**
  * Запрос в сценарии "Просмотр лога действий"
  */
-public interface ViewAuditLogInputRequest {
-    /**
-     * Доменная информация о пользователе
-     *
-     * @return DomainUser
-     */
-    DomainUser getUser();
+public interface ViewAuditLogInputRequest extends DomainUserable {
 }

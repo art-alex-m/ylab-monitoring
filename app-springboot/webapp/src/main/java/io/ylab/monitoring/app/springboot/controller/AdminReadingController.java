@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springboot.config.OpenapiTag;
 import io.ylab.monitoring.app.springboot.in.AppMonthReadingRequest;
-import io.ylab.monitoring.app.springboot.out.AppError;
 import io.ylab.monitoring.app.springboot.out.AppMeterReading;
 import io.ylab.monitoring.app.springboot.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreGetActualMeterReadingsInputRequest;
@@ -98,9 +97,7 @@ public class AdminReadingController {
             },
             responses = {
                     @ApiResponse(responseCode = "200", description = "Readings",
-                            content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class)))),
-                    @ApiResponse(responseCode = "400", description = "Validation errors",
-                            content = @Content(schema = @Schema(implementation = AppError.class)))
+                            content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class))))
             })
     @GetMapping("/month")
     public List<? extends MeterReading> month(@Valid AppMonthReadingRequest request) {

@@ -1,13 +1,10 @@
 package io.ylab.monitoring.app.springboot.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springboot.config.OpenapiTag;
 import io.ylab.monitoring.app.springboot.in.AppRegistrationRequest;
-import io.ylab.monitoring.app.springboot.out.AppError;
 import io.ylab.monitoring.domain.auth.boundary.UserRegistrationInput;
 import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
@@ -36,9 +33,7 @@ public class RegistrationController {
 
 
     @Operation(summary = "Register new user with USER role", responses = {
-            @ApiResponse(responseCode = "204", description = "User registered"),
-            @ApiResponse(responseCode = "400", description = "Validation errors",
-                    content = @Content(schema = @Schema(implementation = AppError.class)))
+            @ApiResponse(responseCode = "204", description = "User registered")
     })
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.NO_CONTENT)

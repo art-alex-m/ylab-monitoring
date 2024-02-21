@@ -15,12 +15,13 @@ spring:
     username: ymonitor
     password: pwd123456!
 springdoc:
+  default-produces-media-type: application/json
+  api-docs:
+    version: openapi_3_1
   swagger-ui:
-    path: /swagger-ui/index.html
+    path: /index.html
 ylab:
   monitoring:
     auth:
       password:
         salt: gahhc5X5bYPIbsKSQw0
-    swagger-ui:
-      version: 5.10.3

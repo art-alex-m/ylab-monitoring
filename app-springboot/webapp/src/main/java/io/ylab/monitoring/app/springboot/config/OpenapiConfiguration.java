@@ -15,12 +15,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @OpenAPIDefinition(
         info = @Info(title = "Ylab Monitoring API", version = "1.0.0"),
         security = @SecurityRequirement(name = "Bearer-Token"),
-        servers = @Server(url = "http://localhost:9090/monitoring-app-springboot-1.0.0/api", description = "Local"),
+        servers = @Server(url = "http://localhost:6060/monitoring-app-springboot-1.0.0", description = "Local"),
         tags = {
                 @Tag(name = OpenapiTag.READINGS),
                 @Tag(name = OpenapiTag.AUDIT),
@@ -40,7 +39,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 })
 @Configuration
 @EnableWebMvc
-public class OpenapiConfiguration implements WebMvcConfigurer {
+public class OpenapiConfiguration {
 
     @Bean
     @Order(2000)

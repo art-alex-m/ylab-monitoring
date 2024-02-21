@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springboot.config.OpenapiTag;
 import io.ylab.monitoring.app.springboot.in.AppLoginRequest;
 import io.ylab.monitoring.app.springboot.out.AppAuthToken;
-import io.ylab.monitoring.app.springboot.out.AppError;
 import io.ylab.monitoring.app.springboot.service.AuthTokenManager;
 import io.ylab.monitoring.domain.auth.boundary.UserLoginInput;
 import io.ylab.monitoring.domain.auth.out.UserLoginInputResponse;
@@ -40,9 +39,7 @@ public class LoginController {
 
     @Operation(summary = "Login users", responses = {
             @ApiResponse(responseCode = "200", description = "User login",
-                    content = @Content(schema = @Schema(implementation = AppAuthToken.class))),
-            @ApiResponse(responseCode = "400", description = "Validation errors",
-                    content = @Content(schema = @Schema(implementation = AppError.class)))
+                    content = @Content(schema = @Schema(implementation = AppAuthToken.class)))
     })
     @PostMapping("/login")
     public AppAuthToken login(@Valid @RequestBody AppLoginRequest appLoginRequest) {

@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.ylab.monitoring.app.springboot.config.OpenapiTag;
 import io.ylab.monitoring.app.springboot.in.AppMonthReadingRequest;
 import io.ylab.monitoring.app.springboot.in.AppSubmitReadingRequest;
-import io.ylab.monitoring.app.springboot.out.AppError;
 import io.ylab.monitoring.app.springboot.out.AppMeterReading;
 import io.ylab.monitoring.app.springboot.service.AppUserContext;
 import io.ylab.monitoring.core.in.CoreGetActualMeterReadingsInputRequest;
@@ -109,9 +108,7 @@ public class ReadingController {
             },
             responses = {
                     @ApiResponse(responseCode = "200", description = "Readings",
-                            content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class)))),
-                    @ApiResponse(responseCode = "400", description = "Validation errors",
-                            content = @Content(schema = @Schema(implementation = AppError.class)))
+                            content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class))))
             })
     @GetMapping("/month")
     public List<? extends MeterReading> month(@Valid AppMonthReadingRequest request) {
@@ -124,9 +121,7 @@ public class ReadingController {
 
     @Operation(summary = "Submit new reading", responses = {
             @ApiResponse(responseCode = "201", description = "Created meter reading",
-                    content = @Content(schema = @Schema(implementation = AppMeterReading.class))),
-            @ApiResponse(responseCode = "400", description = "Validation errors",
-                    content = @Content(schema = @Schema(implementation = AppError.class)))
+                    content = @Content(schema = @Schema(implementation = AppMeterReading.class)))
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

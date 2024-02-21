@@ -1,0 +1,26 @@
+server:
+  port: 6060
+  servlet:
+    context-path: /monitoring-app-springboot-1.0.0
+spring:
+  liquibase:
+    liquibase-schema: public
+    default-schema: monitoring
+  profiles:
+    active: monitoring-db-jdbc, security-enabled
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:postgresql://localhost:15432/ymonitor?currentSchema=monitoring
+    username: ymonitor
+    password: pwd123456!
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
+ylab:
+  monitoring:
+    auth:
+      password:
+        salt: gahhc5X5bYPIbsKSQw0
+    swagger-ui:
+      version: 5.10.3

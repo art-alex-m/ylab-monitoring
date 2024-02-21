@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>io.ylab.monitoring.app.springmvc</groupId>
+    <groupId>io.ylab.monitoring.app.servlets</groupId>
     <artifactId>monitoring-app-servlets</artifactId>
     <packaging>war</packaging>
 

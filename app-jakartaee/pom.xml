@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>io.ylab.monitoring.app.servlets</groupId>
+    <groupId>io.ylab.monitoring.app.jakartaee</groupId>
     <artifactId>monitoring-app-jakartaee</artifactId>
     <packaging>war</packaging>
 

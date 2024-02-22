@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.springboot.service;
 
 import io.ylab.monitoring.audit.model.AuditDomainUser;
 import io.ylab.monitoring.domain.core.model.DomainUser;
+import io.ylab.monitoring.domain.core.model.UserContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +18,7 @@ import java.util.Optional;
  * </p>
  */
 @Component
-public class AppUserContext {
+public class AppUserContext implements UserContext {
 
     public DomainUser getCurrentUser() {
         return Optional.ofNullable(SecurityContextHolder.getContext())

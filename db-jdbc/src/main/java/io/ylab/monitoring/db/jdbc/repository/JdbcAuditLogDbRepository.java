@@ -3,10 +3,11 @@ package io.ylab.monitoring.db.jdbc.repository;
 import io.ylab.monitoring.core.model.CoreDomainUser;
 import io.ylab.monitoring.db.jdbc.exeption.JdbcDbException;
 import io.ylab.monitoring.db.jdbc.model.JdbcAuditItem;
+import io.ylab.monitoring.db.jdbc.provider.SqlConnection;
+import io.ylab.monitoring.db.jdbc.provider.SqlConnectionProvider;
 import io.ylab.monitoring.domain.audit.model.AuditItem;
 import io.ylab.monitoring.domain.audit.repository.CreateAuditLogInputDbRepository;
 import io.ylab.monitoring.domain.audit.repository.ViewAuditLogInputDbRepository;
-import lombok.AllArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,33 +20,37 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-@AllArgsConstructor
-public class JdbcAuditLogDbRepository implements CreateAuditLogInputDbRepository, ViewAuditLogInputDbRepository {
+public class JdbcAuditLogDbRepository extends AbstractDbRepository
+        implements CreateAuditLogInputDbRepository, ViewAuditLogInputDbRepository {
 
     private final static String SQL_CREATE = "db/sql/audit-items-create.sql";
     private final static String SQL_FIND_ALL = "db/sql/audit-items-find-all.sql";
 
-    private final SqlQueryRepository queryRepository;
+    public JdbcAuditLogDbRepository(SqlQueryRepository queryRepository, SqlConnectionProvider connectionProvider) {
+        super(queryRepository, connectionProvider);
+    }
 
-    private Connection connection;
+    public JdbcAuditLogDbRepository(SqlQueryRepository queryRepository, Connection connection) {
+        super(queryRepository, connection);
+    }
 
     @Override
     public boolean create(AuditItem auditItem) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_CREATE));
+        try (SqlConnection connection = getConnection();
+             PreparedStatement statement = connection.get().prepareStatement(queryRepository.getSql(SQL_CREATE))) {
             statement.setString(1, auditItem.getUser().getId().toString());
             statement.setString(2, auditItem.getName());
             statement.setTimestamp(3, Timestamp.from(auditItem.getOccurredAt()));
             return statement.executeUpdate() > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new JdbcDbException(ex);
         }
     }
 
     @Override
     public List<AuditItem> findAll() {
-        try {
-            Statement statement = connection.createStatement();
+        try (SqlConnection connection = getConnection();
+             Statement statement = connection.get().createStatement()) {
             try (ResultSet records = statement.executeQuery(queryRepository.getSql(SQL_FIND_ALL))) {
                 if (!records.isBeforeFirst()) {
                     return Collections.emptyList();
@@ -57,7 +62,7 @@ public class JdbcAuditLogDbRepository implements CreateAuditLogInputDbRepository
                 return itemList;
             }
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new JdbcDbException(ex);
         }
     }

@@ -7,5 +7,7 @@
    задание [TASK3.md](./doc/TASK3.md)
 4. Реквест с дз [Знакомство с Spring Framework](https://github.com/art-alex-m/ylab-monitoring/pull/8),
    задание [TASK4.md](./doc/TASK4.md)
+5. Реквест с дз [Spring boot](https://github.com/art-alex-m/ylab-monitoring/pull/10),
+   задание [TASK4.md](./doc/TASK5.md)
 
 Дополнительная информация о проекте и его архитектуре см в [PROJECT.md](./doc/PROJECT.md)

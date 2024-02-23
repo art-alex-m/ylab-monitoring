@@ -32,6 +32,7 @@ public class AppSubmitReadingRequest {
     @Schema(required = true)
     private long value;
 
+    @Schema(example = "teplo", description = "Meter name")
     @JsonProperty("meter_name")
     @NotEmpty
     private String meterName;

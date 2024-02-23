@@ -2,6 +2,7 @@ package io.ylab.monitoring.app.springboot.in;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,8 @@ import java.time.ZoneOffset;
 @Setter
 @Hidden
 public class AppMonthReadingRequest {
+
+    @Schema(example = "2")
     @Min(1)
     @Max(12)
     private int month;

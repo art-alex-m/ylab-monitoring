@@ -5,11 +5,9 @@ import io.ylab.monitoring.domain.audit.model.AuditItem;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class AppAuditItem implements AuditItem {

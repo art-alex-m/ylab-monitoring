@@ -34,6 +34,10 @@ public class AppMonthReadingRequest {
     @Max(12)
     private int month;
 
+    /**
+     * Если поле указано, то оно должно быть больше нуля.
+     * Если не введено или 0, то используется значение текущего года
+     */
     @Min(0)
     private int year;
 
@@ -41,7 +45,7 @@ public class AppMonthReadingRequest {
     public Instant getPeriod() {
         int currentYear = year;
 
-        if (currentYear <= 0) {
+        if (currentYear == 0) {
             currentYear = Year.now().getValue();
         }
 

@@ -1,0 +1,387 @@
+openapi: 3.0.1
+info:
+  title: Ylab Monitoring API
+  version: 1.0.0
+servers:
+  - url: http://localhost:9090/monitoring-app-springmvc-1.0.0/api
+    description: Local
+    variables: { }
+security:
+  - Bearer-Token: [ ]
+tags:
+  - name: Readings
+  - name: Audit
+  - name: Auth
+  - name: User
+  - name: Admin
+paths:
+  /admin/readings/actual:
+    get:
+      tags:
+        - Admin
+        - Readings
+      summary: Get actual meter readings
+      operationId: getAdminActualMeterReadings
+      responses:
+        "200":
+          description: Readings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MeterReading'
+  /admin/readings:
+    get:
+      tags:
+        - Admin
+        - Readings
+      summary: View history of all users
+      operationId: getAdminHistoryMeterReadings
+      responses:
+        "200":
+          description: Readings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MeterReading'
+  /admin/readings/month:
+    get:
+      tags:
+        - Admin
+        - Readings
+      summary: View month history of all users
+      operationId: getAdminMonthMeterReadings
+      parameters:
+        - name: month
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: year
+          in: query
+          description: If omitted use current year
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Readings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MeterReading'
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /admin/audit-logs:
+    get:
+      tags:
+        - Audit
+        - Admin
+      summary: View audit logs
+      operationId: auditLog
+      responses:
+        "200":
+          description: Audit log
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppAuditItem'
+  /login:
+    post:
+      security: [ ]
+      tags:
+        - Admin
+        - User
+        - Auth
+      summary: Login users
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppLoginRequest'
+      responses:
+        "200":
+          description: User login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppAuthToken'
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /logout:
+    post:
+      tags:
+        - Admin
+        - User
+        - Auth
+      summary: Logout
+      operationId: logout
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+      responses:
+        "204":
+          description: User logout
+  /meters:
+    get:
+      tags:
+        - User
+        - Readings
+      summary: Show meters
+      operationId: getUserMeters
+      responses:
+        "200":
+          description: Meters list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meter'
+  /readings/actual:
+    get:
+      tags:
+        - User
+        - Readings
+      summary: Get user actual meter readings
+      operationId: getUserActualMeterReadings
+      responses:
+        "200":
+          description: Readings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MeterReading'
+  /readings:
+    get:
+      tags:
+        - User
+        - Readings
+      summary: View history for user
+      operationId: getUserHistoryMeterReadings
+      responses:
+        "200":
+          description: Readings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MeterReading'
+    post:
+      tags:
+        - User
+        - Readings
+      summary: Submit new reading
+      operationId: submit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppSubmitReadingRequest'
+      responses:
+        "201":
+          description: Created meter reading
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeterReading'
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /readings/month:
+    get:
+      tags:
+        - User
+        - Readings
+      summary: View month history for user
+      operationId: getUserMonthMeterReadings
+      parameters:
+        - name: month
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: year
+          in: query
+          description: If omitted use current year
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Readings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MeterReading'
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppError'
+  /register:
+    post:
+      security: [ ]
+      tags:
+        - User
+        - Auth
+      summary: Register new user with USER role
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppRegistrationRequest'
+      responses:
+        "204":
+          description: User registered
+        "400":
+          description: Validation errors
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/AppError'
+components:
+  schemas:
+    DomainUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+    Meter:
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+          format: uuid
+    MeterReading:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int64
+        id:
+          type: string
+          format: uuid
+        period:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/DomainUser'
+        meter:
+          $ref: '#/components/schemas/Meter'
+        createdAt:
+          type: string
+          format: date-time
+    AppError:
+      type: object
+      properties:
+        className:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+    AppAuditItem:
+      type: object
+      properties:
+        occurredAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/DomainUser'
+        name:
+          type: string
+    AuditItem:
+      type: object
+      properties:
+        name:
+          type: string
+        user:
+          $ref: '#/components/schemas/DomainUser'
+        occurredAt:
+          type: string
+          format: date-time
+    AppAuthToken:
+      type: object
+      properties:
+        authorization_token:
+          type: string
+    AppLoginRequest:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    AppSubmitReadingRequest:
+      required:
+        - meter_name
+        - value
+      type: object
+      properties:
+        month:
+          maximum: 12
+          minimum: 1
+          type: integer
+          format: int32
+        year:
+          type: integer
+          format: int32
+        value:
+          type: integer
+          format: int64
+        meter_name:
+          type: string
+    AppRegistrationRequest:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    Bearer-Token:
+      type: apiKey
+      name: Authorization
+      in: header
+      scheme: Bearer

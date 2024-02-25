@@ -26,6 +26,7 @@
         <module>db-memo</module>
         <module>db-migrations</module>
         <module>db-jdbc</module>
+        <module>app-springmvc</module>
     </modules>
 
     <properties>

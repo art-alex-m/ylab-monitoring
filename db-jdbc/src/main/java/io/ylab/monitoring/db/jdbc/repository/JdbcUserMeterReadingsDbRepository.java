@@ -1,6 +1,8 @@
 package io.ylab.monitoring.db.jdbc.repository;
 
 import io.ylab.monitoring.db.jdbc.exeption.JdbcDbException;
+import io.ylab.monitoring.db.jdbc.provider.SqlConnection;
+import io.ylab.monitoring.db.jdbc.provider.SqlConnectionProvider;
 import io.ylab.monitoring.domain.core.model.DomainUser;
 import io.ylab.monitoring.domain.core.model.Meter;
 import io.ylab.monitoring.domain.core.model.MeterReading;
@@ -8,17 +10,14 @@ import io.ylab.monitoring.domain.core.repository.GetActualMeterReadingsInputDbRe
 import io.ylab.monitoring.domain.core.repository.GetMonthMeterReadingsInputDbRepository;
 import io.ylab.monitoring.domain.core.repository.SubmissionMeterReadingsInputDbRepository;
 import io.ylab.monitoring.domain.core.repository.ViewMeterReadingsHistoryInputDbRepository;
-import lombok.AllArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 
-@AllArgsConstructor
 public class JdbcUserMeterReadingsDbRepository extends AbstractMeterReadingsDbRepository
         implements GetActualMeterReadingsInputDbRepository, GetMonthMeterReadingsInputDbRepository,
         SubmissionMeterReadingsInputDbRepository, ViewMeterReadingsHistoryInputDbRepository {
@@ -29,37 +28,44 @@ public class JdbcUserMeterReadingsDbRepository extends AbstractMeterReadingsDbRe
     private final static String SQL_FIND_BY_USER_PERIOD = "db/sql/meter-readings-find-by-user-period.sql";
     private final static String SQL_CREATE = "db/sql/meter-readings-create.sql";
 
-    private final SqlQueryRepository queryRepository;
+    public JdbcUserMeterReadingsDbRepository(SqlQueryRepository queryRepository,
+            SqlConnectionProvider connectionProvider) {
+        super(queryRepository, connectionProvider);
+    }
 
-    private Connection connection;
+    public JdbcUserMeterReadingsDbRepository(SqlQueryRepository queryRepository, Connection connection) {
+        super(queryRepository, connection);
+    }
 
     @Override
     public List<MeterReading> findActualByUser(DomainUser user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_FIND_ACTUAL_BY_USER));
+        try (SqlConnection connection = getConnection();
+             PreparedStatement statement = connection.get().prepareStatement(
+                     queryRepository.getSql(SQL_FIND_ACTUAL_BY_USER))) {
             statement.setString(1, user.getId().toString());
             return getMeterReadings(statement);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new JdbcDbException(ex);
         }
     }
 
     @Override
     public List<MeterReading> findByUserAndPeriod(DomainUser user, Instant period) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_FIND_BY_USER_PERIOD));
+        try (SqlConnection connection = getConnection();
+             PreparedStatement statement = connection.get().prepareStatement(
+                     queryRepository.getSql(SQL_FIND_BY_USER_PERIOD))) {
             statement.setString(1, user.getId().toString());
             statement.setTimestamp(2, Timestamp.from(period));
             return getMeterReadings(statement);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new JdbcDbException(ex);
         }
     }
 
     @Override
     public boolean save(MeterReading reading) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_CREATE));
+        try (SqlConnection connection = getConnection();
+             PreparedStatement statement = connection.get().prepareStatement(queryRepository.getSql(SQL_CREATE))) {
             statement.setString(1, reading.getId().toString());
             statement.setString(2, reading.getUser().getId().toString());
             statement.setString(3, reading.getMeter().getId().toString());
@@ -67,34 +73,35 @@ public class JdbcUserMeterReadingsDbRepository extends AbstractMeterReadingsDbRe
             statement.setLong(5, reading.getValue());
             statement.setTimestamp(6, Timestamp.from(reading.getCreatedAt()));
             return statement.executeUpdate() > 0;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new JdbcDbException(ex);
         }
     }
 
     @Override
     public boolean existsByUserAndPeriodAndMeter(DomainUser user, Instant period, Meter meter) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(
-                    queryRepository.getSql(SQL_EXISTS_BY_USER_PERIOD_METER));
+        try (SqlConnection connection = getConnection();
+             PreparedStatement statement = connection.get()
+                     .prepareStatement(queryRepository.getSql(SQL_EXISTS_BY_USER_PERIOD_METER))) {
             statement.setString(1, user.getId().toString());
             statement.setTimestamp(2, Timestamp.from(period));
             statement.setString(3, meter.getId().toString());
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.isBeforeFirst();
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new JdbcDbException(ex);
         }
     }
 
     @Override
     public List<MeterReading> findByUser(DomainUser user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(queryRepository.getSql(SQL_FIND_BY_USER));
+        try (SqlConnection connection = getConnection();
+             PreparedStatement statement = connection.get().prepareStatement(
+                     queryRepository.getSql(SQL_FIND_BY_USER))) {
             statement.setString(1, user.getId().toString());
             return getMeterReadings(statement);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new JdbcDbException(ex);
         }
     }

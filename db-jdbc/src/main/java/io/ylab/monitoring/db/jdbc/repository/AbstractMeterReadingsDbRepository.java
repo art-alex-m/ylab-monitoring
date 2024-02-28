@@ -3,8 +3,10 @@ package io.ylab.monitoring.db.jdbc.repository;
 import io.ylab.monitoring.core.model.CoreDomainUser;
 import io.ylab.monitoring.core.model.CoreMeter;
 import io.ylab.monitoring.db.jdbc.model.JdbcMeterReading;
+import io.ylab.monitoring.db.jdbc.provider.SqlConnectionProvider;
 import io.ylab.monitoring.domain.core.model.MeterReading;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +18,17 @@ import java.util.UUID;
 /**
  * Базовые алгоритмы репозиториев работы с показаниями счетчиков
  */
-public abstract class AbstractMeterReadingsDbRepository {
+public abstract class AbstractMeterReadingsDbRepository extends AbstractDbRepository {
+
+    public AbstractMeterReadingsDbRepository(SqlQueryRepository queryRepository,
+            SqlConnectionProvider connectionProvider) {
+        super(queryRepository, connectionProvider);
+    }
+
+    public AbstractMeterReadingsDbRepository(SqlQueryRepository queryRepository, Connection connection) {
+        super(queryRepository, connection);
+    }
+
     protected List<MeterReading> getMeterReadings(PreparedStatement statement) throws SQLException {
         try (ResultSet records = statement.executeQuery()) {
             if (!records.isBeforeFirst()) {

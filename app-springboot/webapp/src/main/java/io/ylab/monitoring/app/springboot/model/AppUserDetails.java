@@ -18,15 +18,15 @@ import java.util.UUID;
 @Getter
 public class AppUserDetails implements UserDetails, DomainUser {
 
+    private static final String PASSWORD_STUB = "[SECURED]";
+
+    private static final String ROLE_PREFIX = "ROLE_";
+
     private final UUID id;
 
     private final Collection<? extends GrantedAuthority> authorities;
 
     private final String username;
-
-    private final String password = "[SECURED]";
-
-    private final String rolePrefix = "ROLE_";
 
     public AppUserDetails(UUID id, Collection<? extends GrantedAuthority> authorities, String username) {
         this.id = id;
@@ -38,6 +38,11 @@ public class AppUserDetails implements UserDetails, DomainUser {
         this.id = response.getId();
         this.authorities = Set.of(new AppGrantedAuthority(prepareRole(response.getRole())));
         this.username = response.getId().toString();
+    }
+
+    @Override
+    public String getPassword() {
+        return PASSWORD_STUB;
     }
 
     @Override
@@ -61,7 +66,7 @@ public class AppUserDetails implements UserDetails, DomainUser {
     }
 
     private String prepareRole(DomainRole domainRole) {
-        return rolePrefix + domainRole.name();
+        return ROLE_PREFIX + domainRole.name();
     }
 
     @AllArgsConstructor

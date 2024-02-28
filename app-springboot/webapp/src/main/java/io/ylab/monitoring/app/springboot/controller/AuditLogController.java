@@ -37,7 +37,6 @@ public class AuditLogController {
 
     private final AppUserContext userContext;
 
-
     @Operation(summary = "View audit logs", responses = {
             @ApiResponse(responseCode = "200", description = "Audit log",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppAuditItem.class))))

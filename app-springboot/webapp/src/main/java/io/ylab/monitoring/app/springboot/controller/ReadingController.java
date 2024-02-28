@@ -76,7 +76,6 @@ public class ReadingController {
         this.submissionInteractor = submissionInteractor;
     }
 
-
     @Operation(summary = "Get user actual meter readings", operationId = "getUserActualMeterReadings", responses = {
             @ApiResponse(responseCode = "200", description = "Readings",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class))))})
@@ -88,7 +87,6 @@ public class ReadingController {
         return actualReadingInteractor.find(request).getMeterReadings();
     }
 
-
     @Operation(summary = "View history for user", operationId = "getUserHistoryMeterReadings", responses = {
             @ApiResponse(responseCode = "200", description = "Readings",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppMeterReading.class))))})
@@ -99,7 +97,6 @@ public class ReadingController {
 
         return historyInteractor.find(request).getMeterReadings();
     }
-
 
     @Operation(summary = "View month history for user", operationId = "getUserMonthMeterReadings",
             parameters = {
@@ -118,12 +115,11 @@ public class ReadingController {
         return monthInteractor.find(coreRequest).getMeterReadings();
     }
 
-
     @Operation(summary = "Submit new reading", responses = {
             @ApiResponse(responseCode = "201", description = "Created meter reading",
                     content = @Content(schema = @Schema(implementation = AppMeterReading.class)))
     })
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MeterReading submit(@Valid @RequestBody AppSubmitReadingRequest request) {
         SubmissionMeterReadingsInputRequest coreRequest = CoreSubmissionMeterReadingsInputRequest.builder()
